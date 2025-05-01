@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -94,7 +94,7 @@ interface ComparisonCategory {
   }[];
 }
 
-export default function ComparePage() {
+function ComparePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [carsToCompare, setCarsToCompare] = useState<Car[]>([]);
@@ -853,3 +853,13 @@ export default function ComparePage() {
     </div>
   );
 }
+
+function page() {
+  return (
+    <Suspense>
+      <ComparePage />
+    </Suspense>
+  );
+}
+
+export default page;
