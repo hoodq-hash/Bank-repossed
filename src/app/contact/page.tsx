@@ -44,7 +44,7 @@ const locations = [
     name: "Headquarters",
     address: "123 Auto Drive\nCartown, CT 12345",
     phone: "(555) 123-4567",
-    email: "main@jerrysautos.com",
+    email: "main@chariotsautos.com",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
   },
@@ -171,7 +171,6 @@ export default function ContactPage() {
                   Call Us Now
                   <Phone size={16} className="ml-2" />
                 </Button>
-            
               </div>
             </div>
           </div>
@@ -296,9 +295,8 @@ export default function ContactPage() {
                 Send Us a Message
               </h2>
               <p className="text-slate-600 max-w-3xl mx-auto">
-                Have a question ? Fill out the
-                form below and our team will get back to you as soon as
-                possible.
+                Have a question ? Fill out the form below and our team will get
+                back to you as soon as possible.
               </p>
             </div>
 

@@ -6,7 +6,7 @@ import Image from "next/image";
 // Modified testimonials array to include at least 20 reviews from US, Canada, and UK
 const testimonials = [
   {
-    name: "Michael Thompson",
+    name: "Michael ",
     location: "New York, USA",
     title: "Chariot Auto Sales exceeded my expectations!",
     content:
@@ -196,7 +196,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Rachel Thompson",
+    name: "Rachel ",
     location: "Denver, USA",
     title: "Exceptional customer service",
     content:

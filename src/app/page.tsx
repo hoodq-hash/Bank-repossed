@@ -155,7 +155,7 @@ export default function Home() {
     },
     {
       id: 3,
-      name: "David Thompson",
+      name: "David ",
       role: "Sales Executive",
       quote:
         "I've purchased three vehicles from Chariot's over the years. Their selection, pricing, and customer service keep me coming back every time.",
@@ -216,8 +216,6 @@ export default function Home() {
                     buying process.
                   </p>
                 </div>
-
-          
               </div>
 
               <div className="lg:col-span-6 relative">
@@ -233,9 +231,7 @@ export default function Home() {
 
                   {/* 3D car visualization */}
                   <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50 shadow-xl overflow-hidden">
-                    <div className="absolute top-4 right-4 z-20">
-                   
-                    </div>
+                    <div className="absolute top-4 right-4 z-20"></div>
 
                     <div className="relative h-[350px] md:h-[400px] rounded-xl overflow-hidden">
                       <Image
@@ -726,12 +722,12 @@ export default function Home() {
                       <h3 className="font-bold">Email</h3>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      info@jerrysautos.com
+                      info@chariotsautos.com
                       <br />
-                      support@jerrysautos.com
+                      support@chariotsautos.com
                     </p>
                     <a
-                      href="mailto:info@jerrysautos.com"
+                      href="mailto:info@chariotsautos.com"
                       className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
                     >
                       Send email

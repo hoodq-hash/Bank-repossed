@@ -97,7 +97,7 @@ const generateInitialTestimonials = () => {
     "Margaret White",
     "Richard Harris",
     "Susan Martin",
-    "Charles Thompson",
+    "Charles ",
     "Jessica Robinson",
     "Joseph Lewis",
     "Nancy Walker",
@@ -239,7 +239,7 @@ const generateInitialTestimonials = () => {
       response:
         Math.random() > 0.7
           ? {
-              author: "Jerry Thompson",
+              author: "chariot ",
               role: "Owner",
               date: new Date(
                 new Date(date).getTime() + 2 * 24 * 60 * 60 * 1000
@@ -311,14 +311,14 @@ export default function TestimonialsPage() {
 
   // Load testimonials from localStorage or initialize with default data
   useEffect(() => {
-    const storedTestimonials = localStorage.getItem("jerrys-testimonials");
+    const storedTestimonials = localStorage.getItem("chariots-testimonials");
     if (storedTestimonials) {
       setTestimonials(JSON.parse(storedTestimonials));
     } else {
       const initialTestimonials = generateInitialTestimonials();
       setTestimonials(initialTestimonials);
       localStorage.setItem(
-        "jerrys-testimonials",
+        "chariots-testimonials",
         JSON.stringify(initialTestimonials)
       );
     }
@@ -455,7 +455,7 @@ export default function TestimonialsPage() {
 
     // Save to localStorage
     localStorage.setItem(
-      "jerrys-testimonials",
+      "chariots-testimonials",
       JSON.stringify(updatedTestimonials)
     );
 
@@ -498,7 +498,7 @@ export default function TestimonialsPage() {
 
     setTestimonials(updatedTestimonials);
     localStorage.setItem(
-      "jerrys-testimonials",
+      "chariots-testimonials",
       JSON.stringify(updatedTestimonials)
     );
   };

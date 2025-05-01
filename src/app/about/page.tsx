@@ -40,11 +40,11 @@ import Footer from "@/components/Footer";
 const teamMembers = [
   {
     id: 1,
-    name: "Jerry Thompson",
+    name: "chariot ",
     role: "Founder & CEO",
-    image: "/images/team/jerry.jpg",
-    bio: "Jerry founded Chariot Auto Sales in 1995 with a vision to create a transparent and customer-focused car buying experience. With over 30 years in the automotive industry, Chariot's expertise and passion for cars has driven the company to become a leader in the market.",
-    email: "jerry@jerrysautos.com",
+    image: "/images/team/chariot.jpg",
+    bio: "chariot founded Chariot Auto Sales in 1995 with a vision to create a transparent and customer-focused car buying experience. With over 30 years in the automotive industry, Chariot's expertise and passion for cars has driven the company to become a leader in the market.",
+    email: "chariot@chariotsautos.com",
     phone: "(555) 123-4567",
   },
   {
@@ -53,7 +53,7 @@ const teamMembers = [
     role: "Sales Director",
     image: "/images/team/sarah.jpg",
     bio: "Sarah brings 15 years of automotive sales experience to the team. Her customer-first approach and deep product knowledge ensure that every client finds the perfect vehicle for their needs and budget.",
-    email: "sarah@jerrysautos.com",
+    email: "sarah@chariotsautos.com",
     phone: "(555) 123-4568",
   },
   {
@@ -62,7 +62,7 @@ const teamMembers = [
     role: "Service Manager",
     image: "/images/team/michael.jpg",
     bio: "Michael oversees our state-of-the-art service department. With his team of certified technicians, he ensures every vehicle we sell meets our rigorous quality standards and that our customers receive exceptional maintenance service.",
-    email: "michael@jerrysautos.com",
+    email: "michael@chariotsautos.com",
     phone: "(555) 123-4569",
   },
   {
@@ -71,7 +71,7 @@ const teamMembers = [
     role: "Finance Manager",
     image: "/images/team/lisa.jpg",
     bio: "Lisa has over a decade of experience in automotive financing. She works with multiple lenders to secure the best rates for our customers and makes the financing process smooth and transparent.",
-    email: "lisa@jerrysautos.com",
+    email: "lisa@chariotsautos.com",
     phone: "(555) 123-4570",
   },
   {
@@ -80,7 +80,7 @@ const teamMembers = [
     role: "Customer Experience Director",
     image: "/images/team/david.jpg",
     bio: "David ensures that every interaction with Chariot Auto Sales exceeds expectations. From the first website visit to post-purchase support, he's dedicated to creating memorable customer experiences.",
-    email: "david@jerrysautos.com",
+    email: "david@chariotsautos.com",
     phone: "(555) 123-4571",
   },
   {
@@ -89,7 +89,7 @@ const teamMembers = [
     role: "Marketing Manager",
     image: "/images/team/sophia.jpg",
     bio: "Sophia leads our marketing initiatives with creativity and data-driven strategies. Her innovative campaigns have helped establish Chariot Auto Sales as a trusted name in the automotive industry.",
-    email: "sophia@jerrysautos.com",
+    email: "sophia@chariotsautos.com",
     phone: "(555) 123-4572",
   },
 ];
@@ -100,7 +100,7 @@ const milestones = [
     year: 1995,
     title: "Company Founded",
     description:
-      "Jerry Thompson opened the first Chariot Auto Sales location with just 15 vehicles and 3 employees.",
+      "chariot  opened the first Chariot Auto Sales location with just 15 vehicles and 3 employees.",
     icon: <Building className="h-6 w-6" />,
   },
   {
@@ -297,11 +297,11 @@ export default function AboutPage() {
                         </h2>
                         <div className="space-y-4 text-slate-600">
                           <p>
-                            Chariot Auto Sales began in 1995 when founder Jerry
-                            Thompson saw an opportunity to transform the car
+                            Chariot Auto Sales began in 1995 when founder
+                            chariot saw an opportunity to transform the car
                             buying experience. Frustrated with the traditional
                             high-pressure sales tactics and lack of transparency
-                            in the industry, Jerry opened his first dealership
+                            in the industry, chariot opened his first dealership
                             with just 15 vehicles and a commitment to honest,
                             customer-focused service.
                           </p>
@@ -838,7 +838,7 @@ export default function AboutPage() {
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
-                            <div>main@jerrysautos.com</div>
+                            <div>main@chariotsautos.com</div>
                           </div>
                           <div className="flex items-start">
                             <Clock
@@ -888,7 +888,7 @@ export default function AboutPage() {
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
-                            <div>west@jerrysautos.com</div>
+                            <div>west@chariotsautos.com</div>
                           </div>
                           <div className="flex items-start">
                             <Clock
@@ -938,7 +938,7 @@ export default function AboutPage() {
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
-                            <div>service@jerrysautos.com</div>
+                            <div>service@chariotsautos.com</div>
                           </div>
                           <div className="flex items-start">
                             <Clock
@@ -1091,7 +1091,6 @@ export default function AboutPage() {
                   <Button className="bg-white hover:bg-gray-100 text-blue-700">
                     Browse Inventory
                   </Button>
-               
                 </div>
               </div>
               <div className="relative">
