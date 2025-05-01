@@ -2130,4 +2130,13 @@ function ShopPage() {
     </div>
   );
 }
-export default ShopPage;
+
+function page() {
+  return (
+    <Suspense>
+      <ShopPage />
+    </Suspense>
+  );
+}
+
+export default page;
