@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CarSchema = new mongoose.Schema(
+const SCarSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -97,4 +97,4 @@ const CarSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.models.Car || mongoose.model("Car", CarSchema);
+export default mongoose.models.SCar || mongoose.model("SCar", SCarSchema);

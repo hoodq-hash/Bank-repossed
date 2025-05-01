@@ -22,7 +22,7 @@ export default function LoginPage() {
 
     // Simple hardcoded authentication
     // In a real app, you would validate against your database
-    if (username === "gerly99" && password === "Moussengue99") {
+    if (username === "Blink" && password === "Blink123") {
       // Store authentication status in localStorage
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("username", username);
