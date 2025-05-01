@@ -217,148 +217,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* Tab-based search */}
-                <div
-                  className={`bg-white/10 backdrop-blur-md rounded-2xl p-6 transition-all duration-1000 delay-300 transform ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-10 opacity-0"
-                  }`}
-                >
-                  <Tabs
-                    defaultValue={searchType}
-                    className="mb-6"
-                    onValueChange={setSearchType}
-                  >
-                    <TabsContent value="buy" className="mt-0">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
-                        <div className="relative">
-                          <select className="w-full p-3 pl-10 bg-white/10 border border-white/20 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Any Make</option>
-                            <option>Toyota</option>
-                            <option>Honda</option>
-                            <option>Ford</option>
-                            <option>BMW</option>
-                            <option>Tesla</option>
-                          </select>
-                          <Car
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                          <ChevronDown
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                        </div>
-                        <div className="relative">
-                          <select className="w-full p-3 pl-10 bg-white/10 border border-white/20 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Any Model</option>
-                            <option>Camry</option>
-                            <option>Accord</option>
-                            <option>F-150</option>
-                            <option>Model 3</option>
-                          </select>
-                          <Settings
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                          <ChevronDown
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                        </div>
-                        <div className="relative">
-                          <select className="w-full p-3 pl-10 bg-white/10 border border-white/20 rounded-lg text-white appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Price Range</option>
-                            <option>Under $20,000</option>
-                            <option>$20,000 - $30,000</option>
-                            <option>$30,000 - $50,000</option>
-                            <option>$50,000+</option>
-                          </select>
-                          <DollarSign
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                          <ChevronDown
-                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                        </div>
-                      </div>
-                      <div className="flex gap-3">
-                        <Button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-lg">
-                          <Search size={18} className="mr-2" />
-                          Search Cars
-                        </Button>
-                        <Button
-                          variant="outline"
-                          className="bg-transparent border border-white/30 text-white hover:bg-white/10 rounded-lg"
-                        >
-                          <Filter size={18} />
-                        </Button>
-                      </div>
-                    </TabsContent>
-
-                    <TabsContent value="sell" className="mt-0">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                        <div className="relative">
-                          <Input
-                            placeholder="Enter your car's year, make and model"
-                            className="w-full p-3 pl-10 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          />
-                          <Car
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                        </div>
-                        <div className="relative">
-                          <Input
-                            placeholder="Enter your ZIP code"
-                            className="w-full p-3 pl-10 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          />
-                          <MapPin
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400"
-                            size={18}
-                          />
-                        </div>
-                      </div>
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-lg">
-                        Get Your Free Estimate
-                      </Button>
-                    </TabsContent>
-                  </Tabs>
-
-                  <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                    <span className="text-xs text-slate-300">Popular:</span>
-                    <Link
-                      href="/shop?category=sedan"
-                      className="text-xs text-blue-300 hover:text-blue-200"
-                    >
-                      Sedan
-                    </Link>
-                    <span className="text-slate-500">•</span>
-                    <Link
-                      href="/shop?category=suv"
-                      className="text-xs text-blue-300 hover:text-blue-200"
-                    >
-                      SUV
-                    </Link>
-                    <span className="text-slate-500">•</span>
-                    <Link
-                      href="/shop?category=electric"
-                      className="text-xs text-blue-300 hover:text-blue-200"
-                    >
-                      Electric
-                    </Link>
-                    <span className="text-slate-500">•</span>
-                    <Link
-                      href="/shop?category=luxury"
-                      className="text-xs text-blue-300 hover:text-blue-200"
-                    >
-                      Luxury
-                    </Link>
-                  </div>
-                </div>
+          
               </div>
 
               <div className="lg:col-span-6 relative">
@@ -375,57 +234,16 @@ export default function Home() {
                   {/* 3D car visualization */}
                   <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50 shadow-xl overflow-hidden">
                     <div className="absolute top-4 right-4 z-20">
-                      <Badge className="bg-slate-800/80 text-white hover:bg-slate-700/80 backdrop-blur-sm">
-                        <PlayCircle size={14} className="mr-1" />
-                        360° View
-                      </Badge>
+                   
                     </div>
 
                     <div className="relative h-[350px] md:h-[400px] rounded-xl overflow-hidden">
                       <Image
-                        src="/images/car-showcase.png"
+                        src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                         alt="Featured vehicle"
                         fill
                         className="object-contain"
                       />
-                    </div>
-
-                    <div className="mt-4 flex justify-between items-center">
-                      <div>
-                        <h3 className="text-xl font-bold">
-                          2023 Tesla Model Y
-                        </h3>
-                        <div className="flex items-center mt-1">
-                          <Badge className="bg-blue-600/20 text-blue-400 border-blue-500/30 mr-2">
-                            Electric
-                          </Badge>
-                          <Badge className="bg-slate-700/50 text-slate-300 border-slate-600/50">
-                            AWD
-                          </Badge>
-                        </div>
-                        <p className="text-2xl font-bold mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                          $45,990
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="rounded-full border-slate-700 bg-slate-800/50 text-white hover:bg-slate-700/80"
-                        >
-                          <Heart size={18} />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="rounded-full border-slate-700 bg-slate-800/50 text-white hover:bg-slate-700/80"
-                        >
-                          <Share2 size={18} />
-                        </Button>
-                        <Button className="rounded-full bg-blue-600 hover:bg-blue-700">
-                          View Details
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 </div>
