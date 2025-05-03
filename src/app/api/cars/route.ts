@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import connectToDatabase from '@/lib/mongodb';
-import Car from '@/models/Car';
+import SCar from '@/models/SCar';
 
 // Configure Cloudinary
 cloudinary.config({
@@ -14,7 +14,7 @@ cloudinary.config({
 export async function GET() {
   try {
     await connectToDatabase();
-    const cars = await Car.find({}).sort({ createdAt: -1 });
+    const cars = await SCar.find({}).sort({ createdAt: -1 });
     
     // Transform MongoDB _id to id for frontend compatibility
     const transformedCars = cars.map(car => {
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     };
     
     // Create a new car
-    const car = await Car.create(carData);
+    const car = await SCar.create(carData);
     
     // Transform the response for frontend
     const carObj = car.toObject();

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import connectToDatabase from "@/lib/mongodb";
-import Car from "@/models/Car";
+import SCar from "@/models/SCar";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -19,7 +19,7 @@ export async function GET(
   try {
     await connectToDatabase();
 
-    const car = await Car.findById(params.id);
+    const car = await SCar.findById(params.id);
 
     if (!car) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
@@ -99,7 +99,7 @@ export async function PUT(
     delete updateData.id;
     delete updateData._id;
 
-    const updatedCar = await Car.findByIdAndUpdate(params.id, updateData, {
+    const updatedCar = await SCar.findByIdAndUpdate(params.id, updateData, {
       new: true,
       runValidators: true,
     });
@@ -130,7 +130,7 @@ export async function DELETE(
   try {
     await connectToDatabase();
 
-    const deletedCar = await Car.findByIdAndDelete(params.id);
+    const deletedCar = await SCar.findByIdAndDelete(params.id);
 
     if (!deletedCar) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
