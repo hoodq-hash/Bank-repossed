@@ -994,6 +994,7 @@ export default function DashboardPage() {
                   <SelectContent>
                     <SelectItem value="Petrol">Petrol</SelectItem>
                     <SelectItem value="Diesel">Diesel</SelectItem>
+                    <SelectItem value="Gasoline">Gasoline</SelectItem>
                     <SelectItem value="Electric">Electric</SelectItem>
                     <SelectItem value="Hybrid">Hybrid</SelectItem>
                     <SelectItem value="Plug-in Hybrid">
@@ -1354,6 +1355,7 @@ export default function DashboardPage() {
                     <SelectContent>
                       <SelectItem value="Petrol">Petrol</SelectItem>
                       <SelectItem value="Diesel">Diesel</SelectItem>
+                      <SelectItem value="Gasoline">Gasoline</SelectItem>
                       <SelectItem value="Electric">Electric</SelectItem>
                       <SelectItem value="Hybrid">Hybrid</SelectItem>
                       <SelectItem value="Plug-in Hybrid">
