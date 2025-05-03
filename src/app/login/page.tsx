@@ -39,15 +39,6 @@ export default function LoginPage() {
     <div className="flex min-h-screen bg-gray-50">
       <div className="flex flex-col justify-center w-full max-w-md mx-auto p-6">
         <div className="mb-8 text-center">
-          <div className="flex justify-center mb-4">
-            <Image
-              src="/Screenshot__173_-removebg-preview.png"
-              alt="Chariot Auto Sales Logo"
-              width={100}
-              height={60}
-              className="h-15 w-auto"
-            />
-          </div>
           <h1 className="text-2xl font-bold text-gray-900">
             Admin Dashboard Login
           </h1>
