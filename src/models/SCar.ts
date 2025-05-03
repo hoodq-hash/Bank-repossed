@@ -63,7 +63,7 @@ const SCarSchema = new mongoose.Schema(
     },
     fuelType: {
       type: String,
-      enum: ["Petrol", "Diesel", "Electric", "Hybrid", "Plug-in Hybrid"],
+      enum: ["Petrol", "Diesel", "Electric", "Hybrid", "Plug-in Hybrid","Gasoline"],
       default: "Petrol",
     },
     mileage: {
