@@ -235,7 +235,7 @@ export default function Home() {
 
                     <div className="relative h-[350px] md:h-[400px] rounded-xl overflow-hidden">
                       <Image
-                        src="https://images.pexels.com/photos/305070/pexels-photo-305070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                        src="/cars.jpg"
                         alt="Featured vehicle"
                         fill
                         className="object-contain"
@@ -722,12 +722,12 @@ export default function Home() {
                       <h3 className="font-bold">Email</h3>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      info@chariotsautos.com
+                      chariotautosales309@gmail.com
                       <br />
-                      support@chariotsautos.com
+                      chariotautosales309@gmail.com
                     </p>
                     <a
-                      href="mailto:info@chariotsautos.com"
+                      href="mailto:chariotautosales309@gmail.com"
                       className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
                     >
                       Send email

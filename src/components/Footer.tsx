@@ -102,11 +102,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:chariotautosales@gmail.com"
+                  href="mailto:chariotautosales309@gmail.com"
                   className="flex items-center text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail size={20} className="mr-3" />
-                  <span>chariotautosales@gmail.com</span>
+                  <span>chariotautosales309@gmail.com</span>
                 </a>
               </li>
             </ul>
@@ -163,7 +163,9 @@ export default function Footer() {
                 />
                 <div>
                   <p className="text-white font-medium">Headquarters</p>
-                  <p className="text-gray-400"></p>
+                  <p className="text-gray-400">
+                    562 State St, Clearfield, UT 84015, United States
+                  </p>
                 </div>
               </li>
             </ul>

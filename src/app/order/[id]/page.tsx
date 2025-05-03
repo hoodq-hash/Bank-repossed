@@ -308,7 +308,7 @@ This message was sent from Chariot's auto website.
 `;
 
       // Encode email parameters
-      const mailtoLink = `mailto:chariotautosales@gmail.com?subject=${encodeURIComponent(
+      const mailtoLink = `mailto:chariotautosales309@gmail.com?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
 
@@ -446,9 +446,7 @@ This message was sent from Chariot's auto website.
                   </li>
                   <li className="flex items-start">
                     <Check size={14} className="mr-2 mt-1 text-blue-600" />
-                    <span>
-                      You can discuss details, arrange viewings 
-                    </span>
+                    <span>You can discuss details, arrange viewings</span>
                   </li>
                 </ul>
               </div>
