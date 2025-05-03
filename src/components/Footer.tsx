@@ -118,24 +118,6 @@ export default function Footer() {
               Business Hours & Contact
             </h3>
             <ul className="space-y-4">
-              <li>
-                <a
-                  href="tel:+14052763013"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
-                >
-                  <Phone size={20} className="mr-3" />
-                  <span>+1 (309) 359-7057</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+18005551235"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
-                >
-                  <Phone size={20} className="mr-3" />
-                  <span>+1 (309) 359-7057</span>
-                </a>
-              </li>
               <li className="flex items-start pt-4">
                 <Clock
                   size={20}

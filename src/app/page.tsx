@@ -700,18 +700,6 @@ export default function Home() {
                       </div>
                       <h3 className="font-bold">Call Us</h3>
                     </div>
-                    <p className="text-slate-300 text-sm">
-                      Sales: (555) 123-4567
-                      <br />
-                      Service: (555) 765-4321
-                    </p>
-                    <a
-                      href="tel:5551234567"
-                      className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
-                    >
-                      Call now
-                      <ArrowUpRight size={14} className="ml-1" />
-                    </a>
                   </div>
 
                   <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">

@@ -146,38 +146,38 @@ export default function OrderPage({ params }: { params: { id: string } }) {
 
         // Fallback to mock data if API fails
         // This is just for demo purposes
-        const mockCarDetails: Car = {
-          id: params.id,
-          title: "Volkswagen Jetta 2007 Gold",
-          price: 12500,
-          currency: "$",
-          location: "San Francisco, CA",
-          condition: "Used",
-          transmission: "Manual",
-          year: 2007,
-          make: "Volkswagen",
-          model: "Jetta",
-          color: "Gold",
-          engineSize: "2000",
-          fuelType: "Petrol",
-          mileage: 42300,
-          images: ["/cars/volkswagen-jetta-gold.jpg"],
-          description:
-            "Well maintained Volkswagen Jetta in excellent condition.",
-          createdAt: new Date().toISOString(),
-          sellerInfo: {
-            name: "AutoWorld Dealer",
-            verified: true,
-            memberSince: "2019",
-            responseRate: "95%",
-            responseTime: "Within 2 hours",
-            phone: "+1 (555) 123-4567",
-            location: "San Francisco, CA",
-          },
-        };
+        // const mockCarDetails: Car = {
+        //   id: params.id,
+        //   title: "Volkswagen Jetta 2007 Gold",
+        //   price: 12500,
+        //   currency: "$",
+        //   location: "San Francisco, CA",
+        //   condition: "Used",
+        //   transmission: "Manual",
+        //   year: 2007,
+        //   make: "Volkswagen",
+        //   model: "Jetta",
+        //   color: "Gold",
+        //   engineSize: "2000",
+        //   fuelType: "Petrol",
+        //   mileage: 42300,
+        //   images: ["/cars/volkswagen-jetta-gold.jpg"],
+        //   description:
+        //     "Well maintained Volkswagen Jetta in excellent condition.",
+        //   createdAt: new Date().toISOString(),
+        //   sellerInfo: {
+        //     name: "AutoWorld Dealer",
+        //     verified: true,
+        //     memberSince: "2019",
+        //     responseRate: "95%",
+        //     responseTime: "Within 2 hours",
+        //     phone: "+1 (555) 123-4567",
+        //     location: "San Francisco, CA",
+        //   },
+        // };
 
-        setCarDetails(mockCarDetails);
-        toast.error("Using demo data - couldn't connect to server");
+        // setCarDetails(mockCarDetails);
+        // toast.error("Using demo data - couldn't connect to server");
       } finally {
         setIsLoading(false);
       }

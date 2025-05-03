@@ -826,13 +826,13 @@ export default function AboutPage() {
                               Cartown, CT 12345
                             </div>
                           </div>
-                          <div className="flex items-center">
+                          {/* <div className="flex items-center">
                             <Phone
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
                             <div>(555) 123-4567</div>
-                          </div>
+                          </div> */}
                           <div className="flex items-center">
                             <Mail
                               size={18}

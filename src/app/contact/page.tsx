@@ -42,8 +42,7 @@ const locations = [
   {
     id: 1,
     name: "Headquarters",
-    address: "123 Auto Drive\nCartown, CT 12345",
-    phone: "(555) 123-4567",
+    address: "562 State St, Clearfield, UT 84015, United States",
     email: "main@chariotsautos.com",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
@@ -213,13 +212,7 @@ export default function ContactPage() {
                               {location.address}
                             </div>
                           </div>
-                          <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>{location.phone}</div>
-                          </div>
+                        
                           <div className="flex items-center">
                             <Mail
                               size={18}
@@ -237,17 +230,7 @@ export default function ContactPage() {
                             </div>
                           </div>
                         </div>
-                        <div className="mt-4">
-                          <a
-                            href={location.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
-                          >
-                            Get Directions
-                            <ChevronRight size={16} className="ml-1" />
-                          </a>
-                        </div>
+                       
                       </CardContent>
                     </Card>
                   ))}
@@ -613,7 +596,7 @@ export default function ContactPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -636,7 +619,7 @@ export default function ContactPage() {
                 <Button variant="outline" className="w-full border-slate-300">
                   Call Now
                 </Button>
-              </motion.div>
+              </motion.div> */}
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
