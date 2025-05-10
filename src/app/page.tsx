@@ -691,7 +691,7 @@ export default function Home() {
                       </div>
                       <h3 className="font-bold">Call Us</h3>
                     </div>
-                      +1 (336) 298-8137
+                    +1 (309) 359-7057
                   </div>
 
                   <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">

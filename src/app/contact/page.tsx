@@ -43,7 +43,7 @@ const locations = [
     name: "Headquarters",
     address: "562 State St, Clearfield, UT 84015, United States",
     email: "chariotautosales309@gmail.com",
-    phone: "+1 (336) 298-8137",
+    phone: "+1 (309) 359-7057",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
   },
