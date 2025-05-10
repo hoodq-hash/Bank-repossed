@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   description: "The trusted platform for buying quality used vehicles",
   icons: {
     icon: [
-      { url: "/Screenshot__173_-removebg-preview.png", sizes: "any" },
-      { url: "/Screenshot__173_-removebg-preview.png", type: "image/png" },
+      { url: "/chariot_logo.png", sizes: "any" },
+      { url: "/chariot_logo.png", type: "image/png" },
     ],
     apple: { url: "/apple-icon.png", type: "image/png" },
   },
@@ -42,11 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="icon"
-          href="/Screenshot__173_-removebg-preview.png"
-          sizes="any"
-        />
+        <link rel="icon" href="/chariot_logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className={`${outfit.variable} font-outfit antialiased`}>

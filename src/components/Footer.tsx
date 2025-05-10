@@ -22,13 +22,13 @@ export default function Footer() {
           <div className="mb-8 md:mb-0">
             <div className="flex items-center mb-4">
               {/* Replace the placeholder div with your actual logo image */}
-              {/* <Image
-                src="/Screenshot__173_-removebg-preview.png" // Update this path to your actual logo file
+              <Image
+                src="/chariot_logo.png"
                 alt="Chariot Auto Sales Logo"
                 width={100}
                 height={40}
                 className="mr-3"
-              /> */}
+              />
               <span className="text-2xl font-bold text-white">
                 Chariot Auto Sales
               </span>

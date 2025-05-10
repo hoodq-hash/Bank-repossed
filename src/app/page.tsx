@@ -531,15 +531,6 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 rounded-full overflow-hidden mr-4 border-2 border-blue-100">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        width={64}
-                        height={64}
-                        className="object-cover"
-                      />
-                    </div>
                     <div>
                       <h4 className="font-bold text-slate-900 text-lg">
                         {testimonial.name}
@@ -700,6 +691,7 @@ export default function Home() {
                       </div>
                       <h3 className="font-bold">Call Us</h3>
                     </div>
+                      +1 (336) 298-8137
                   </div>
 
                   <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">

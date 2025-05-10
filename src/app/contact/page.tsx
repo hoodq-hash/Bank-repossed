@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -43,7 +42,8 @@ const locations = [
     id: 1,
     name: "Headquarters",
     address: "562 State St, Clearfield, UT 84015, United States",
-    email: "main@chariotsautos.com",
+    email: "chariotautosales309@gmail.com",
+    phone: "+1 (336) 298-8137",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
   },
@@ -212,13 +212,20 @@ export default function ContactPage() {
                               {location.address}
                             </div>
                           </div>
-                        
+
                           <div className="flex items-center">
                             <Mail
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
                             <div>{location.email}</div>
+                          </div>
+                          <div className="flex items-center">
+                            <Phone
+                              size={18}
+                              className="mr-2 text-blue-600 flex-shrink-0"
+                            />
+                            <div>{location.phone}</div>
                           </div>
                           <div className="flex items-start">
                             <Clock
@@ -230,37 +237,9 @@ export default function ContactPage() {
                             </div>
                           </div>
                         </div>
-                       
                       </CardContent>
                     </Card>
                   ))}
-                </div>
-              </div>
-
-              <div className="bg-slate-100 rounded-xl overflow-hidden h-[600px] relative shadow-md">
-                {/* This would be replaced with an actual map component */}
-                <div className="absolute inset-0">
-                  <Image
-                    src="/images/map.jpg"
-                    alt="Map of Chariot Auto Sales locations"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <div className="bg-white p-4 rounded-lg shadow-lg">
-                      <h3 className="font-medium text-slate-900 mb-2">
-                        Find Your Nearest Location
-                      </h3>
-                      <p className="text-sm text-slate-600 mb-3">
-                        Use our interactive map to find directions to your
-                        preferred dealership
-                      </p>
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                        Open Full Map
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

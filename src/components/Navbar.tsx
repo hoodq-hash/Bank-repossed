@@ -42,14 +42,13 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              {/* <Image
-                src="/Screenshot__173_-removebg-preview.png"
+              <Image
+                src="/chariot_logo.png"
                 alt="Chariot Auto Sales Logo"
-                width={120}
-                height={50}
+                width={180}
+                height={100}
                 className="mr-2"
-              /> */}
-              LOGO
+              />
             </Link>
           </div>
 
@@ -206,6 +205,7 @@ export default function Navbar() {
               <div className="flex items-center">
                 <Phone size={16} className="mr-2" />
                 Contact Us
+                (309) 359-7057
               </div>
             </Link>
           </div>
