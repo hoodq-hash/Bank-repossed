@@ -1739,7 +1739,7 @@ function ShopPage() {
                         {/* Image container */}
                         <div className="relative w-full sm:w-1/3 pb-[60%] sm:pb-0 overflow-hidden bg-gray-100">
                           <Image
-                            src={car.image || "/placeholder-car.jpg"}
+                            src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -2099,7 +2099,7 @@ function ShopPage() {
                       <div className="flex gap-3">
                         <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
                           <Image
-                            src={car.image || "/placeholder-car.jpg"}
+                            src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
                             className="object-cover"
