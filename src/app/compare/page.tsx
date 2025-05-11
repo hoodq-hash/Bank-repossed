@@ -553,7 +553,7 @@ function ComparePage() {
                     {/* Image container with aspect ratio */}
                     <div className="relative pb-[60%] overflow-hidden bg-gray-100">
                       <Image
-                        src={car.image || "/placeholder-car.jpg"}
+                        src={car.images[0] || "/placeholder-car.jpg"}
                         alt={car.title}
                         fill
                         className="object-cover"
