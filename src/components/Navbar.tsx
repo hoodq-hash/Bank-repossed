@@ -204,8 +204,7 @@ export default function Navbar() {
             >
               <div className="flex items-center">
                 <Phone size={16} className="mr-2" />
-                Contact Us
-                (309) 359-7057
+                Contact Us (631) 282-8230{" "}
               </div>
             </Link>
           </div>
