@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="mb-8 md:mb-0">
             <div className="flex items-center mb-4">
               {/* Replace the placeholder div with your actual logo image */}
-            
+
               <span className="text-2xl font-bold text-white">
                 Chariot Auto Sales
               </span>
@@ -96,11 +96,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:chariotautosales309@gmail.com"
+                  href="mailto:contact@charriotautosales.com"
                   className="flex items-center text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail size={20} className="mr-3" />
-                  <span>chariotautosales309@gmail.com</span>
+                  <span>contact@charriotautosales.com</span>
                 </a>
               </li>
             </ul>

@@ -308,7 +308,7 @@ This message was sent from Chariot's auto website.
 `;
 
       // Encode email parameters
-      const mailtoLink = `mailto:chariotautosales309@gmail.com?subject=${encodeURIComponent(
+      const mailtoLink = `mailto:contact@charriotautosales.com?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
 

@@ -702,12 +702,12 @@ export default function Home() {
                       <h3 className="font-bold">Email</h3>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      chariotautosales309@gmail.com
+                      contact@charriotautosales.com
                       <br />
-                      chariotautosales309@gmail.com
+                      contact@charriotautosales.com
                     </p>
                     <a
-                      href="mailto:chariotautosales309@gmail.com"
+                      href="mailto:contact@charriotautosales.com"
                       className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
                     >
                       Send email
