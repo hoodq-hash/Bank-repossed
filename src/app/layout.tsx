@@ -45,22 +45,27 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/chariot_logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <Script id="smartsupp-head" strategy="beforeInteractive">
+          {`
+            var _smartsupp = _smartsupp || {};
+            _smartsupp.key = 'edab3fb7445291b8e303e5729a769ddecd835bec';
+            window.smartsupp||(function(d) {
+              var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+              s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+              c.type='text/javascript';c.charset='utf-8';c.async=true;
+              c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+            })(document);
+          `}
+        </Script>
       </head>
       <body className={`${outfit.variable} font-outfit antialiased`}>
         <Toaster richColors position="top-center" />
-        <Script id="tawkto" strategy="afterInteractive">
-          {`
-            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-            (function(){
-              var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-              s1.async=true;
-              s1.src='https://embed.tawk.to/6897ab4cd73f531927390c14/default';
-              s1.charset='UTF-8';
-              s1.setAttribute('crossorigin','*');
-              s0.parentNode.insertBefore(s1,s0);
-            })();
-          `}
-        </Script>
+        <noscript>
+          Powered by{" "}
+          <a href="https://www.smartsupp.com" target="_blank">
+            Smartsupp
+          </a>
+        </noscript>
         {children}
       </body>
     </html>
