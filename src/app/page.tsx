@@ -213,7 +213,6 @@ export default function Home() {
                       : "translate-y-10 opacity-0"
                   }`}
                 >
-            
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                     Drive Your{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
@@ -238,12 +237,6 @@ export default function Home() {
                       <Clock className="text-yellow-400" size={20} />
                       <span className="text-sm font-medium text-white">
                         Same Day Delivery
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Car className="text-yellow-400" size={20} />
-                      <span className="text-sm font-medium text-white">
-                        Free Test Drive
                       </span>
                     </div>
                   </div>
