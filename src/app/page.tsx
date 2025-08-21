@@ -186,13 +186,25 @@ export default function Home() {
 
       <main>
         {/* Hero Section - Completely Redesigned */}
-        <section className="relative bg-gradient-to-br bg-red-400 p-8 from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        <section className="relative text-white overflow-hidden min-h-[700px]">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
+              alt="Luxury car background"
+              fill
+              className="object-cover object-center"
+              priority
+            />
+            {/* Enhanced gradient overlay for better text visibility */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-blue-900/60"></div>
+          </div>
           <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-20"></div>
           <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
 
           <div className="container mx-auto px-4 py-16 md:py-24 relative z-10 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-6 lg:pr-8">
+            <div className="grid grid-cols-1 gap-8 items-center">
+              <div className="max-w-2xl">
                 <div
                   className={`transition-all duration-1000 transform ${
                     isVisible
@@ -200,47 +212,74 @@ export default function Home() {
                       : "translate-y-10 opacity-0"
                   }`}
                 >
-                  <Badge className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 text-sm mb-6">
-                    Reimagined Car Buying Experience
+                  <Badge className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 text-sm mb-6">
+                    🔥 LIMITED TIME OFFER - 0% DOWN PAYMENT AVAILABLE
                   </Badge>
-                  <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                     Drive Your{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
                       Dreams
                     </span>{" "}
                     Home Today
                   </h1>
-                  <p className="text-xl text-slate-300 mb-8 max-w-xl">
-                    Experience the future of car shopping with personalized
-                    recommendations, transparent pricing, and a hassle-free
-                    buying process.
+                  <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-xl leading-relaxed">
+                    Skip the dealership hassle. Get quality, pre-owned vehicles
+                    with instant approval and same-day pickup.
                   </p>
-                </div>
-              </div>
 
-              <div className="lg:col-span-6 relative">
-                <div
-                  className={`relative transition-all duration-1000 delay-500 transform ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-20 opacity-0"
-                  }`}
-                >
-                  <div className="absolute -top-8 -left-8 w-64 h-64 bg-blue-600 rounded-full opacity-30 blur-3xl"></div>
-                  <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-cyan-400 rounded-full opacity-20 blur-3xl"></div>
-
-                  {/* 3D car visualization */}
-                  <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl p-4 border border-slate-700/50 shadow-xl overflow-hidden">
-                    <div className="absolute top-4 right-4 z-20"></div>
-
-                    <div className="relative h-[350px] md:h-[400px] rounded-xl overflow-hidden">
-                      <Image
-                        src="/cars.jpg"
-                        alt="Featured vehicle"
-                        fill
-                        className="object-contain"
-                      />
+                  {/* Trust Indicators */}
+                  <div className="flex flex-wrap gap-6 mb-8">
+                    <div className="flex items-center gap-2">
+                      <Shield className="text-yellow-400" size={20} />
+                      <span className="text-sm font-medium text-white">
+                        100% Verified Vehicles
+                      </span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="text-yellow-400" size={20} />
+                      <span className="text-sm font-medium text-white">
+                        Same Day Pickup
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Car className="text-yellow-400" size={20} />
+                      <span className="text-sm font-medium text-white">
+                        Free Test Drive
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="/shop">
+                      <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all flex items-center group min-w-[200px]">
+                        Browse Cars Now
+                        <ArrowRight
+                          size={20}
+                          className="ml-2 group-hover:translate-x-1 transition-transform"
+                        />
+                      </Button>
+                    </Link>
+                  </div>
+
+                  {/* Social Proof */}
+                  <div className="mt-8 pt-6 border-t border-white/20">
+                    <p className="text-sm opacity-80">
+                      <span className="font-semibold text-yellow-400">
+                        500+
+                      </span>{" "}
+                      happy customers •
+                      <span className="font-semibold text-yellow-400">
+                        {" "}
+                        4.9/5
+                      </span>{" "}
+                      rating •
+                      <span className="font-semibold text-yellow-400">
+                        {" "}
+                        24/7
+                      </span>{" "}
+                      support
+                    </p>
                   </div>
                 </div>
               </div>
