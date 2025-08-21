@@ -191,7 +191,7 @@ export default function Home() {
           <div className="absolute inset-0 z-0">
             <Image
               // src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
-              src="/BAN.jpg"
+              src="/img.jpg"
               alt="Luxury car background"
               fill
               className="object-cover object-center"
@@ -221,7 +221,7 @@ export default function Home() {
                     </span>{" "}
                     Home Today
                   </h1>
-                  <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-xl leading-relaxed">
+                  <p className="text-md md:text-2xl text-slate-300 mb-8 max-w-xl leading-relaxed">
                     Skip the dealership hassle. Get quality, pre-owned vehicles
                     with instant approval and same-day pickup / Delivery.
                   </p>
