@@ -194,7 +194,7 @@ export default function Home() {
               src="/girl.jpg"
               alt="Luxury car background"
               fill
-              className="object-cover object-center"
+              className="object-cover object-[50%_30%]"
               priority
             />
             {/* Enhanced gradient overlay for better text visibility */}
