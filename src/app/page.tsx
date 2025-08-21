@@ -213,9 +213,7 @@ export default function Home() {
                       : "translate-y-10 opacity-0"
                   }`}
                 >
-                  <Badge className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 text-sm mb-6">
-                    🔥 LIMITED TIME OFFER - 0% DOWN PAYMENT AVAILABLE
-                  </Badge>
+            
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                     Drive Your{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
@@ -225,7 +223,7 @@ export default function Home() {
                   </h1>
                   <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-xl leading-relaxed">
                     Skip the dealership hassle. Get quality, pre-owned vehicles
-                    with instant approval and same-day pickup.
+                    with instant approval and same-day pickup / Delivery.
                   </p>
 
                   {/* Trust Indicators */}
