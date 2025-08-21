@@ -237,7 +237,7 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       <Clock className="text-yellow-400" size={20} />
                       <span className="text-sm font-medium text-white">
-                        Same Day Pickup
+                        Same Day Delivery
                       </span>
                     </div>
                     <div className="flex items-center gap-2">

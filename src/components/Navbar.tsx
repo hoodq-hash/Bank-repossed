@@ -41,13 +41,13 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className=" flex items-center w-16 h-18">
               <Image
-                src="/chariot_logo.png"
+                src="/carlogo.jpg"
                 alt="Chariot Auto Sales Logo"
                 width={180}
                 height={100}
-                className="mr-2"
+                className="mr-2 w-full h-full object-cover"
               />
             </Link>
           </div>
