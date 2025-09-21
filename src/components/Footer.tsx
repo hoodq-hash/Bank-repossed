@@ -96,11 +96,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:contact@charriotautosales.com"
+                  href="mailto:chariotautosales321@gmail.com"
                   className="flex items-center text-gray-400 hover:text-white transition-colors"
                 >
                   <Mail size={20} className="mr-3" />
-                  <span>contact@charriotautosales.com</span>
+                  <span>chariotautosales321@gmail.com</span>
                 </a>
               </li>
             </ul>

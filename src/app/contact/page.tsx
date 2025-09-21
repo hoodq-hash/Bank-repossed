@@ -42,7 +42,7 @@ const locations = [
     id: 1,
     name: "Headquarters",
     address: "562 State St, Clearfield, UT 84015, United States",
-    email: "contact@charriotautosales.com",
+    email: "chariotautosales321@gmail.com",
     phone: "+1 (631) 282-8230",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
@@ -220,13 +220,7 @@ export default function ContactPage() {
                             />
                             <div>{location.email}</div>
                           </div>
-                          <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>{location.phone}</div>
-                          </div>
+                      
                           <div className="flex items-start">
                             <Clock
                               size={18}

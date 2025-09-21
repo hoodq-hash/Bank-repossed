@@ -715,15 +715,6 @@ export default function Home() {
                     </Link>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-                        <Phone size={20} className="text-white" />
-                      </div>
-                      <h3 className="font-bold">Call Us</h3>
-                    </div>
-                    +1 (631) 282-8230
-                  </div>
 
                   <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
                     <div className="flex items-center mb-3">
@@ -733,12 +724,12 @@ export default function Home() {
                       <h3 className="font-bold">Email</h3>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      contact@charriotautosales.com
+                      chariotautosales321@gmail.com
                       <br />
-                      contact@charriotautosales.com
+                      chariotautosales321@gmail.com
                     </p>
                     <a
-                      href="mailto:contact@charriotautosales.com"
+                      href="mailto:chariotautosales321@gmail.com"
                       className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
                     >
                       Send email
