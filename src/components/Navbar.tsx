@@ -193,20 +193,7 @@ export default function Navbar() {
                 Testimonials
               </div>
             </Link>
-            <Link
-              href="/contact"
-              className={`block px-4 py-2 text-sm ${
-                activeTab === "contact"
-                  ? "text-blue-600 bg-gray-50"
-                  : "text-gray-700"
-              }`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <div className="flex items-center">
-                <Phone size={16} className="mr-2" />
-                Contact Us (631) 282-8230{" "}
-              </div>
-            </Link>
+           
           </div>
         )}
       </div>
