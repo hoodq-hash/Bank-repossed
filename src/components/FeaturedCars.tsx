@@ -398,7 +398,7 @@ export default function FeaturedCars() {
                               : "bg-white border border-gray-200 shadow-sm hover:shadow"
                           }`}
                         >
-                          <Image
+                          <img
                             src={brand.image}
                             alt={brand.displayName}
                             width={80}
@@ -690,7 +690,7 @@ export default function FeaturedCars() {
                     <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
                       {car.images && car.images.length > 0 ? (
                         <>
-                          <Image
+                          <img
                             src={car.images[0]}
                             alt={`${car.make} ${car.model} ${car.year}`}
                             fill
@@ -721,7 +721,7 @@ export default function FeaturedCars() {
                       {/* Brand Badge */}
                       <div className="absolute bottom-4 left-4 bg-white p-2 rounded-full shadow-lg">
                         <div className="w-10 h-10 flex items-center justify-center">
-                          <Image
+                          <img
                             src={getBrandLogoUrl(car.make)}
                             alt={car.make}
                             width={40}

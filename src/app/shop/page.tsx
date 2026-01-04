@@ -1139,7 +1139,7 @@ function ShopPage() {
                                 className="text-sm text-gray-700 flex-grow flex items-center"
                               >
                                 <div className="w-5 h-5 mr-2">
-                                  <Image
+                                  <img
                                     src={make.image}
                                     alt={make.displayName}
                                     width={20}
@@ -1541,7 +1541,7 @@ function ShopPage() {
                                   : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
                               }`}
                             >
-                              <Image
+                              <img
                                 src={brand.image}
                                 alt={brand.displayName}
                                 width={16}
@@ -1633,7 +1633,7 @@ function ShopPage() {
                       >
                         {/* Image container with aspect ratio */}
                         <div className="relative pb-[60%] overflow-hidden bg-gray-100">
-                          <Image
+                          <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
@@ -1738,7 +1738,7 @@ function ShopPage() {
                       >
                         {/* Image container */}
                         <div className="relative w-full sm:w-1/3 pb-[60%] sm:pb-0 overflow-hidden bg-gray-100">
-                          <Image
+                          <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
@@ -2098,7 +2098,7 @@ function ShopPage() {
                       </button>
                       <div className="flex gap-3">
                         <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-                          <Image
+                          <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill

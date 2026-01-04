@@ -630,7 +630,7 @@ export default function DashboardPage() {
                             <TableCell className="py-3">
                               <div className="flex items-center">
                                 <div className="relative h-10 w-10 rounded overflow-hidden mr-3">
-                                  <Image
+                                  <img
                                     src={
                                       car.images[0] || "/placeholder-car.jpg"
                                     }

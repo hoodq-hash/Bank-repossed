@@ -640,11 +640,11 @@ export default function CarDetailPage({
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
                 <div className="relative h-64 sm:h-80 md:h-[400px] lg:h-[500px] bg-gray-100">
                   {carDetails.images && carDetails.images.length > 0 ? (
-                    <Image
+                    <img
                       src={carDetails.images[activeImageIndex]}
                       alt={carDetails.title}
                       fill
-                      className="object-contain"
+                      className="object-contain w-full h-full"
                       priority
                     />
                   ) : (
@@ -715,7 +715,7 @@ export default function CarDetailPage({
                         }`}
                         onClick={() => setActiveImageIndex(index)}
                       >
-                        <Image
+                        <img
                           src={image}
                           alt={`${carDetails.title} - Image ${index + 1}`}
                           fill
@@ -1233,11 +1233,11 @@ export default function CarDetailPage({
                       >
                         <div className="relative h-40 w-full">
                           {car.images && car.images.length > 0 ? (
-                            <Image
+                            <img
                               src={car.images[0]}
                               alt={car.title}
                               fill
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                             />
                           ) : (
                             <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
@@ -1497,11 +1497,11 @@ export default function CarDetailPage({
                   </button>
                 </div>
                 <div className="flex-grow flex items-center justify-center relative">
-                  <Image
+                  <img
                     src={carDetails.images[activeImageIndex]}
                     alt={carDetails.title}
                     fill
-                    className="object-contain"
+                    className="object-contain  w-full h-full"
                   />
                   <button
                     onClick={prevImage}
@@ -1528,11 +1528,11 @@ export default function CarDetailPage({
                         }`}
                         onClick={() => setActiveImageIndex(index)}
                       >
-                        <Image
+                        <img
                           src={image}
                           alt={`${carDetails.title} - Image ${index + 1}`}
                           fill
-                          className="object-cover"
+                          className="object-cover  w-full h-full"
                         />
                       </div>
                     ))}
