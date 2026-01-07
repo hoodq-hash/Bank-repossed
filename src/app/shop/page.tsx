@@ -1144,7 +1144,7 @@ function ShopPage() {
                                     alt={make.displayName}
                                     width={20}
                                     height={20}
-                                    className="object-contain"
+                                    className="object-contain w-full h-full"
                                     onError={(e) => {
                                       const target =
                                         e.target as HTMLImageElement;
@@ -1637,7 +1637,7 @@ function ShopPage() {
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="object-cover h-full w-full transition-transform duration-300 group-hover:scale-105"
                           />
 
                           {/* Condition badge */}
@@ -1742,7 +1742,7 @@ function ShopPage() {
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="object-cover transition-transform w-full h-full duration-300 group-hover:scale-105"
                           />
 
                           {/* Condition badge */}
@@ -2098,7 +2098,7 @@ function ShopPage() {
                       </button>
                       <div className="flex gap-3">
                         <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-                          <img
+                          
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
                             fill
