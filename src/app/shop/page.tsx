@@ -1632,11 +1632,11 @@ function ShopPage() {
                         onClick={() => navigateToCarDetail(car.id)}
                       >
                         {/* Image container with aspect ratio */}
-                        <div className="relative pb-[60%] overflow-hidden bg-gray-100">
+                        <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                            className="object-cover transition-transform group-hover:scale-110 w-full h-full duration-700"
                           />
 
                           {/* Condition badge */}
