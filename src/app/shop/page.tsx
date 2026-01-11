@@ -1636,7 +1636,7 @@ function ShopPage() {
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="object-cover w-full transition-transform duration-300 group-hover:scale-105"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
 
                           {/* Condition badge */}
@@ -1740,8 +1740,7 @@ function ShopPage() {
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            fill
-                            className="object-cover transition-transform w-full h-full duration-300 group-hover:scale-105"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
 
                           {/* Condition badge */}
@@ -2097,11 +2096,10 @@ function ShopPage() {
                       </button>
                       <div className="flex gap-3">
                         <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-                          
+                          <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
