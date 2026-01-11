@@ -1636,7 +1636,7 @@ function ShopPage() {
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
                           />
 
                           {/* Condition badge */}
