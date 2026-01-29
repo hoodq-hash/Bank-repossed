@@ -43,7 +43,6 @@ const locations = [
     name: "Headquarters",
     address: "562 State St, Clearfield, UT 84015, United States",
     email: "chariotautosales321@gmail.com",
-    phone: "(530) 208-9945",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
   },
@@ -166,14 +165,9 @@ export default function ContactPage() {
                 methods below.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button 
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                  asChild
-                >
-                  <a href="tel:+15302089945">
-                    Call Us Now
-                    <Phone size={16} className="ml-2" />
-                  </a>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  Call Us Now
+                  <Phone size={16} className="ml-2" />
                 </Button>
               </div>
             </div>
@@ -224,19 +218,6 @@ export default function ContactPage() {
                               className="mr-2 text-blue-600 flex-shrink-0"
                             />
                             <div>{location.email}</div>
-                          </div>
-
-                          <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <a 
-                              href={`tel:${location.phone.replace(/\D/g, '')}`}
-                              className="text-blue-600 hover:text-blue-700"
-                            >
-                              {location.phone}
-                            </a>
                           </div>
                       
                           <div className="flex items-start">
@@ -587,7 +568,7 @@ export default function ContactPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -604,17 +585,10 @@ export default function ContactPage() {
                   Speak directly with our team for immediate assistance with
                   your questions.
                 </p>
-                <div className="font-medium text-blue-600 mb-4">
-                  (530) 208-9945
-                </div>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-slate-300"
-                  asChild
-                >
-                  <a href="tel:+15302089945">Call Now</a>
+                <Button variant="outline" className="w-full border-slate-300">
+                  Call Now
                 </Button>
-              </motion.div>
+              </motion.div> */}
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

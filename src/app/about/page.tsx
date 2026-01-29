@@ -45,7 +45,6 @@ const teamMembers = [
     image: "/images/team/chariot.jpg",
     bio: "chariot founded Chariot Auto Sales in 1995 with a vision to create a transparent and customer-focused car buying experience. With over 30 years in the automotive industry, Chariot's expertise and passion for cars has driven the company to become a leader in the market.",
     email: "chariot@chariotsautos.com",
-    phone: "(555) 123-4567",
   },
   {
     id: 2,
@@ -54,7 +53,6 @@ const teamMembers = [
     image: "/images/team/sarah.jpg",
     bio: "Sarah brings 15 years of automotive sales experience to the team. Her customer-first approach and deep product knowledge ensure that every client finds the perfect vehicle for their needs and budget.",
     email: "sarah@chariotsautos.com",
-    phone: "(555) 123-4568",
   },
   {
     id: 3,
@@ -63,7 +61,6 @@ const teamMembers = [
     image: "/images/team/michael.jpg",
     bio: "Michael oversees our state-of-the-art service department. With his team of certified technicians, he ensures every vehicle we sell meets our rigorous quality standards and that our customers receive exceptional maintenance service.",
     email: "michael@chariotsautos.com",
-    phone: "(555) 123-4569",
   },
   {
     id: 4,
@@ -72,7 +69,6 @@ const teamMembers = [
     image: "/images/team/lisa.jpg",
     bio: "Lisa has over a decade of experience in automotive financing. She works with multiple lenders to secure the best rates for our customers and makes the financing process smooth and transparent.",
     email: "lisa@chariotsautos.com",
-    phone: "(555) 123-4570",
   },
   {
     id: 5,
@@ -81,7 +77,6 @@ const teamMembers = [
     image: "/images/team/david.jpg",
     bio: "David ensures that every interaction with Chariot Auto Sales exceeds expectations. From the first website visit to post-purchase support, he's dedicated to creating memorable customer experiences.",
     email: "david@chariotsautos.com",
-    phone: "(555) 123-4571",
   },
   {
     id: 6,
@@ -90,7 +85,6 @@ const teamMembers = [
     image: "/images/team/sophia.jpg",
     bio: "Sophia leads our marketing initiatives with creativity and data-driven strategies. Her innovative campaigns have helped establish Chariot Auto Sales as a trusted name in the automotive industry.",
     email: "sophia@chariotsautos.com",
-    phone: "(555) 123-4572",
   },
 ];
 
@@ -616,13 +610,6 @@ export default function AboutPage() {
                                 <Mail size={16} className="mr-2" />
                                 {member.email}
                               </a>
-                              <a
-                                href={`tel:${member.phone}`}
-                                className="flex items-center text-slate-700 hover:text-blue-600"
-                              >
-                                <Phone size={16} className="mr-2" />
-                                {member.phone}
-                              </a>
                             </div>
                           </div>
                         </motion.div>
@@ -826,13 +813,7 @@ export default function AboutPage() {
                               Cartown, CT 12345
                             </div>
                           </div>
-                          {/* <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>(555) 123-4567</div>
-                          </div> */}
+                          {/*                           */}
                           <div className="flex items-center">
                             <Mail
                               size={18}
@@ -877,13 +858,6 @@ export default function AboutPage() {
                             </div>
                           </div>
                           <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>(555) 234-5678</div>
-                          </div>
-                          <div className="flex items-center">
                             <Mail
                               size={18}
                               className="mr-2 text-blue-600 flex-shrink-0"
@@ -925,13 +899,6 @@ export default function AboutPage() {
                               <br />
                               Cartown, CT 12347
                             </div>
-                          </div>
-                          <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>(555) 345-6789</div>
                           </div>
                           <div className="flex items-center">
                             <Mail
