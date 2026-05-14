@@ -1,17 +1,15 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
   Mail,
   Clock,
   Send,
-  MessageSquare,
-  Calendar,
-  Car,
-  ChevronRight,
+  MessageCircle,
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
@@ -19,7 +17,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -29,46 +26,28 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Location data
-const locations = [
-  {
-    id: 1,
-    name: "Headquarters",
-    address: "562 State St, Clearfield, UT 84015, United States",
-    phone: "+1 (409) 655-8072",
-    email: "bankrepossessedcars@gmail.com",
-    hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
-    mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
-  },
-];
+const HQ = {
+  name: "Headquarters",
+  addressLines: ["562 State St", "Clearfield, UT 84015", "United States"],
+  phoneDisplay: "+1 (409) 655-8072",
+  phoneHref: "tel:+14096558072",
+  email: "bankrepossessedcars@gmail.com",
+  mapSearchUrl:
+    "https://www.google.com/maps/search/?api=1&query=562+State+St+Clearfield+UT+84015",
+};
 
-// Inquiry types
 const inquiryTypes = [
-  "Sales Inquiry",
-  "Service Appointment",
-  "Parts Order",
-  "Financing Question",
-  "Vehicle Trade-In",
-  "Test Drive Request",
-  "Employment Opportunity",
+  "Inventory question",
+  "Financing",
+  "Trade-in",
+  "Test drive",
+  "Transport / pickup",
   "Other",
-];
-
-// Departments
-const departments = [
-  "Sales",
-  "Service",
-  "Parts",
-  "Finance",
-  "Management",
-  "Human Resources",
 ];
 
 export default function ContactPage() {
@@ -78,8 +57,6 @@ export default function ContactPage() {
     email: "",
     phone: "",
     inquiryType: "",
-    department: "",
-    preferredLocation: "",
     message: "",
     preferredContact: "email",
     subscribe: false,
@@ -90,6 +67,7 @@ export default function ContactPage() {
     success: boolean;
     message: string;
   } | null>(null);
+  const [topicError, setTopicError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -112,604 +90,530 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Simulate form submission
-    setTimeout(() => {
+    if (!formData.inquiryType.trim()) {
+      setTopicError("Please choose a topic.");
+      return;
+    }
+    setTopicError(null);
+    window.setTimeout(() => {
       setFormStatus({
         submitted: true,
         success: true,
         message:
-          "Thank you for your message! Our team will get back to you shortly.",
+          "Thanks for reaching out. We reply during business hours—usually within one business day.",
       });
-
-      // Reset form after successful submission
       setFormData({
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         inquiryType: "",
-        department: "",
-        preferredLocation: "",
         message: "",
         preferredContact: "email",
         subscribe: false,
       });
-    }, 1000);
+    }, 600);
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col bg-[#f4f1ea] text-stone-900 antialiased">
       <Navbar />
 
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-slate-900 to-emerald-900 text-white py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-emerald-500/10 to-transparent"></div>
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-emerald-500 rounded-full opacity-10 blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-teal-400 rounded-full opacity-10 blur-3xl"></div>
+        <section className="border-b border-stone-300 bg-[#f4f1ea] py-12 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+              Contact
+            </p>
+            <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+              Call, email, or send a message
+            </h1>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 md:text-base">
+              Questions about repo inventory, paperwork, or financing? Reach us
+              directly—we publish the same phone and email across the site.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={HQ.phoneHref}>
+                <Button className="h-12 rounded-none border border-stone-300 bg-emerald-600 px-6 font-bold text-white hover:bg-emerald-500">
+                  <Phone size={16} className="mr-2" />
+                  {HQ.phoneDisplay}
+                </Button>
+              </a>
+              <a href={`mailto:${HQ.email}`}>
+                <Button
+                  variant="outline"
+                  className="h-12 rounded-none border border-stone-300 bg-white px-6 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
+                >
+                  <Mail size={16} className="mr-2" />
+                  Email
+                </Button>
+              </a>
+            </div>
           </div>
+        </section>
 
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="max-w-3xl">
-              <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 mb-4">
-                Contact Us
-              </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Get in Touch with Our Team
-              </h1>
-              <p className="text-xl text-slate-300 mb-8">
-                Have questions about our vehicles, services, or anything else?
-                We're here to help! Reach out to our team using any of the
-                methods below.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="tel:+14096558072">
-                  <Button className="bg-emerald-600 text-white hover:bg-emerald-700">
-                    Call +1 (409) 655-8072
-                    <Phone size={16} className="ml-2" />
-                  </Button>
+        <section className="border-b border-stone-300 bg-white py-14 md:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
+              <div>
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Headquarters
+                </p>
+                <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+                  Visit or mail correspondence
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-stone-600 md:text-base">
+                  One published address matches our listings and footer. For
+                  the fastest answer on a specific vehicle, include the stock
+                  title or link in your message.
+                </p>
+
+                <div className="mt-8 space-y-6 border border-stone-300 bg-[#f4f1ea] p-6">
+                  <div className="flex gap-3">
+                    <MapPin
+                      className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700"
+                      aria-hidden
+                    />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                        {HQ.name}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-stone-800">
+                        {HQ.addressLines.map((line) => (
+                          <span key={line} className="block">
+                            {line}
+                          </span>
+                        ))}
+                      </p>
+                      <a
+                        href={HQ.mapSearchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-block text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                      >
+                        Open in Maps
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 border-t border-stone-300 pt-6">
+                    <Phone
+                      className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700"
+                      aria-hidden
+                    />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                        Phone
+                      </p>
+                      <a
+                        href={HQ.phoneHref}
+                        className="mt-1 inline-block font-mono text-sm font-semibold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                      >
+                        {HQ.phoneDisplay}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 border-t border-stone-300 pt-6">
+                    <Mail
+                      className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700"
+                      aria-hidden
+                    />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                        Email
+                      </p>
+                      <a
+                        href={`mailto:${HQ.email}`}
+                        className="mt-1 break-all font-mono text-xs font-semibold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800 sm:text-sm"
+                      >
+                        {HQ.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3 border-t border-stone-300 pt-6">
+                    <Clock
+                      className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700"
+                      aria-hidden
+                    />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                        Business hours
+                      </p>
+                      <ul className="mt-2 space-y-1 text-sm text-stone-700">
+                        <li>
+                          <span className="font-semibold text-stone-900">
+                            Mon–Fri:
+                          </span>{" "}
+                          8am–6pm
+                        </li>
+                        <li>
+                          <span className="font-semibold text-stone-900">
+                            Sat:
+                          </span>{" "}
+                          9am–4pm
+                        </li>
+                        <li>
+                          <span className="font-semibold text-stone-900">
+                            Sun:
+                          </span>{" "}
+                          Closed
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Message
+                </p>
+                <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+                  Send a note
+                </h2>
+                <p className="mt-3 text-sm text-stone-600 md:text-base">
+                  This form is a convenience preview—your details are not stored
+                  on a server yet. For a real inquiry, use{" "}
+                  <a
+                    href={`mailto:${HQ.email}`}
+                    className="font-semibold text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    email
+                  </a>{" "}
+                  or call so we can respond with listing-specific information.
+                </p>
+
+                <div className="mt-8">
+                  {formStatus?.submitted ? (
+                    <div className="border border-stone-300 bg-[#f4f1ea] p-6">
+                      <Alert className="border-0 bg-transparent p-0 shadow-none">
+                        <div className="flex items-start gap-3">
+                          {formStatus.success ? (
+                            <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" />
+                          ) : (
+                            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                          )}
+                          <div>
+                            <AlertTitle className="text-stone-900">
+                              {formStatus.success
+                                ? "Message recorded (demo)"
+                                : "Something went wrong"}
+                            </AlertTitle>
+                            <AlertDescription className="mt-1 text-stone-600">
+                              {formStatus.message}
+                            </AlertDescription>
+                          </div>
+                        </div>
+                      </Alert>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          setFormStatus(null);
+                          setTopicError(null);
+                        }}
+                        className="mt-6 rounded-none border border-stone-300 bg-stone-900 font-bold text-[#f4f1ea] hover:bg-stone-800"
+                      >
+                        Send another message
+                      </Button>
+                    </div>
+                  ) : (
+                    <form
+                      onSubmit={handleSubmit}
+                      className="border border-stone-300 bg-[#f4f1ea] p-6 md:p-8"
+                    >
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="firstName" className="text-stone-800">
+                            First name <span className="text-red-600">*</span>
+                          </Label>
+                          <Input
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            required
+                            className="mt-2 rounded-none border-stone-300 bg-white"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="lastName" className="text-stone-800">
+                            Last name <span className="text-red-600">*</span>
+                          </Label>
+                          <Input
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            required
+                            className="mt-2 rounded-none border-stone-300 bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-6 grid gap-6 md:grid-cols-2">
+                        <div>
+                          <Label htmlFor="email" className="text-stone-800">
+                            Email <span className="text-red-600">*</span>
+                          </Label>
+                          <Input
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                            className="mt-2 rounded-none border-stone-300 bg-white"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="phone" className="text-stone-800">
+                            Phone
+                          </Label>
+                          <Input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="mt-2 rounded-none border-stone-300 bg-white"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-6">
+                        <Label className="text-stone-800">
+                          Topic <span className="text-red-600">*</span>
+                        </Label>
+                        <Select
+                          value={formData.inquiryType}
+                          onValueChange={(value) => {
+                            setTopicError(null);
+                            handleSelectChange("inquiryType", value);
+                          }}
+                        >
+                          <SelectTrigger className="mt-2 rounded-none border-stone-300 bg-white">
+                            <SelectValue placeholder="Select a topic" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {inquiryTypes.map((type) => (
+                              <SelectItem key={type} value={type}>
+                                {type}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {topicError && (
+                          <p className="mt-2 text-sm text-red-700">{topicError}</p>
+                        )}
+                      </div>
+
+                      <div className="mt-6">
+                        <Label htmlFor="message" className="text-stone-800">
+                          Message <span className="text-red-600">*</span>
+                        </Label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          required
+                          rows={5}
+                          className="mt-2 rounded-none border-stone-300 bg-white"
+                        />
+                      </div>
+
+                      <div className="mt-6">
+                        <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                          Preferred reply
+                        </p>
+                        <RadioGroup
+                          value={formData.preferredContact}
+                          onValueChange={(value) =>
+                            handleRadioChange("preferredContact", value)
+                          }
+                          className="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-6"
+                        >
+                          <div className="flex items-center gap-2">
+                            <RadioGroupItem value="email" id="c-email" />
+                            <Label htmlFor="c-email" className="font-normal">
+                              Email
+                            </Label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <RadioGroupItem value="phone" id="c-phone" />
+                            <Label htmlFor="c-phone" className="font-normal">
+                              Phone
+                            </Label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <RadioGroupItem value="either" id="c-either" />
+                            <Label htmlFor="c-either" className="font-normal">
+                              Either
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+
+                      <div className="mt-6 flex items-start gap-2">
+                        <Checkbox
+                          id="subscribe"
+                          checked={formData.subscribe}
+                          onCheckedChange={(checked) =>
+                            handleCheckboxChange("subscribe", checked === true)
+                          }
+                        />
+                        <Label
+                          htmlFor="subscribe"
+                          className="text-sm font-normal leading-snug text-stone-600"
+                        >
+                          Email me occasional inventory highlights (optional).
+                        </Label>
+                      </div>
+
+                      <div className="mt-8 flex flex-wrap gap-3">
+                        <Button
+                          type="submit"
+                          className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500"
+                        >
+                          Submit (demo)
+                          <Send size={16} className="ml-2" />
+                        </Button>
+                        <a href={`mailto:${HQ.email}`}>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="rounded-none border border-stone-300 bg-white font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
+                          >
+                            <Mail size={16} className="mr-2" />
+                            Open mail app
+                          </Button>
+                        </a>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-stone-300 bg-[#f4f1ea] py-14 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+              Other channels
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+              Prefer chat or social?
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm text-stone-600 md:text-base">
+              The site chat widget appears on most pages during business hours.
+              You can also reach us through the links in the footer.
+            </p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              <div className="border border-stone-300 bg-white p-6">
+                <div className="flex h-12 w-12 items-center justify-center border border-stone-300 bg-[#f4f1ea]">
+                  <MessageCircle className="h-6 w-6 text-emerald-700" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-stone-900">
+                  On-site chat
+                </h3>
+                <p className="mt-2 text-sm text-stone-600">
+                  Look for the chat control in the corner while you browse—same
+                  team as phone and email.
+                </p>
+              </div>
+              <div className="border border-stone-300 bg-white p-6">
+                <div className="flex h-12 w-12 items-center justify-center border border-stone-300 bg-[#f4f1ea]">
+                  <Phone className="h-6 w-6 text-emerald-700" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-stone-900">
+                  Urgent question
+                </h3>
+                <p className="mt-2 text-sm text-stone-600">
+                  For time-sensitive units, calling is usually fastest.
+                </p>
+                <a
+                  href={HQ.phoneHref}
+                  className="mt-4 inline-block text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                >
+                  Call now
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Contact Information Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Badge className="bg-emerald-100 text-emerald-700 mb-3">
-                  Our Locations
-                </Badge>
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                  Visit Us at One of Our Dealerships
-                </h2>
-                <p className="text-slate-600 mb-8">
-                  With three convenient locations throughout Cartown, we're
-                  never far away when you need us. Stop by during our business
-                  hours.
-                </p>
-
-                <div className="space-y-8">
-                  {locations.map((location) => (
-                    <Card
-                      key={location.id}
-                      className="overflow-hidden border-slate-200"
-                    >
-                      <CardContent className="p-6">
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">
-                          {location.name}
-                        </h3>
-                        <div className="space-y-3 text-slate-600">
-                          <div className="flex items-start">
-                            <MapPin
-                              size={18}
-                              className="mr-2 text-emerald-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div className="whitespace-pre-line">
-                              {location.address}
-                            </div>
-                          </div>
-
-                          <div className="flex items-center">
-                            <Phone
-                              size={18}
-                              className="mr-2 flex-shrink-0 text-emerald-600"
-                            />
-                            <a
-                              href="tel:+14096558072"
-                              className="font-medium text-slate-900 underline decoration-2 underline-offset-2 hover:text-emerald-700"
-                            >
-                              {location.phone}
-                            </a>
-                          </div>
-
-                          <div className="flex items-center">
-                            <Mail
-                              size={18}
-                              className="mr-2 text-emerald-600 flex-shrink-0"
-                            />
-                            <a
-                              href={`mailto:${location.email}`}
-                              className="break-all font-medium text-slate-900 underline decoration-2 underline-offset-2 hover:text-emerald-700"
-                            >
-                              {location.email}
-                            </a>
-                          </div>
-                      
-                          <div className="flex items-start">
-                            <Clock
-                              size={18}
-                              className="mr-2 text-emerald-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div className="whitespace-pre-line">
-                              {location.hours}
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form Section */}
-        <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-12">
-              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
-                Get in Touch
-              </Badge>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Send Us a Message
-              </h2>
-              <p className="text-slate-600 max-w-3xl mx-auto">
-                Have a question ? Fill out the form below and our team will get
-                back to you as soon as possible.
-              </p>
-            </div>
-
-            <div className="max-w-4xl mx-auto">
-              {formStatus?.submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Alert
-                    className={
-                      formStatus.success
-                        ? "bg-green-50 border-green-200"
-                        : "bg-red-50 border-red-200"
-                    }
-                  >
-                    <div className="flex items-start">
-                      {formStatus.success ? (
-                        <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
-                      )}
-                      <div className="ml-3">
-                        <AlertTitle
-                          className={
-                            formStatus.success
-                              ? "text-green-800"
-                              : "text-red-800"
-                          }
-                        >
-                          {formStatus.success
-                            ? "Message Sent Successfully"
-                            : "Error Sending Message"}
-                        </AlertTitle>
-                        <AlertDescription
-                          className={
-                            formStatus.success
-                              ? "text-green-700"
-                              : "text-red-700"
-                          }
-                        >
-                          {formStatus.message}
-                        </AlertDescription>
-                      </div>
-                    </div>
-                  </Alert>
-                  <div className="mt-8 text-center">
-                    <Button
-                      onClick={() => setFormStatus(null)}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
-                    >
-                      Send Another Message
-                    </Button>
-                  </div>
-                </motion.div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="bg-white rounded-xl shadow-sm border border-slate-200 p-8"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <Label
-                        htmlFor="firstName"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        First Name <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        placeholder="Enter your first name"
-                        required
-                        className="border-slate-300"
-                      />
-                    </div>
-                    <div>
-                      <Label
-                        htmlFor="lastName"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        Last Name <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        placeholder="Enter your last name"
-                        required
-                        className="border-slate-300"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <Label
-                        htmlFor="email"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        Email Address <span className="text-red-500">*</span>
-                      </Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Enter your email address"
-                        required
-                        className="border-slate-300"
-                      />
-                    </div>
-                    <div>
-                      <Label
-                        htmlFor="phone"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        Phone Number
-                      </Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="Enter your phone number"
-                        className="border-slate-300"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <Label
-                        htmlFor="inquiryType"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        Inquiry Type <span className="text-red-500">*</span>
-                      </Label>
-                      <Select
-                        value={formData.inquiryType}
-                        onValueChange={(value) =>
-                          handleSelectChange("inquiryType", value)
-                        }
-                      >
-                        <SelectTrigger className="border-slate-300">
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {inquiryTypes.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label
-                        htmlFor="department"
-                        className="text-slate-700 mb-1.5 block"
-                      >
-                        Department
-                      </Label>
-                      <Select
-                        value={formData.department}
-                        onValueChange={(value) =>
-                          handleSelectChange("department", value)
-                        }
-                      >
-                        <SelectTrigger className="border-slate-300">
-                          <SelectValue placeholder="Select department" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {departments.map((dept) => (
-                            <SelectItem key={dept} value={dept}>
-                              {dept}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <Label
-                      htmlFor="preferredLocation"
-                      className="text-slate-700 mb-1.5 block"
-                    >
-                      Preferred Location
-                    </Label>
-                    <Select
-                      value={formData.preferredLocation}
-                      onValueChange={(value) =>
-                        handleSelectChange("preferredLocation", value)
-                      }
-                    >
-                      <SelectTrigger className="border-slate-300">
-                        <SelectValue placeholder="Select preferred location" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {locations.map((location) => (
-                          <SelectItem key={location.id} value={location.name}>
-                            {location.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="mb-6">
-                    <Label
-                      htmlFor="message"
-                      className="text-slate-700 mb-1.5 block"
-                    >
-                      Message <span className="text-red-500">*</span>
-                    </Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="How can we help you?"
-                      required
-                      className="border-slate-300 min-h-[120px]"
-                    />
-                  </div>
-
-                  <div className="mb-6">
-                    <Label className="text-slate-700 mb-2 block">
-                      Preferred Contact Method
-                    </Label>
-                    <RadioGroup
-                      value={formData.preferredContact}
-                      onValueChange={(value) =>
-                        handleRadioChange("preferredContact", value)
-                      }
-                      className="flex flex-col space-y-2"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="email" id="contact-email" />
-                        <Label htmlFor="contact-email" className="font-normal">
-                          Email
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="phone" id="contact-phone" />
-                        <Label htmlFor="contact-phone" className="font-normal">
-                          Phone
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="either" id="contact-either" />
-                        <Label htmlFor="contact-either" className="font-normal">
-                          Either
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-
-                  <div className="mb-8">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="subscribe"
-                        checked={formData.subscribe}
-                        onCheckedChange={(checked) =>
-                          handleCheckboxChange("subscribe", checked as boolean)
-                        }
-                      />
-                      <Label
-                        htmlFor="subscribe"
-                        className="font-normal text-slate-600"
-                      >
-                        Subscribe to our newsletter for updates on new inventory
-                        and special offers
-                      </Label>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end">
-                    <Button
-                      type="submit"
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white px-8"
-                    >
-                      Send Message
-                      <Send size={16} className="ml-2" />
-                    </Button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Additional Contact Methods */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-12">
-              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
-                More Ways to Connect
-              </Badge>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                We're Always Here to Help
-              </h2>
-              <p className="text-slate-600 max-w-3xl mx-auto">
-                Choose the contact method that works best for you. Our team is
-                ready to assist you with any questions or concerns.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center"
-              >
-                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-8 w-8 text-emerald-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Call Us
-                </h3>
-                <p className="text-slate-600 mb-4">
-                  Speak directly with our team for immediate assistance with
-                  your questions.
-                </p>
-                <Button variant="outline" className="w-full border-slate-300">
-                  Call Now
-                </Button>
-              </motion.div> */}
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center"
-              >
-                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="h-8 w-8 text-emerald-600" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  Live Chat
-                </h3>
-                <p className="text-slate-600 mb-4">
-                  Chat with our sales or service team in real-time during
-                  business hours.
-                </p>
-                <div className="font-medium text-green-600 mb-4">
-                  Available Now
-                </div>
-                <Button variant="outline" className="w-full border-slate-300">
-                  Start Chat
-                </Button>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-12">
-              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
-                Quick Answers
-              </Badge>
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Frequently Asked Contact Questions
-              </h2>
-              <p className="text-slate-600 max-w-3xl mx-auto">
-                Find quick answers to common questions about contacting our
-                team.
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto space-y-4">
-              <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-                <h3 className="text-lg font-medium text-slate-900 mb-2">
+        <section className="border-b border-stone-300 bg-white py-14 md:py-16">
+          <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+              FAQ
+            </p>
+            <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+              Quick answers
+            </h2>
+            <div className="mt-8 space-y-4">
+              <div className="border border-stone-300 bg-[#f4f1ea] p-5">
+                <h3 className="font-bold text-stone-900">
                   What are your business hours?
                 </h3>
-                <p className="text-slate-600">
-                  Our sales departments are open Monday-Friday from 9am-8pm,
-                  Saturday from 9am-6pm, and Sunday from 11am-5pm. Service
-                  center hours vary by location, so please check the specific
-                  location information above.
+                <p className="mt-2 text-sm text-stone-600 md:text-base">
+                  Monday–Friday 8am–6pm, Saturday 9am–4pm. We are closed Sundays.
+                  Times match the footer site-wide.
                 </p>
               </div>
-
-              <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-                <h3 className="text-lg font-medium text-slate-900 mb-2">
-                  How quickly will someone respond to my inquiry?
+              <div className="border border-stone-300 bg-[#f4f1ea] p-5">
+                <h3 className="font-bold text-stone-900">
+                  How fast do you respond?
                 </h3>
-                <p className="text-slate-600">
-                  We strive to respond to all inquiries within 24 business
-                  hours. For urgent matters, we recommend calling us directly
-                  for immediate assistance.
+                <p className="mt-2 text-sm text-stone-600 md:text-base">
+                  We aim for within one business day on email and voicemail. For
+                  same-day help, call during open hours.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="border-b border-stone-300 bg-stone-900 py-14 text-[#f4f1ea] md:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
-                <h2 className="text-3xl font-bold mb-6">
-                  Ready to Find Your Perfect Vehicle?
-                </h2>
-                <p className="text-xl text-emerald-100 mb-8">
-                  Browse our inventory online or visit one of our locations to
-                  see our selection in person.
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-400">
+                  Inventory
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button className="bg-white hover:bg-gray-100 text-emerald-700">
-                    Browse Inventory
-                  </Button>
+                <h2 className="mt-3 text-2xl font-bold md:text-3xl">
+                  Ready to browse repo listings?
+                </h2>
+                <p className="mt-4 text-sm text-stone-300 md:text-base">
+                  Filters, photos, and listing detail are built to save you time
+                  before you call or visit.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/shop">
+                    <Button className="rounded-none border border-stone-400 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
+                      Browse inventory
+                    </Button>
+                  </Link>
+                  <Link href="/about">
+                    <Button
+                      variant="outline"
+                      className="rounded-none border border-stone-500 bg-transparent font-bold text-[#f4f1ea] hover:bg-[#f4f1ea] hover:text-stone-900"
+                    >
+                      About us
+                    </Button>
+                  </Link>
                 </div>
               </div>
-              <div className="relative">
-                <div className="relative rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/images/contact-cta.jpg"
-                    alt="Bank Repossessed Cars location"
-                    width={600}
-                    height={350}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
+              <div className="relative aspect-[16/10] border border-stone-600 bg-stone-800">
+                <Image
+                  src="/photo-1652992253402-15729d9b97fc.avif"
+                  alt="Dealership lot"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </div>
           </div>
