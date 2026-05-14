@@ -1,34 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Script from "next/script";
 
-// Define Outfit with all the weights you might need
-const outfit = Outfit({
+const quicksand = Quicksand({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-outfit",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-quicksand",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Chariot Auto Sales - Buy Cars",
-  description: "The trusted platform for buying quality used vehicles",
+  title: "Bank Repossessed Cars — Save on Repo Inventory",
+  description:
+    "Browse bank- and lender-repossessed vehicles at transparent pricing. Verified listings and a straightforward buying experience.",
   icons: {
     icon: [
-      { url: "/carlogo.jpg", sizes: "any" },
-      { url: "/carlogo.jpg", type: "image/png" },
+      { url: "/bklogo.png", sizes: "any" },
+      { url: "/bklogo.png", type: "image/png" },
     ],
     apple: { url: "/apple-icon.png", type: "image/png" },
   },
@@ -43,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/carlogo.jpg" sizes="any" />
+        <link rel="icon" href="/bklogo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <Script id="smartsupp-head" strategy="beforeInteractive">
           {`
@@ -58,7 +48,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${outfit.variable} font-outfit antialiased`}>
+      <body className={`${quicksand.variable} font-sans antialiased`}>
         <Toaster richColors position="top-center" />
         <noscript>
           Powered by{" "}

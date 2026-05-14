@@ -1,57 +1,28 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
 import Navbar from "@/components/Navbar";
 import {
   ArrowRight,
-  Search,
-  FileText,
-  Handshake,
   Car,
   Shield,
   MapPin,
   Star,
-  DollarSign,
   Clock,
-  Check,
   Phone,
-  ChevronRight,
-  Filter,
-  Calendar,
-  Gauge,
-  Fuel,
-  Settings,
-  Zap,
-  Heart,
-  Share2,
-  ChevronDown,
-  PlayCircle,
-  MessageSquare,
+  Mail,
   Headphones,
-  Award,
-  TrendingUp,
-  Users,
   CreditCard,
-  ArrowUpRight,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import Image from "next/image";
 import FeaturedCars from "@/components/FeaturedCars";
 import Footer from "@/components/Footer";
 
+const HERO_IMAGE = "/photo-1652992253402-15729d9b97fc.avif";
+
 export default function Home() {
-  // Animation states
-  const [isVisible, setIsVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState("all");
-  const [searchType, setSearchType] = useState("buy");
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   // Stats with animations
   const stats = [
     { value: "26,000+", label: "cars sold", icon: <Car size={24} /> },
@@ -63,76 +34,6 @@ export default function Home() {
     { value: "70+", label: "locations worldwide", icon: <MapPin size={24} /> },
   ];
 
-  // Featured vehicles data
-  const featuredVehicles = [
-    {
-      id: 1,
-      title: "2022 Toyota Camry XSE",
-      price: "$28,995",
-      mileage: "12,450",
-      image: "/images/camry.jpg",
-      features: ["Leather Seats", "Sunroof", "Navigation", "Backup Camera"],
-      category: "sedan",
-      year: 2022,
-      fuelType: "Hybrid",
-    },
-    {
-      id: 2,
-      title: "2021 Honda Accord Sport",
-      price: "$26,500",
-      mileage: "18,320",
-      image: "/images/accord.jpg",
-      features: ["Apple CarPlay", "Bluetooth", "Alloy Wheels", "Lane Assist"],
-      category: "sedan",
-      year: 2021,
-      fuelType: "Gasoline",
-    },
-    {
-      id: 3,
-      title: "2023 Ford F-150 XLT",
-      price: "$42,995",
-      mileage: "8,750",
-      image: "/images/f150.jpg",
-      features: ["4x4", "Tow Package", "Crew Cab", "Touchscreen Display"],
-      category: "truck",
-      year: 2023,
-      fuelType: "Diesel",
-    },
-    {
-      id: 4,
-      title: "2022 Tesla Model 3",
-      price: "$39,995",
-      mileage: "10,120",
-      image: "/images/tesla.jpg",
-      features: ["Autopilot", "Glass Roof", "Premium Sound", "Supercharging"],
-      category: "electric",
-      year: 2022,
-      fuelType: "Electric",
-    },
-    {
-      id: 5,
-      title: "2021 Jeep Wrangler Rubicon",
-      price: "$38,750",
-      mileage: "15,680",
-      image: "/images/jeep.jpg",
-      features: ["4x4", "Removable Top", "Off-road Package", "Navigation"],
-      category: "suv",
-      year: 2021,
-      fuelType: "Gasoline",
-    },
-    {
-      id: 6,
-      title: "2023 BMW X5 xDrive40i",
-      price: "$62,500",
-      mileage: "5,230",
-      image: "/images/bmw.jpg",
-      features: ["Leather Interior", "Panoramic Roof", "Premium Audio", "AWD"],
-      category: "luxury",
-      year: 2023,
-      fuelType: "Hybrid",
-    },
-  ];
-
   // Testimonials data
   const testimonials = [
     {
@@ -140,7 +41,7 @@ export default function Home() {
       name: "Michael Johnson",
       role: "Business Owner",
       quote:
-        "Chariot Auto Sales made buying my new truck so easy. Their team was professional and found exactly what I was looking for at a great price.",
+        "Bank Repossessed Cars made buying my new truck straightforward. Their team was professional and I found exactly what I was looking for at a strong price.",
       rating: 5,
       image: "/images/testimonial1.jpg",
     },
@@ -149,7 +50,7 @@ export default function Home() {
       name: "Sarah Williams",
       role: "Teacher",
       quote:
-        "As a first-time car buyer, I was nervous about the process. The staff at Chariot's guided me through everything and I couldn't be happier with my purchase!",
+        "As a first-time car buyer, I was nervous about the process. The staff at Bank Repossessed Cars guided me through everything and I couldn't be happier with my purchase!",
       rating: 5,
       image: "/images/testimonial2.jpg",
     },
@@ -158,458 +59,233 @@ export default function Home() {
       name: "David ",
       role: "Sales Executive",
       quote:
-        "I've purchased three vehicles from Chariot's over the years. Their selection, pricing, and customer service keep me coming back every time.",
+        "I've purchased three vehicles from Bank Repossessed Cars over the years. Their selection, pricing, and customer service keep me coming back every time.",
       rating: 5,
       image: "/images/testimonial3.jpg",
     },
   ];
 
-  // Brands
-  const brands = [
-    "Toyota",
-    "Honda",
-    "Ford",
-    "BMW",
-    "Mercedes",
-    "Audi",
-    "Chevrolet",
-    "Nissan",
-    "Hyundai",
-    "Kia",
-    "Tesla",
-    "Lexus",
-  ];
-
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex min-h-screen flex-col bg-stone-50 text-stone-900 antialiased">
       <Navbar />
 
-      <main>
-        {/* Hero Section - Completely Redesigned */}
-        <section className="relative text-white overflow-hidden min-h-[700px]">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              // src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
-              src="/img.jpg"
-              alt="Luxury car background"
-              fill
-              className="object-cover object-center"
-              priority
-            />
-            {/* Enhanced gradient overlay for better text visibility */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-blue-900/60"></div>
-          </div>
-          <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-20"></div>
-          <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-blue-500/20 to-transparent"></div>
+      <main className="flex-1">
+        <section className="relative min-h-[22rem] overflow-hidden border-b border-stone-800 text-white sm:min-h-[26rem] md:min-h-[30rem]">
+          <Image
+            src={HERO_IMAGE}
+            alt="Metallic red sports car in a dark studio"
+            fill
+            className="object-cover object-left"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/70 to-emerald-950/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-          <div className="container mx-auto px-4 py-16 md:py-24 relative z-10 max-w-7xl">
-            <div className="grid grid-cols-1 gap-8 items-center">
-              <div className="max-w-2xl">
-                <div
-                  className={`transition-all duration-1000 transform ${
-                    isVisible
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-10 opacity-0"
-                  }`}
-                >
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                    Drive Your{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                      Dreams
-                    </span>{" "}
-                    Home Today
-                  </h1>
-                  <p className="text-md md:text-2xl text-slate-300 mb-8 max-w-xl leading-relaxed">
-                    Skip the dealership hassle. Get quality, pre-owned vehicles
-                    with instant approval and same-day pickup / Delivery.
-                  </p>
-
-                  {/* Trust Indicators */}
-                  <div className="flex flex-wrap gap-6 mb-8">
-                    <div className="flex items-center gap-2">
-                      <Shield className="text-yellow-400" size={20} />
-                      <span className="text-sm font-medium text-white">
-                        100% Verified Vehicles
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="text-yellow-400" size={20} />
-                      <span className="text-sm font-medium text-white">
-                        Same Day Delivery
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <Link href="/shop">
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all flex items-center group min-w-[200px]">
-                        Browse Cars Now
-                        <ArrowRight
-                          size={20}
-                          className="ml-2 group-hover:translate-x-1 transition-transform"
-                        />
-                      </Button>
-                    </Link>
-                  </div>
-
-                  {/* Social Proof */}
-                  <div className="mt-8 pt-6 border-t border-white/20">
-                    <p className="text-sm opacity-80">
-                      <span className="font-semibold text-yellow-400">
-                        500+
-                      </span>{" "}
-                      happy customers •
-                      <span className="font-semibold text-yellow-400">
-                        {" "}
-                        4.9/5
-                      </span>{" "}
-                      rating •
-                      <span className="font-semibold text-yellow-400">
-                        {" "}
-                        24/7
-                      </span>{" "}
-                      support
-                    </p>
-                  </div>
-                </div>
+          <div className="relative mx-auto flex max-w-7xl flex-col justify-end px-5 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+            <div className="max-w-xl">
+              <h1 className="text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl">
+                Bank repossessed{" "}
+                <span className="text-emerald-400">cars</span>
+              </h1>
+              <p className="mt-4 text-base text-stone-200 sm:text-lg">
+                Browse inventory online, then get in touch when you find the
+                right vehicle.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/shop">
+                  <Button className="h-11 w-full rounded-md bg-emerald-500 px-6 font-semibold text-stone-950 hover:bg-emerald-400 sm:w-auto">
+                    Browse inventory
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    variant="outline"
+                    className="h-11 w-full rounded-md border-white/50 bg-black/20 px-6 font-semibold text-white backdrop-blur-sm hover:bg-white/10 sm:w-auto"
+                  >
+                    Contact
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
-
-          {/* Curved bottom */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1440 120"
-              className="fill-[#f8fafc]"
-            >
-              <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
-            </svg>
-          </div>
         </section>
-
-        {/* Brand Logos Section */}
-        {/* <section className="py-12 bg-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-8">
-              <h2 className="text-lg font-medium text-slate-600">
-                Trusted by top automotive brands worldwide
-              </h2>
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-              {brands.map((brand, index) => (
-                <div
-                  key={index}
-                  className="grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
-                >
-                  <span className="text-xl font-bold text-slate-500">
-                    {brand}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section> */}
 
         <FeaturedCars />
 
-        {/* How It Works - Modern Approach */}
-        <section className="py-20 bg-slate-50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-100 rounded-full opacity-70"></div>
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-16 max-w-3xl mx-auto">
-              <Badge className="bg-blue-100 text-blue-700 mb-3">
-                Simplified Process
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                How Chariot Auto Sales Works
+        <section className="border-t border-stone-300 bg-amber-50/40 py-16 md:py-24">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-12 lg:px-8 lg:gap-16">
+            <div className="lg:col-span-4">
+              <p className="text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                Process
+              </p>
+              <h2 className="mt-3 text-2xl font-bold leading-tight text-stone-900 md:text-3xl">
+                From search to keys—three straight steps.
               </h2>
-              <p className="text-lg text-slate-600">
-                We've streamlined the car buying process to make it easy,
-                transparent, and enjoyable.
+              <p className="mt-4 text-sm leading-relaxed text-stone-600 md:text-base">
+                Browse online, compare vehicles, and complete your purchase with
+                clear paperwork—no dealership games.
               </p>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-              <div className="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 bg-blue-200 -z-10 transform -translate-y-1/2"></div>
-
-              <div className="bg-white rounded-xl p-6 shadow-md relative">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold absolute -top-6 left-6">
-                  1
-                </div>
-                <div className="pt-6">
-                  <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
-                    <Search size={28} className="text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
-                    Browse Our Inventory
-                  </h3>
-                  <p className="text-slate-600">
-                    Search our extensive inventory with advanced filters to find
-                    your perfect vehicle match based on your preferences.
-                  </p>
-                  <Link
-                    href="/shop"
-                    className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Start browsing
-                    <ArrowRight size={16} className="ml-1" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-md relative md:mt-12">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold absolute -top-6 left-6">
-                  2
-                </div>
-                <div className="pt-6">
-                  <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
-                    <Check size={28} className="text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
-                    Find you vehicle
-                  </h3>
-                  <p className="text-slate-600">
-                    Compare and select the vehicle that best suits your needs
-                    and preferences.
-                  </p>
-                  <Link
-                    href="/test-drive"
-                    className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    check varities
-                    <ArrowRight size={16} className="ml-1" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl p-6 shadow-md relative md:mt-24">
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl font-bold absolute -top-6 left-6">
-                  3
-                </div>
-                <div className="pt-6">
-                  <div className="w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
-                    <Handshake size={28} className="text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
-                    Complete Your Purchase
-                  </h3>
-                  <p className="text-slate-600">
-                    Finalize your purchase with flexible financing options and
-                    drive away in your new vehicle.
-                  </p>
-                  <Link
-                    href="/financing"
-                    className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Financing options
-                    <ArrowRight size={16} className="ml-1" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats and Benefits - Visual Approach */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Badge className="bg-blue-100 text-blue-700 mb-3">
-                  Why Choose Us
-                </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                  The Chariot Auto Sales Advantage
-                </h2>
-                <p className="text-lg text-slate-600 mb-8">
-                  We're revolutionizing the car buying experience with
-                  transparency, quality, and customer satisfaction at the core
-                  of everything we do.
-                </p>
-
-                <div className="space-y-6">
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      <Shield size={24} className="text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">
-                        Quality Assurance
-                      </h3>
-                      <p className="text-slate-600">
-                        Every vehicle undergoes a comprehensive 200+ point
-                        inspection before sale.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      <CreditCard size={24} className="text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">
-                        Transparent Pricing
-                      </h3>
-                      <p className="text-slate-600">
-                        Fair market pricing with no hidden fees or surprise
-                        charges.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      <Headphones size={24} className="text-blue-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2">
-                        Dedicated Support
-                      </h3>
-                      <p className="text-slate-600">
-                        Our team of experts is available to assist you every
-                        step of the way.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8">
-                  <Link href="/about">
-                    <Button className="bg-slate-900 hover:bg-slate-800 text-white">
-                      Learn More About Us
-                      <ArrowRight size={16} className="ml-2" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`bg-gradient-to-br ${
-                      index === 0
-                        ? "from-blue-50 to-blue-100 col-span-2"
-                        : index === 1
-                        ? "from-slate-50 to-slate-100"
-                        : "from-cyan-50 to-cyan-100"
-                    } p-6 rounded-xl border ${
-                      index === 0
-                        ? "border-blue-200"
-                        : index === 1
-                        ? "border-slate-200"
-                        : "border-cyan-200"
-                    }`}
-                  >
-                    <div
-                      className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 ${
-                        index === 0
-                          ? "bg-blue-600 text-white"
-                          : index === 1
-                          ? "bg-slate-700 text-white"
-                          : "bg-cyan-600 text-white"
-                      }`}
-                    >
-                      {stat.icon}
-                    </div>
-                    <div className="text-3xl font-bold text-slate-900 mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-slate-600 text-lg capitalize">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials - Modern Card Design */}
-        <section className="py-20 bg-gradient-to-br from-slate-50 to-white relative">
-          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent"></div>
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="text-center mb-16">
-              <Badge className="bg-blue-100 text-blue-700 mb-3">
-                Customer Stories
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                What Our Customers Say
-              </h2>
-              <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-                Real experiences from real customers who found their perfect
-                vehicle with us
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className={`bg-white rounded-xl p-6 shadow-md border border-slate-100 relative ${
-                    index === 1 ? "md:-mt-8" : index === 2 ? "md:-mt-4" : ""
-                  }`}
+            <ol className="space-y-0 border-l border-stone-300 lg:col-span-8">
+              {[
+                {
+                  n: "01",
+                  title: "Browse inventory",
+                  body: "Use filters to narrow by make, price, and location until the shortlist feels right.",
+                  href: "/shop",
+                  link: "Start browsing",
+                },
+                {
+                  n: "02",
+                  title: "Compare & choose",
+                  body: "Stack vehicles side by side and pick the one that fits your budget and lifestyle.",
+                  href: "/compare",
+                  link: "Open compare",
+                },
+                {
+                  n: "03",
+                  title: "Close the deal",
+                  body: "Financing or cash—finalize with transparent fees and support through pickup or delivery.",
+                  href: "/contact",
+                  link: "Get in touch",
+                },
+              ].map((step) => (
+                <li
+                  key={step.n}
+                  className="relative border-b border-stone-300/80 py-8 pl-8 last:border-b-0 md:pl-12"
                 >
-                  <div className="absolute -top-3 -right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                    <MessageSquare size={16} />
-                  </div>
+                  <span className="absolute -left-[9px] top-9 flex h-4 w-4 items-center justify-center rounded-full border border-stone-300 bg-amber-50 md:top-10" />
+                  <span className="font-mono text-sm text-stone-500">
+                    {step.n}
+                  </span>
+                  <h3 className="mt-1 text-xl font-bold text-stone-900">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-stone-600">{step.body}</p>
+                  <Link
+                    href={step.href}
+                    className="mt-4 inline-flex items-center text-sm font-bold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                  >
+                    {step.link}
+                    <ArrowRight size={14} className="ml-1" />
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
 
-                  <div className="flex items-center mb-6">
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-lg">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-slate-500 text-sm">
-                        {testimonial.role}
-                      </p>
-                      <div className="flex items-center mt-1">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={14}
-                            className="text-yellow-400 fill-current"
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+        <section className="border-t border-stone-800 bg-stone-900 py-16 text-stone-100 md:py-24">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-xl">
+                <p className="text-xs font-bold uppercase tracking-[0.35em] text-emerald-400/90">
+                  Why us
+                </p>
+                <h2 className="mt-3 text-2xl font-bold md:text-4xl">
+                  Built for repo buyers
+                </h2>
+                <p className="mt-4 text-stone-400">
+                  We focus on clarity and condition—so you always know what you are
+                  getting before you commit.
+                </p>
+              </div>
+              <Link href="/about">
+                <span className="inline-flex items-center text-sm font-bold text-emerald-400 hover:text-emerald-300">
+                  About our company
+                  <ArrowRight size={16} className="ml-2" />
+                </span>
+              </Link>
+            </div>
 
-                  <div className="relative">
-                    <svg
-                      className="absolute -top-4 -left-2 text-blue-100 w-8 h-8 transform -scale-x-100"
-                      fill="currentColor"
-                      viewBox="0 0 32 32"
-                    >
-                      <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H6c0-2.2 1.8-4 4-4V8zm18 0c-3.3 0-6 2.7-6 6v10h10V14h-8c0-2.2 1.8-4 4-4V8z"></path>
-                    </svg>
-                    <p className="text-slate-700 mb-6 pl-6">
-                      "{testimonial.quote}"
-                    </p>
-                  </div>
-
-                  <div className="flex justify-end">
-                    <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-100">
-                      Verified Purchase
-                    </Badge>
-                  </div>
+            <div className="mt-12 grid gap-10 border-t border-stone-700 pt-12 md:grid-cols-3">
+              {[
+                {
+                  icon: <Shield size={22} />,
+                  title: "Quality checks",
+                  text: "Every vehicle is reviewed with a thorough inspection checklist before it is listed.",
+                },
+                {
+                  icon: <CreditCard size={22} />,
+                  title: "Straightforward pricing",
+                  text: "Published prices and fees—no surprise add-ons at the last step.",
+                },
+                {
+                  icon: <Headphones size={22} />,
+                  title: "Real people, real answers",
+                  text: "Our team helps with paperwork, transport options, and lender questions.",
+                },
+              ].map((item) => (
+                <div key={item.title} className="max-w-sm">
+                  <div className="text-emerald-400">{item.icon}</div>
+                  <h3 className="mt-4 text-lg font-bold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-400">
+                    {item.text}
+                  </p>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-12">
+            <div className="mt-14 grid grid-cols-1 divide-y divide-stone-700 border border-stone-700 md:grid-cols-3 md:divide-x md:divide-y-0">
+              {stats.map((stat, index) => (
+                <div key={index} className="px-6 py-8 text-center md:py-10">
+                  <p className="font-mono text-3xl font-bold text-emerald-400 md:text-4xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-stone-500">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-stone-200 bg-white py-16 md:py-24">
+          <div className="mx-auto max-w-3xl px-5 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.35em] text-stone-400">
+                Reviews
+              </p>
+              <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+                What buyers say
+              </h2>
+              <p className="mt-3 text-stone-600">
+                Real experiences from people who purchased through our listings.
+              </p>
+            </div>
+
+            <div className="mt-12 space-y-10">
+              {testimonials.map((testimonial) => (
+                <blockquote
+                  key={testimonial.id}
+                  className="border-l-4 border-emerald-500 pl-6 md:pl-8"
+                >
+                  <p className="text-lg italic leading-relaxed text-stone-800 md:text-xl">
+                    &ldquo;{testimonial.quote}&rdquo;
+                  </p>
+                  <footer className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-500">
+                    <cite className="not-italic font-semibold text-stone-900">
+                      {testimonial.name}
+                    </cite>
+                    <span aria-hidden>·</span>
+                    <span>{testimonial.role}</span>
+                    <span className="ml-auto text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                      Verified purchase
+                    </span>
+                  </footer>
+                </blockquote>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
               <Link href="/testimonials">
                 <Button
                   variant="outline"
-                  className="border-slate-300 hover:border-slate-400 text-slate-800"
+                  className="rounded-none border border-stone-300 px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-white"
                 >
-                  Read More Customer Stories
+                  More stories
                   <ArrowRight size={16} className="ml-2" />
                 </Button>
               </Link>
@@ -617,143 +293,139 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section - Modern Design */}
-        <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-500/10 to-transparent"></div>
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-          <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-400 rounded-full opacity-10 blur-3xl"></div>
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="border-t border-stone-300 bg-[#f4f1ea] py-14 text-stone-900 md:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-12 border-b border-stone-300 pb-12 lg:grid-cols-2 lg:gap-16 lg:pb-14">
               <div>
-                <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-4">
-                  Ready to Get Started?
-                </Badge>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Find Your Dream Car Today
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Get started
+                </p>
+                <h2 className="mt-3 text-3xl font-bold leading-tight md:text-4xl">
+                  Shop repo inventory with confidence
                 </h2>
-                <p className="text-xl text-slate-300 mb-8 max-w-lg">
-                  Visit our showroom or browse our inventory online to discover
-                  the perfect vehicle for your lifestyle and budget.
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-stone-600 md:text-base">
+                  Visit us or browse online—we will help you find the right
+                  vehicle for your budget and timeline.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <Link href="/shop">
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-medium rounded-lg">
-                      Browse Inventory
+                    <Button className="h-12 rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
+                      Browse vehicles
+                      <ArrowRight size={18} className="ml-2" />
                     </Button>
                   </Link>
                   <Link href="/contact">
                     <Button
                       variant="outline"
-                      className="bg-transparent border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg font-medium rounded-lg"
+                      className="h-12 rounded-none border border-stone-300 bg-transparent px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
                     >
                       <Phone size={18} className="mr-2" />
-                      Contact Us
+                      Contact us
                     </Button>
                   </Link>
                 </div>
 
-                <div className="mt-8 flex items-center gap-6">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div
-                        key={i}
-                        className="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-300 overflow-hidden"
-                      >
-                        <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600"></div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-slate-300">
-                    <span className="font-bold text-white">2,500+</span> happy
-                    customers this year
-                  </div>
-                </div>
+                <p className="mt-10 max-w-md border-l-4 border-emerald-600 pl-4 text-sm text-stone-600">
+                  <span className="font-mono font-bold text-stone-900">
+                    2,500+
+                  </span>{" "}
+                  buyers helped this year
+                </p>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-                        <MapPin size={20} className="text-white" />
-                      </div>
-                      <h3 className="font-bold">Visit Us</h3>
-                    </div>
-                    <p className="text-slate-300 text-sm">
-                      123 Auto Drive, Cartown, CT 12345
-                    </p>
-                    <Link
-                      href="/contact"
-                      className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
-                    >
-                      Get directions
-                      <ArrowUpRight size={14} className="ml-1" />
-                    </Link>
+              <div className="grid gap-px border border-stone-300 bg-stone-300 sm:grid-cols-2">
+                <div className="bg-[#f4f1ea] p-5 sm:p-6">
+                  <div className="flex items-center gap-3 border-b border-stone-300 pb-3">
+                    <MapPin size={20} className="shrink-0 text-emerald-700" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                      Visit us
+                    </h3>
                   </div>
-
-                  <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-                        <Clock size={20} className="text-white" />
-                      </div>
-                      <h3 className="font-bold">Hours</h3>
-                    </div>
-                    <p className="text-slate-300 text-sm">
-                      Mon-Sat: 9am-7pm
-                      <br />
-                      Sunday: 11am-5pm
-                    </p>
-                    <Link
-                      href="/contact"
-                      className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
-                    >
-                      Full schedule
-                      <ArrowUpRight size={14} className="ml-1" />
-                    </Link>
-                  </div>
-
-
-                  <div className="p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-                    <div className="flex items-center mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center mr-3">
-                        <MessageSquare size={20} className="text-white" />
-                      </div>
-                      <h3 className="font-bold">Email</h3>
-                    </div>
-                    <p className="text-slate-300 text-sm">
-                      chariotautosales321@gmail.com
-                      <br />
-                      chariotautosales321@gmail.com
-                    </p>
-                    <a
-                      href="mailto:chariotautosales321@gmail.com"
-                      className="mt-2 inline-flex items-center text-blue-400 hover:text-blue-300 text-sm"
-                    >
-                      Send email
-                      <ArrowUpRight size={14} className="ml-1" />
-                    </a>
-                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                    562 State St, Clearfield, UT 84015, United States
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    Directions
+                    <ArrowRight size={14} className="ml-1" />
+                  </Link>
                 </div>
 
-                <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-600/20 to-blue-800/20 border border-blue-500/20">
-                  <div className="flex items-center">
-                    <div className="w-12 h-12 rounded-full bg-blue-600/30 flex items-center justify-center mr-4">
-                      <Zap size={24} className="text-blue-300" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg">
-                        Quick Response Guarantee
-                      </h3>
-                      <p className="text-slate-300 text-sm">
-                        We respond to all inquiries within 2 hours during
-                        business hours
-                      </p>
-                    </div>
+                <div className="bg-[#f4f1ea] p-5 sm:p-6">
+                  <div className="flex items-center gap-3 border-b border-stone-300 pb-3">
+                    <Clock size={20} className="shrink-0 text-emerald-700" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                      Hours
+                    </h3>
                   </div>
+                  <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                    Mon–Fri: 8am–6pm
+                    <br />
+                    Sat: 9am–4pm
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    Full schedule
+                    <ArrowRight size={14} className="ml-1" />
+                  </Link>
                 </div>
+
+                <div className="bg-[#f4f1ea] p-5 sm:p-6">
+                  <div className="flex items-center gap-3 border-b border-stone-300 pb-3">
+                    <Phone size={20} className="shrink-0 text-emerald-700" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                      Call us
+                    </h3>
+                  </div>
+                  <p className="mt-3 font-mono text-sm text-stone-800">
+                    +1 (409) 655-8072
+                  </p>
+                  <a
+                    href="tel:+14096558072"
+                    className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    Call now
+                    <ArrowRight size={14} className="ml-1" />
+                  </a>
+                </div>
+
+                <div className="bg-[#f4f1ea] p-5 sm:p-6">
+                  <div className="flex items-center gap-3 border-b border-stone-300 pb-3">
+                    <Mail size={20} className="shrink-0 text-emerald-700" />
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                      Email
+                    </h3>
+                  </div>
+                  <p className="mt-3 break-all font-mono text-sm text-stone-800">
+                    bankrepossessedcars@gmail.com
+                  </p>
+                  <a
+                    href="mailto:bankrepossessedcars@gmail.com"
+                    className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    Send email
+                    <ArrowRight size={14} className="ml-1" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 border border-dashed border-stone-300 bg-white/70 px-5 py-5 md:flex-row md:items-start md:gap-5">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-stone-300 bg-emerald-500 text-stone-950">
+                <Zap size={22} />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-stone-900">
+                  Quick replies
+                </h3>
+                <p className="mt-1 text-sm text-stone-600">
+                  We aim to respond within two hours during business hours.
+                </p>
               </div>
             </div>
           </div>

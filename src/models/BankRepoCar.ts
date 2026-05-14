@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
-const SCarSchema = new mongoose.Schema(
+/** MongoDB collection name for bank-repossessed inventory */
+export const BANK_REPO_CARS_COLLECTION = "bank_repossessed_cars";
+
+const BankRepoCarSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -18,10 +21,15 @@ const SCarSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    /** Lending institution or remarketing partner when known */
+    lenderName: {
+      type: String,
+      trim: true,
+    },
     condition: {
       type: String,
-      enum: ["New", "Used", "Certified Pre-Owned"],
-      default: "Used",
+      enum: ["New", "Used", "Certified Pre-Owned", "Repossessed"],
+      default: "Repossessed",
     },
     transmission: {
       type: String,
@@ -63,7 +71,14 @@ const SCarSchema = new mongoose.Schema(
     },
     fuelType: {
       type: String,
-      enum: ["Petrol", "Diesel", "Electric", "Hybrid", "Plug-in Hybrid","Gasoline"],
+      enum: [
+        "Petrol",
+        "Diesel",
+        "Electric",
+        "Hybrid",
+        "Plug-in Hybrid",
+        "Gasoline",
+      ],
       default: "Petrol",
     },
     mileage: {
@@ -97,4 +112,5 @@ const SCarSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.models.SCar || mongoose.model("SCar", SCarSchema);
+export default mongoose.models.BankRepoCar ||
+  mongoose.model("BankRepoCar", BankRepoCarSchema, BANK_REPO_CARS_COLLECTION);

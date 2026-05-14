@@ -2,29 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Star,
   Search,
   Filter,
-  ChevronDown,
-  ChevronUp,
   MessageSquare,
   User,
-  Calendar,
   Car,
   ThumbsUp,
   Share2,
   Flag,
   CheckCircle2,
   AlertCircle,
-  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -34,9 +30,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Dialog,
@@ -45,7 +39,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -165,41 +158,41 @@ const generateInitialTestimonials = () => {
   ];
 
   const testimonialContents = [
-    "I couldn't be happier with my experience at Chariot Auto Sales. The staff was friendly, knowledgeable, and made the car buying process so smooth. I'll definitely be recommending them to friends and family!",
-    "After visiting several dealerships, I found Chariot's to be the most transparent and pressure-free. They took the time to understand my needs and helped me find the perfect vehicle within my budget.",
-    "The service department at Chariot's is exceptional. My car was fixed right the first time, and they even provided a courtesy vehicle while mine was in the shop. Top-notch customer service!",
-    "Financing was a breeze at Chariot Auto Sales. Lisa in the finance department worked miracles to get me approved with a great rate despite my less-than-perfect credit history.",
-    "I was nervous about buying my first car, but the team at Chariot's made it stress-free. They explained everything clearly and never made me feel pressured or rushed.",
-    "The selection at Chariot's is impressive. They had exactly what I was looking for, and the vehicle was in pristine condition. The 200-point inspection they do really shows in the quality.",
+    "I couldn't be happier with my experience at Bank Repossessed Cars. The staff was friendly, knowledgeable, and made the car buying process so smooth. I'll definitely be recommending them to friends and family!",
+    "After visiting several dealerships, I found Bank Repossessed Cars to be the most transparent and pressure-free. They took the time to understand my needs and helped me find the perfect vehicle within my budget.",
+    "The service department at Bank Repossessed Cars is exceptional. My car was fixed right the first time, and they even provided a courtesy vehicle while mine was in the shop. Top-notch customer service!",
+    "Financing was a breeze at Bank Repossessed Cars. Lisa in the finance department worked miracles to get me approved with a great rate despite my less-than-perfect credit history.",
+    "I was nervous about buying my first car, but the team at Bank Repossessed Cars made it stress-free. They explained everything clearly and never made me feel pressured or rushed.",
+    "The selection at Bank Repossessed Cars is impressive. They had exactly what I was looking for, and the vehicle was in pristine condition. The 200-point inspection they do really shows in the quality.",
     "Trading in my old vehicle was quick and painless. They gave me a fair offer and handled all the paperwork efficiently. I was driving my new car home the same day!",
-    "I've been a customer of Chariot's for over 10 years now, and I wouldn't go anywhere else. They remember me by name and always provide exceptional service.",
-    "The follow-up service after my purchase was impressive. Chariot's called to check how I was enjoying my new vehicle and reminded me about my first service appointment. That's customer care!",
-    "I appreciate how Chariot Auto Sales embraces technology. Their online inventory was accurate, and I could do most of the paperwork digitally before arriving at the dealership.",
-    "The entire staff at Chariot's is knowledgeable about their inventory. When I had specific questions about the hybrid system in my new car, they had answers ready.",
-    "I had a unique situation with my financing needs, and Chariot's went above and beyond to find a solution that worked for me. I couldn't be more grateful.",
-    "The no-haggle pricing at Chariot Auto Sales was refreshing. The price was fair from the start, which made the whole experience more pleasant.",
-    "I was impressed by how clean and well-maintained all the vehicles at Chariot's were. It shows they take pride in their inventory and respect their customers.",
-    "Chariot Auto Sales made buying a car with my family enjoyable. They had a comfortable waiting area for my children and were patient as we made our decision.",
-    "The warranty coverage offered at Chariot's gave me peace of mind with my purchase. They clearly explained all the details and made sure I understood what was covered.",
-    "I've had my vehicle serviced at Chariot's for years, and they always provide honest assessments and fair pricing. I trust them completely with my car.",
-    "When my car unexpectedly broke down, Chariot's service department got me in right away and had me back on the road quickly. Their emergency service is outstanding.",
-    "I purchased a certified pre-owned vehicle from Chariot's , and it has been as reliable as a new car. Their certification process is clearly thorough.",
-    "The sales consultant at Chariot's listened to my needs instead of trying to upsell me. I ended up with exactly the right vehicle for my lifestyle.",
-    "Chariot Auto Sales has the best selection of electric vehicles in the area. Their staff is knowledgeable about EV technology and charging options.",
-    "I appreciated that Chariot Auto Sales offers a 3-day return policy. It gave me confidence in my purchase knowing I could bring it back if I wasn't completely satisfied.",
-    "The detailing service at Chariot's is exceptional. My car looks better than when I first bought it! They pay attention to every detail.",
-    "Chariot Auto Sales made the paperwork process painless. Everything was prepared in advance, and they explained each document clearly.",
-    "I was impressed by the thorough test drive experience at Chariot's . They encouraged me to take different routes to really get a feel for the vehicle.",
-    "When I needed parts for my older model vehicle, Chariot's parts department went the extra mile to locate exactly what I needed. Great service!",
-    "The courtesy shuttle service at Chariot's saved me so much time when my car was in for service. The driver was prompt and friendly too.",
-    "I've purchased three vehicles from Chariot's over the years, and each experience has been consistently excellent. They've earned a customer for life.",
-    "The staff at Chariot Auto Sales remembers their customers. When I came in for service, they recalled details about my purchase from years ago.",
-    "Chariot Auto Sales has fair prices on their vehicles, but what really sets them apart is the exceptional customer service after the sale.",
-    "I appreciate how Chariot's embraces new technology but still provides that personal touch that makes car buying a positive experience.",
-    "The team at Chariot's helped me find the perfect family vehicle that met all our needs and still fit our budget. We couldn't be happier!",
-    "Chariot Auto Sales has a great selection of pre-owned luxury vehicles that look and drive like new. I got a premium car at a great price.",
-    "When my vehicle needed an unexpected repair, Chariot's service department explained the issue clearly and provided options that fit my budget.",
-    "I was dreading buying a new car until I visited Chariot's . They made it enjoyable and stress-free from start to finish.",
+    "I've been a customer of Bank Repossessed Cars for over 10 years now, and I wouldn't go anywhere else. They remember me by name and always provide exceptional service.",
+    "The follow-up service after my purchase was impressive. Bank Repossessed Cars called to check how I was enjoying my new vehicle and reminded me about my first service appointment. That's customer care!",
+    "I appreciate how Bank Repossessed Cars embraces technology. Their online inventory was accurate, and I could do most of the paperwork digitally before arriving at the dealership.",
+    "The entire staff at Bank Repossessed Cars is knowledgeable about their inventory. When I had specific questions about the hybrid system in my new car, they had answers ready.",
+    "I had a unique situation with my financing needs, and Bank Repossessed Cars went above and beyond to find a solution that worked for me. I couldn't be more grateful.",
+    "The no-haggle pricing at Bank Repossessed Cars was refreshing. The price was fair from the start, which made the whole experience more pleasant.",
+    "I was impressed by how clean and well-maintained all the vehicles at Bank Repossessed Cars were. It shows they take pride in their inventory and respect their customers.",
+    "Bank Repossessed Cars made buying a car with my family enjoyable. They had a comfortable waiting area for my children and were patient as we made our decision.",
+    "The warranty coverage offered at Bank Repossessed Cars gave me peace of mind with my purchase. They clearly explained all the details and made sure I understood what was covered.",
+    "I've had my vehicle serviced at Bank Repossessed Cars for years, and they always provide honest assessments and fair pricing. I trust them completely with my car.",
+    "When my car unexpectedly broke down, Bank Repossessed Cars service department got me in right away and had me back on the road quickly. Their emergency service is outstanding.",
+    "I purchased a certified pre-owned vehicle from Bank Repossessed Cars , and it has been as reliable as a new car. Their certification process is clearly thorough.",
+    "The sales consultant at Bank Repossessed Cars listened to my needs instead of trying to upsell me. I ended up with exactly the right vehicle for my lifestyle.",
+    "Bank Repossessed Cars has the best selection of electric vehicles in the area. Their staff is knowledgeable about EV technology and charging options.",
+    "I appreciated that Bank Repossessed Cars offers a 3-day return policy. It gave me confidence in my purchase knowing I could bring it back if I wasn't completely satisfied.",
+    "The detailing service at Bank Repossessed Cars is exceptional. My car looks better than when I first bought it! They pay attention to every detail.",
+    "Bank Repossessed Cars made the paperwork process painless. Everything was prepared in advance, and they explained each document clearly.",
+    "I was impressed by the thorough test drive experience at Bank Repossessed Cars . They encouraged me to take different routes to really get a feel for the vehicle.",
+    "When I needed parts for my older model vehicle, Bank Repossessed Cars parts department went the extra mile to locate exactly what I needed. Great service!",
+    "The courtesy shuttle service at Bank Repossessed Cars saved me so much time when my car was in for service. The driver was prompt and friendly too.",
+    "I've purchased three vehicles from Bank Repossessed Cars over the years, and each experience has been consistently excellent. They've earned a customer for life.",
+    "The staff at Bank Repossessed Cars remembers their customers. When I came in for service, they recalled details about my purchase from years ago.",
+    "Bank Repossessed Cars has fair prices on their vehicles, but what really sets them apart is the exceptional customer service after the sale.",
+    "I appreciate how Bank Repossessed Cars embraces new technology but still provides that personal touch that makes car buying a positive experience.",
+    "The team at Bank Repossessed Cars helped me find the perfect family vehicle that met all our needs and still fit our budget. We couldn't be happier!",
+    "Bank Repossessed Cars has a great selection of pre-owned luxury vehicles that look and drive like new. I got a premium car at a great price.",
+    "When my vehicle needed an unexpected repair, Bank Repossessed Cars service department explained the issue clearly and provided options that fit my budget.",
+    "I was dreading buying a new car until I visited Bank Repossessed Cars . They made it enjoyable and stress-free from start to finish.",
   ];
 
   return Array.from({ length: 35 }, (_, i) => {
@@ -239,7 +232,7 @@ const generateInitialTestimonials = () => {
       response:
         Math.random() > 0.7
           ? {
-              author: "chariot ",
+              author: "Bank Repossessed Cars ",
               role: "Owner",
               date: new Date(
                 new Date(date).getTime() + 2 * 24 * 60 * 60 * 1000
@@ -311,14 +304,14 @@ export default function TestimonialsPage() {
 
   // Load testimonials from localStorage or initialize with default data
   useEffect(() => {
-    const storedTestimonials = localStorage.getItem("chariots-testimonials");
+    const storedTestimonials = localStorage.getItem("bank-repo-testimonials");
     if (storedTestimonials) {
       setTestimonials(JSON.parse(storedTestimonials));
     } else {
       const initialTestimonials = generateInitialTestimonials();
       setTestimonials(initialTestimonials);
       localStorage.setItem(
-        "chariots-testimonials",
+        "bank-repo-testimonials",
         JSON.stringify(initialTestimonials)
       );
     }
@@ -455,7 +448,7 @@ export default function TestimonialsPage() {
 
     // Save to localStorage
     localStorage.setItem(
-      "chariots-testimonials",
+      "bank-repo-testimonials",
       JSON.stringify(updatedTestimonials)
     );
 
@@ -498,7 +491,7 @@ export default function TestimonialsPage() {
 
     setTestimonials(updatedTestimonials);
     localStorage.setItem(
-      "chariots-testimonials",
+      "bank-repo-testimonials",
       JSON.stringify(updatedTestimonials)
     );
   };
@@ -520,127 +513,146 @@ export default function TestimonialsPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col bg-[#f4f1ea] text-stone-900 antialiased">
       <Navbar />
 
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-500/10 to-transparent"></div>
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-400 rounded-full opacity-10 blur-3xl"></div>
-          </div>
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="max-w-3xl">
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-4">
-                Customer Testimonials
-              </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Hear From Our Satisfied Customers
-              </h1>
-              <p className="text-xl text-slate-300 mb-8">
-                Discover why our customers love Chariot Auto Sales. Read their
-                stories and experiences with our vehicles, service, and team.
-              </p>
-              <div className="flex flex-wrap gap-4">
+        <section className="border-b border-stone-300 py-12 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="md:col-span-8">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Reviews
+                </p>
+                <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                  What buyers say about Bank Repossessed Cars
+                </h1>
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 md:text-base">
+                  Real experiences from sales, financing, and service—filter by
+                  rating, vehicle type, or verified purchases.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row md:col-span-4 md:justify-end">
                 <Button
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  type="button"
+                  className="h-12 rounded-none border border-stone-300 bg-emerald-600 px-6 font-bold text-white hover:bg-emerald-500"
                   onClick={() => setShowAddForm(true)}
                 >
-                  Share Your Experience
+                  Share your experience
                   <MessageSquare size={16} className="ml-2" />
                 </Button>
-                <Button
-                  variant="outline"
-                  className="bg-transparent border-white/30 text-white hover:bg-white/10"
-                >
-                  View Our Inventory
-                  <Car size={16} className="ml-2" />
-                </Button>
+                <Link href="/shop">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="h-12 w-full rounded-none border border-stone-300 bg-transparent px-6 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea] sm:w-auto"
+                  >
+                    View inventory
+                    <Car size={16} className="ml-2" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="bg-white py-12 border-b border-slate-200">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
+        <section className="border-b border-stone-300 bg-white py-10">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 gap-px border border-stone-300 bg-stone-300 md:grid-cols-4">
+              <div className="bg-[#f4f1ea] px-4 py-6 text-center md:px-6">
+                <div className="font-mono text-2xl font-bold text-stone-900 md:text-3xl">
                   {testimonials.length}+
                 </div>
-                <div className="text-slate-600">Happy Customers</div>
+                <div className="mt-1 text-xs font-bold uppercase tracking-wider text-stone-600">
+                  Stories shared
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">4.8</div>
-                <div className="text-slate-600">Average Rating</div>
+              <div className="bg-[#f4f1ea] px-4 py-6 text-center md:px-6">
+                <div className="font-mono text-2xl font-bold text-stone-900 md:text-3xl">
+                  4.8
+                </div>
+                <div className="mt-1 text-xs font-bold uppercase tracking-wider text-stone-600">
+                  Avg. rating
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">92%</div>
-                <div className="text-slate-600">Verified Reviews</div>
+              <div className="bg-[#f4f1ea] px-4 py-6 text-center md:px-6">
+                <div className="font-mono text-2xl font-bold text-stone-900 md:text-3xl">
+                  92%
+                </div>
+                <div className="mt-1 text-xs font-bold uppercase tracking-wider text-stone-600">
+                  Verified
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">28+</div>
-                <div className="text-slate-600">Years of Service</div>
+              <div className="bg-[#f4f1ea] px-4 py-6 text-center md:px-6">
+                <div className="font-mono text-2xl font-bold text-stone-900 md:text-3xl">
+                  28+
+                </div>
+                <div className="mt-1 text-xs font-bold uppercase tracking-wider text-stone-600">
+                  Years serving buyers
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Filters and Search Section */}
-        <section className="bg-white py-8">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-              <h2 className="text-2xl font-bold text-slate-900">
-                Customer Reviews ({filteredTestimonials.length})
+        <section className="border-b border-stone-300 bg-white py-10">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-stone-500">
+                Customer reviews{" "}
+                <span className="font-mono text-2xl text-stone-900">
+                  ({filteredTestimonials.length})
+                </span>
               </h2>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <div className="relative">
                   <Search
-                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
+                    className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400"
                     size={18}
                   />
                   <Input
-                    placeholder="Search reviews..."
-                    className="pl-10 border-slate-300 w-full sm:w-64"
+                    placeholder="Search reviews…"
+                    className="w-full rounded-none border border-stone-300 bg-white pl-10 sm:w-64"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="border-slate-300">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="rounded-none border border-stone-300 font-bold"
+                    >
                       <Filter size={16} className="mr-2" />
-                      Sort By:{" "}
+                      Sort:{" "}
                       {sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
+                  <DropdownMenuContent className="rounded-none border border-stone-300">
                     <DropdownMenuItem onClick={() => setSortBy("newest")}>
-                      Newest First
+                      Newest first
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setSortBy("oldest")}>
-                      Oldest First
+                      Oldest first
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setSortBy("highest")}>
-                      Highest Rated
+                      Highest rated
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setSortBy("lowest")}>
-                      Lowest Rated
+                      Lowest rated
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
             </div>
 
-            <div className="bg-slate-50 rounded-lg p-6 mb-8">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="border border-stone-300 bg-[#f4f1ea] p-5 md:p-6">
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                 <div>
-                  <Label className="text-slate-700 mb-2 block">Rating</Label>
+                  <Label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-600">
+                    Rating
+                  </Label>
                   <RadioGroup
                     value={ratingFilter?.toString() || ""}
                     onValueChange={handleRatingFilterChange}
@@ -654,24 +666,24 @@ export default function TestimonialsPage() {
                         />
                         <Label
                           htmlFor={`rating-${rating}`}
-                          className="ml-2 font-normal flex items-center"
+                          className="ml-2 flex items-center font-normal"
                         >
                           {Array.from({ length: rating }).map((_, i) => (
                             <Star
                               key={i}
                               size={16}
-                              className="text-yellow-400 fill-current"
+                              className="fill-emerald-600 text-emerald-600"
                             />
                           ))}
                           {Array.from({ length: 5 - rating }).map((_, i) => (
                             <Star
                               key={i}
                               size={16}
-                              className="text-slate-300"
+                              className="text-stone-300"
                             />
                           ))}
-                          <span className="ml-2">
-                            {rating} {rating === 1 ? "Star" : "Stars"}
+                          <span className="ml-2 text-stone-700">
+                            {rating} {rating === 1 ? "star" : "stars"}
                           </span>
                         </Label>
                       </div>
@@ -680,17 +692,19 @@ export default function TestimonialsPage() {
                 </div>
 
                 <div>
-                  <Label className="text-slate-700 mb-2 block">
-                    Vehicle Type
+                  <Label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-600">
+                    Vehicle type
                   </Label>
                   <Select
-                    value={vehicleTypeFilter || ""}
+                    value={vehicleTypeFilter ?? "all"}
                     onValueChange={(value) =>
-                      setVehicleTypeFilter(value || null)
+                      setVehicleTypeFilter(
+                        !value || value === "all" ? null : value
+                      )
                     }
                   >
-                    <SelectTrigger className="border-slate-300">
-                      <SelectValue placeholder="All Vehicle Types" />
+                    <SelectTrigger className="rounded-none border border-stone-300 bg-white">
+                      <SelectValue placeholder="All vehicle types" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Vehicle Types</SelectItem>
@@ -704,17 +718,19 @@ export default function TestimonialsPage() {
                 </div>
 
                 <div>
-                  <Label className="text-slate-700 mb-2 block">
-                    Service Type
+                  <Label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-600">
+                    Service type
                   </Label>
                   <Select
-                    value={serviceTypeFilter || ""}
+                    value={serviceTypeFilter ?? "all"}
                     onValueChange={(value) =>
-                      setServiceTypeFilter(value || null)
+                      setServiceTypeFilter(
+                        !value || value === "all" ? null : value
+                      )
                     }
                   >
-                    <SelectTrigger className="border-slate-300">
-                      <SelectValue placeholder="All Service Types" />
+                    <SelectTrigger className="rounded-none border border-stone-300 bg-white">
+                      <SelectValue placeholder="All service types" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Service Types</SelectItem>
@@ -728,10 +744,10 @@ export default function TestimonialsPage() {
                 </div>
 
                 <div>
-                  <Label className="text-slate-700 mb-2 block">
-                    Additional Filters
+                  <Label className="mb-2 block text-xs font-bold uppercase tracking-wider text-stone-600">
+                    More filters
                   </Label>
-                  <div className="flex items-center space-x-2 mb-4">
+                  <div className="mb-4 flex items-center space-x-2">
                     <Checkbox
                       id="verified"
                       checked={verifiedFilter}
@@ -739,16 +755,17 @@ export default function TestimonialsPage() {
                         setVerifiedFilter(!!checked)
                       }
                     />
-                    <Label htmlFor="verified" className="font-normal">
-                      Verified Purchases Only
+                    <Label htmlFor="verified" className="font-normal text-sm">
+                      Verified purchases only
                     </Label>
                   </div>
                   <Button
+                    type="button"
                     variant="outline"
-                    className="w-full border-slate-300"
+                    className="w-full rounded-none border border-stone-300 font-bold"
                     onClick={clearFilters}
                   >
-                    Clear All Filters
+                    Clear filters
                   </Button>
                 </div>
               </div>
@@ -756,143 +773,147 @@ export default function TestimonialsPage() {
           </div>
         </section>
 
-        {/* Testimonials List */}
-        <section className="bg-slate-50 py-12">
-          <div className="container mx-auto px-4 max-w-7xl">
+        <section className="border-b border-stone-300 py-12">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
             {filteredTestimonials.length === 0 ? (
-              <div className="text-center py-16">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 mb-4">
-                  <MessageSquare className="h-8 w-8 text-slate-400" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                  No Testimonials Found
+              <div className="border border-stone-300 bg-white px-6 py-16 text-center">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  No matches
+                </p>
+                <h3 className="mt-3 text-xl font-bold text-stone-900">
+                  No testimonials found
                 </h3>
-                <p className="text-slate-600 max-w-md mx-auto">
-                  We couldn't find any testimonials matching your current
-                  filters. Try adjusting your search criteria or clear filters
-                  to see all testimonials.
+                <p className="mx-auto mt-3 max-w-md text-sm text-stone-600">
+                  We couldn&apos;t find any testimonials matching your filters.
+                  Try clearing filters or broadening your search.
                 </p>
                 <Button
-                  className="mt-6 bg-blue-600 hover:bg-blue-700 text-white"
+                  type="button"
+                  className="mt-8 rounded-none border border-stone-300 bg-emerald-600 font-bold text-white hover:bg-emerald-500"
                   onClick={clearFilters}
                 >
-                  Clear All Filters
+                  Clear filters
                 </Button>
               </div>
             ) : (
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {filteredTestimonials.map((testimonial) => (
-                  <motion.div
+                  <motion.article
                     key={testimonial.id}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.35 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden"
+                    className="border border-stone-300 bg-white"
                   >
                     <div className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start space-x-4">
-                          <div>
-                            <div className="flex items-center">
-                              <h3 className="text-lg font-bold text-slate-900">
-                                {testimonial.author}
-                              </h3>
-                              {testimonial.verified && (
-                                <Badge className="ml-2 bg-green-100 text-green-800 border-green-200">
-                                  <CheckCircle2 size={12} className="mr-1" />
-                                  Verified
-                                </Badge>
-                              )}
-                            </div>
-                            <div className="flex items-center mt-1">
-                              {Array.from({ length: testimonial.rating }).map(
-                                (_, i) => (
-                                  <Star
-                                    key={i}
-                                    size={16}
-                                    className="text-yellow-400 fill-current"
-                                  />
-                                )
-                              )}
-                              {Array.from({
-                                length: 5 - testimonial.rating,
-                              }).map((_, i) => (
+                      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="text-lg font-bold text-stone-900">
+                              {testimonial.author}
+                            </h3>
+                            {testimonial.verified && (
+                              <span className="inline-flex items-center border border-stone-300 bg-emerald-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-stone-950">
+                                <CheckCircle2 size={12} className="mr-1" />
+                                Verified
+                              </span>
+                            )}
+                          </div>
+                          <div className="mt-2 flex flex-wrap items-center gap-2">
+                            {Array.from({ length: testimonial.rating }).map(
+                              (_, i) => (
                                 <Star
                                   key={i}
                                   size={16}
-                                  className="text-slate-300"
+                                  className="fill-emerald-600 text-emerald-600"
                                 />
-                              ))}
-                              <span className="ml-2 text-sm text-slate-500">
-                                {new Date(
-                                  testimonial.date
-                                ).toLocaleDateString()}
-                              </span>
-                            </div>
+                              )
+                            )}
+                            {Array.from({
+                              length: 5 - testimonial.rating,
+                            }).map((_, i) => (
+                              <Star
+                                key={i}
+                                size={16}
+                                className="text-stone-300"
+                              />
+                            ))}
+                            <span className="font-mono text-xs text-stone-500">
+                              {new Date(
+                                testimonial.date
+                              ).toLocaleDateString()}
+                            </span>
                           </div>
                         </div>
-                        <div className="flex space-x-2">
-                          <Badge className="bg-blue-100 text-blue-700 border-blue-200">
+                        <div className="flex flex-wrap gap-2">
+                          <span className="border border-stone-300 bg-[#f4f1ea] px-2 py-1 text-xs font-bold uppercase tracking-wider text-stone-800">
                             {testimonial.vehicleType}
-                          </Badge>
-                          <Badge className="bg-slate-100 text-slate-700 border-slate-200">
+                          </span>
+                          <span className="border border-stone-300 bg-white px-2 py-1 text-xs font-bold uppercase tracking-wider text-stone-700">
                             {testimonial.serviceType}
-                          </Badge>
+                          </span>
                         </div>
                       </div>
 
-                      <div className="mt-4">
-                        <h4 className="font-medium text-slate-900 mb-2">
+                      <div className="mt-5 border-l-4 border-emerald-600 pl-4">
+                        <h4 className="font-bold text-stone-900">
                           {testimonial.title}
                         </h4>
-                        <p className="text-slate-600">{testimonial.content}</p>
-                        <div className="text-sm text-slate-500 mt-2">
+                        <p className="mt-2 text-sm leading-relaxed text-stone-600 md:text-base">
+                          {testimonial.content}
+                        </p>
+                        <p className="mt-2 font-mono text-xs text-stone-500">
                           Vehicle: {testimonial.vehicle}
-                        </div>
+                        </p>
                       </div>
 
-                      <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-100">
-                        <div className="flex items-center space-x-4">
-                          <button
-                            className="flex items-center text-sm text-slate-600 hover:text-blue-600"
-                            onClick={() => handleMarkHelpful(testimonial.id)}
-                          >
-                            <ThumbsUp size={14} className="mr-1" />
-                            Helpful ({testimonial.helpful})
-                          </button>
-                          <button className="flex items-center text-sm text-slate-600 hover:text-blue-600">
-                            <Share2 size={14} className="mr-1" />
-                            Share
-                          </button>
-                          <button className="flex items-center text-sm text-slate-600 hover:text-red-600">
-                            <Flag size={14} className="mr-1" />
-                            Report
-                          </button>
-                        </div>
+                      <div className="mt-6 flex flex-wrap items-center gap-4 border-t-2 border-stone-200 pt-4">
+                        <button
+                          type="button"
+                          className="flex items-center text-xs font-bold uppercase tracking-wider text-stone-700 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                          onClick={() => handleMarkHelpful(testimonial.id)}
+                        >
+                          <ThumbsUp size={14} className="mr-1" />
+                          Helpful ({testimonial.helpful})
+                        </button>
+                        <button
+                          type="button"
+                          className="flex items-center text-xs font-bold uppercase tracking-wider text-stone-700 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                        >
+                          <Share2 size={14} className="mr-1" />
+                          Share
+                        </button>
+                        <button
+                          type="button"
+                          className="flex items-center text-xs font-bold uppercase tracking-wider text-stone-700 underline decoration-2 underline-offset-4 hover:text-red-700"
+                        >
+                          <Flag size={14} className="mr-1" />
+                          Report
+                        </button>
                       </div>
 
                       {testimonial.response && (
-                        <div className="mt-4 bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                              <User className="h-5 w-5 text-blue-600" />
+                        <div className="mt-6 border border-dashed border-stone-300 bg-[#f4f1ea] p-4">
+                          <div className="flex items-start gap-3">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-stone-300 bg-white">
+                              <User className="h-5 w-5 text-emerald-700" />
                             </div>
                             <div>
-                              <div className="flex items-center">
-                                <h4 className="font-medium text-slate-900">
+                              <div className="flex flex-wrap items-baseline gap-2">
+                                <h4 className="font-bold text-stone-900">
                                   {testimonial.response.author}
                                 </h4>
-                                <span className="text-sm text-slate-500 ml-2">
+                                <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
                                   {testimonial.response.role}
                                 </span>
                               </div>
-                              <div className="text-sm text-slate-500 mb-2">
+                              <div className="mt-1 font-mono text-xs text-stone-500">
                                 {new Date(
                                   testimonial.response.date
                                 ).toLocaleDateString()}
                               </div>
-                              <p className="text-slate-600">
+                              <p className="mt-2 text-sm text-stone-600">
                                 {testimonial.response.content}
                               </p>
                             </div>
@@ -900,7 +921,7 @@ export default function TestimonialsPage() {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </motion.article>
                 ))}
               </div>
             )}
@@ -909,11 +930,11 @@ export default function TestimonialsPage() {
 
         {/* Add Testimonial Dialog */}
         <Dialog open={showAddForm} onOpenChange={setShowAddForm}>
-          <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-h-[90vh] overflow-y-auto rounded-none border border-stone-300 bg-[#f4f1ea] sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>Share Your Experience</DialogTitle>
               <DialogDescription>
-                Tell us about your experience with Chariot Auto Sales. Your
+                Tell us about your experience with Bank Repossessed Cars. Your
                 feedback helps us improve and helps other customers make
                 informed decisions.
               </DialogDescription>
@@ -962,7 +983,7 @@ export default function TestimonialsPage() {
                     <div>
                       <Label
                         htmlFor="author"
-                        className="text-slate-700 mb-1.5 block"
+                        className="text-stone-700 mb-1.5 block"
                       >
                         Your Name <span className="text-red-500">*</span>
                       </Label>
@@ -973,13 +994,13 @@ export default function TestimonialsPage() {
                         onChange={handleFormChange}
                         placeholder="Enter your name"
                         required
-                        className="border-slate-300"
+                        className="rounded-none border border-stone-300 bg-white"
                       />
                     </div>
                     <div>
                       <Label
                         htmlFor="email"
-                        className="text-slate-700 mb-1.5 block"
+                        className="text-stone-700 mb-1.5 block"
                       >
                         Email <span className="text-red-500">*</span>
                       </Label>
@@ -991,13 +1012,13 @@ export default function TestimonialsPage() {
                         onChange={handleFormChange}
                         placeholder="Enter your email"
                         required
-                        className="border-slate-300"
+                        className="rounded-none border border-stone-300 bg-white"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <Label className="text-slate-700 mb-1.5 block">
+                    <Label className="text-stone-700 mb-1.5 block">
                       Rating <span className="text-red-500">*</span>
                     </Label>
                     <div className="flex items-center space-x-1">
@@ -1012,13 +1033,13 @@ export default function TestimonialsPage() {
                             size={24}
                             className={`${
                               rating <= newTestimonial.rating
-                                ? "text-yellow-400 fill-current"
-                                : "text-slate-300"
+                                ? "text-emerald-400 fill-current"
+                                : "text-stone-300"
                             }`}
                           />
                         </button>
                       ))}
-                      <span className="ml-2 text-slate-600">
+                      <span className="ml-2 text-stone-600">
                         {newTestimonial.rating} of 5 stars
                       </span>
                     </div>
@@ -1027,7 +1048,7 @@ export default function TestimonialsPage() {
                   <div>
                     <Label
                       htmlFor="title"
-                      className="text-slate-700 mb-1.5 block"
+                      className="text-stone-700 mb-1.5 block"
                     >
                       Title <span className="text-red-500">*</span>
                     </Label>
@@ -1038,14 +1059,14 @@ export default function TestimonialsPage() {
                       onChange={handleFormChange}
                       placeholder="Summarize your experience"
                       required
-                      className="border-slate-300"
+                      className="rounded-none border border-stone-300 bg-white"
                     />
                   </div>
 
                   <div>
                     <Label
                       htmlFor="content"
-                      className="text-slate-700 mb-1.5 block"
+                      className="text-stone-700 mb-1.5 block"
                     >
                       Your Review <span className="text-red-500">*</span>
                     </Label>
@@ -1054,16 +1075,16 @@ export default function TestimonialsPage() {
                       name="content"
                       value={newTestimonial.content}
                       onChange={handleFormChange}
-                      placeholder="Tell us about your experience with Chariot Auto Sales"
+                      placeholder="Tell us about your experience with Bank Repossessed Cars"
                       required
-                      className="border-slate-300 min-h-[120px]"
+                      className="min-h-[120px] rounded-none border border-stone-300 bg-white"
                     />
                   </div>
 
                   <div>
                     <Label
                       htmlFor="vehicle"
-                      className="text-slate-700 mb-1.5 block"
+                      className="text-stone-700 mb-1.5 block"
                     >
                       Vehicle Purchased/Serviced
                     </Label>
@@ -1073,7 +1094,7 @@ export default function TestimonialsPage() {
                       value={newTestimonial.vehicle}
                       onChange={handleFormChange}
                       placeholder="e.g., 2022 Honda Accord"
-                      className="border-slate-300"
+                      className="rounded-none border border-stone-300 bg-white"
                     />
                   </div>
 
@@ -1081,7 +1102,7 @@ export default function TestimonialsPage() {
                     <div>
                       <Label
                         htmlFor="vehicleType"
-                        className="text-slate-700 mb-1.5 block"
+                        className="text-stone-700 mb-1.5 block"
                       >
                         Vehicle Type
                       </Label>
@@ -1091,7 +1112,7 @@ export default function TestimonialsPage() {
                           handleSelectChange("vehicleType", value)
                         }
                       >
-                        <SelectTrigger className="border-slate-300">
+                        <SelectTrigger className="rounded-none border border-stone-300 bg-white">
                           <SelectValue placeholder="Select vehicle type" />
                         </SelectTrigger>
                         <SelectContent>
@@ -1106,7 +1127,7 @@ export default function TestimonialsPage() {
                     <div>
                       <Label
                         htmlFor="serviceType"
-                        className="text-slate-700 mb-1.5 block"
+                        className="text-stone-700 mb-1.5 block"
                       >
                         Service Type
                       </Label>
@@ -1116,7 +1137,7 @@ export default function TestimonialsPage() {
                           handleSelectChange("serviceType", value)
                         }
                       >
-                        <SelectTrigger className="border-slate-300">
+                        <SelectTrigger className="rounded-none border border-stone-300 bg-white">
                           <SelectValue placeholder="Select service type" />
                         </SelectTrigger>
                         <SelectContent>
@@ -1140,29 +1161,30 @@ export default function TestimonialsPage() {
                     />
                     <Label
                       htmlFor="agreeToTerms"
-                      className="font-normal text-sm text-slate-600"
+                      className="font-normal text-sm text-stone-600"
                     >
                       I confirm this is a genuine review based on my own
-                      experience. I understand that Chariot Auto Sales may
+                      experience. I understand that Bank Repossessed Cars may
                       publish this review on their website and other marketing
                       materials.
                     </Label>
                   </div>
                 </div>
 
-                <DialogFooter>
+                <DialogFooter className="gap-2 sm:gap-0">
                   <Button
                     type="button"
                     variant="outline"
+                    className="rounded-none border border-stone-300 font-bold"
                     onClick={() => setShowAddForm(false)}
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    className="rounded-none border border-stone-300 bg-emerald-600 font-bold text-white hover:bg-emerald-500"
                   >
-                    Submit Review
+                    Submit review
                   </Button>
                 </DialogFooter>
               </form>
@@ -1170,42 +1192,45 @@ export default function TestimonialsPage() {
           </DialogContent>
         </Dialog>
 
-        {/* Call to Action */}
-        <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="border-t border-stone-300 bg-white py-14 md:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
-                <h2 className="text-3xl font-bold mb-6">
-                  Ready to Experience the Chariot's Difference?
-                </h2>
-                <p className="text-xl text-blue-100 mb-8">
-                  Join our family of satisfied customers. Visit us today to find
-                  your perfect vehicle or schedule a service appointment.
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Next step
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button className="bg-white hover:bg-gray-100 text-blue-700">
-                    Browse Inventory
-                  </Button>
+                <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+                  Ready to shop repo inventory?
+                </h2>
+                <p className="mt-4 text-sm text-stone-600 md:text-base">
+                  Browse listings with the same transparency our reviewers
+                  describe—then reach out when you are ready.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/shop">
+                    <Button className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
+                      Browse inventory
+                    </Button>
+                  </Link>
                   <Button
+                    type="button"
                     variant="outline"
-                    className="border-white text-black hover:bg-white/10"
+                    className="rounded-none border border-stone-300 font-bold"
                     onClick={() => setShowAddForm(true)}
                   >
-                    Share Your Story
+                    Share your story
                     <MessageSquare size={16} className="ml-2" />
                   </Button>
                 </div>
               </div>
-              <div className="relative">
-                <div className="relative rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="Happy Customers at Chariot Auto Sales"
-                    width={600}
-                    height={350}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
+              <div className="border border-stone-300 bg-stone-200">
+                <Image
+                  src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  alt="Happy customers at Bank Repossessed Cars"
+                  width={640}
+                  height={380}
+                  className="h-auto w-full object-cover"
+                />
               </div>
             </div>
           </div>

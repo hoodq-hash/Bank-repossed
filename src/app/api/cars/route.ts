@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import connectToDatabase from '@/lib/mongodb';
-import SCar from '@/models/SCar';
+import BankRepoCar from "@/models/BankRepoCar";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -14,7 +14,7 @@ cloudinary.config({
 export async function GET() {
   try {
     await connectToDatabase();
-    const cars = await SCar.find({}).sort({ createdAt: -1 });
+    const cars = await BankRepoCar.find({}).sort({ createdAt: -1 });
     
     // Transform MongoDB _id to id for frontend compatibility
     const transformedCars = cars.map(car => {
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
           const uniqueIdentifier = `${body.make}-${body.model}-${Date.now()}-${index}`;
           const uploadResult = await cloudinary.uploader.upload(image, {
             public_id: uniqueIdentifier,
-            folder: 'cars45'
+            folder: "bank_repo_cars",
           });
           return uploadResult.secure_url;
         } catch (uploadError) {
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     };
     
     // Create a new car
-    const car = await SCar.create(carData);
+    const car = await BankRepoCar.create(carData);
     
     // Transform the response for frontend
     const carObj = car.toObject();

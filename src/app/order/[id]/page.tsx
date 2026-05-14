@@ -96,8 +96,13 @@ const getCurrencySymbol = (currency: string) => {
   }
 };
 
-export default function OrderPage({ params }: { params: { id: string } }) {
+export default function OrderPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const router = useRouter();
+  const { id: carId } = React.use(params);
 
   // State for car data
   const [carDetails, setCarDetails] = useState<Car | null>(null);
@@ -132,7 +137,7 @@ export default function OrderPage({ params }: { params: { id: string } }) {
 
       try {
         // Fetch car details from API
-        const response = await fetch(`/api/cars/${params.id}`);
+        const response = await fetch(`/api/cars/${carId}`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch car details");
@@ -147,7 +152,7 @@ export default function OrderPage({ params }: { params: { id: string } }) {
         // Fallback to mock data if API fails
         // This is just for demo purposes
         // const mockCarDetails: Car = {
-        //   id: params.id,
+        //   id: carId,
         //   title: "Volkswagen Jetta 2007 Gold",
         //   price: 12500,
         //   currency: "$",
@@ -184,7 +189,7 @@ export default function OrderPage({ params }: { params: { id: string } }) {
     };
 
     fetchCarDetails();
-  }, [params.id]);
+  }, [carId]);
 
   // Format price with currency
   const formatPrice = (price: number, currency: string) => {
@@ -286,10 +291,11 @@ export default function OrderPage({ params }: { params: { id: string } }) {
     e.preventDefault();
 
     if (validateFormStep2()) {
+      if (!carDetails) return;
       setIsSubmitting(true);
 
       // Prepare email content
-      const subject = `Inquiry about ${carDetails.year} ${carDetails.make} ${carDetails.model} (ID: ${params.id})`;
+      const subject = `Inquiry about ${carDetails.year} ${carDetails.make} ${carDetails.model} (ID: ${carId})`;
       const body = `
 Name: ${formData.name}
 Email: ${formData.email}
@@ -304,11 +310,11 @@ Message:
 ${formData.message}
 
 
-This message was sent from Chariot's auto website.
+This message was sent from the Bank Repossessed Cars website.
 `;
 
       // Encode email parameters
-      const mailtoLink = `mailto:chariotautosales321@gmail.com?subject=${encodeURIComponent(
+      const mailtoLink = `mailto:bankrepossessedcars@gmail.com?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
 
@@ -327,15 +333,14 @@ This message was sent from Chariot's auto website.
   // Show loading state
   if (isLoading) {
     return (
-      <div className="flex flex-col min-h-screen bg-gray-50">
+      <div className="flex min-h-screen flex-col bg-[#f4f1ea] text-stone-900 antialiased">
         <Navbar />
-        <main className="flex-grow py-4 md:py-6 flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center gap-2">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 rounded-full border-4 border-blue-200 opacity-25"></div>
-              <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
-            </div>
-            <p className="mt-4 text-gray-600">Loading car details...</p>
+        <main className="flex flex-grow items-center justify-center py-8 md:py-12">
+          <div className="flex flex-col items-center justify-center gap-4 border border-stone-300 bg-white px-10 py-12">
+            <Loader2 className="h-10 w-10 animate-spin text-emerald-600" />
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-600">
+              Loading listing
+            </p>
           </div>
         </main>
         <Footer />
@@ -346,22 +351,22 @@ This message was sent from Chariot's auto website.
   // Show error state if no car details
   if (!carDetails) {
     return (
-      <div className="flex flex-col min-h-screen bg-gray-50">
+      <div className="flex flex-col min-h-screen bg-[#f4f1ea] text-stone-900 antialiased">
         <Navbar />
         <main className="flex-grow py-4 md:py-6">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 text-center">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="border border-stone-300 bg-white p-6 text-center md:p-8">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center border border-stone-300 bg-red-50">
                 <AlertCircle size={32} className="text-red-600" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl font-bold text-stone-900 mb-2">
                 Car Not Found
               </h1>
-              <p className="text-gray-600 mb-6">
+              <p className="text-stone-600 mb-6">
                 {loadingError || "We couldn't find the car you're looking for."}
               </p>
               <Link href="/shop">
-                <Button className="bg-blue-600 hover:bg-blue-700">
+                <Button className="rounded-none border border-stone-300 bg-emerald-600 font-bold uppercase tracking-wider text-white hover:bg-emerald-500">
                   Browse Other Cars
                 </Button>
               </Link>
@@ -374,32 +379,32 @@ This message was sent from Chariot's auto website.
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-[#f4f1ea] text-stone-900 antialiased">
       <Navbar />
 
       <main className="flex-grow py-4 md:py-6">
         <div className="container mx-auto px-4 max-w-7xl">
           {/* Breadcrumb navigation */}
-          <div className="mb-4 text-xs md:text-sm text-gray-500 flex flex-wrap items-center">
-            <Link href="/" className="hover:text-blue-600">
+          <div className="mb-4 flex flex-wrap items-center text-xs font-mono font-semibold uppercase tracking-wider text-stone-600 md:text-sm">
+            <Link href="/" className="hover:text-emerald-700">
               Home
             </Link>
-            <span className="mx-2">/</span>
-            <Link href="/shop" className="hover:text-blue-600">
+            <span className="mx-2 text-stone-400">/</span>
+            <Link href="/shop" className="hover:text-emerald-700">
               Cars
             </Link>
-            <span className="mx-2">/</span>
-            <Link href={`/car/${params.id}`} className="hover:text-blue-600">
+            <span className="mx-2 text-stone-400">/</span>
+            <Link href={`/car/${carId}`} className="hover:text-emerald-700">
               {carDetails.make} {carDetails.model}
             </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-700">Contact Seller</span>
+            <span className="mx-2 text-stone-400">/</span>
+            <span className="text-stone-900">Contact Seller</span>
           </div>
 
           {/* Back button */}
           <Link
-            href={`/car/${params.id}`}
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4 group"
+            href={`/car/${carId}`}
+            className="group mb-6 inline-flex items-center border border-stone-300 bg-white px-3 py-2 text-xs font-bold uppercase tracking-wider text-stone-900 transition hover:bg-stone-900 hover:text-[#f4f1ea]"
           >
             <ChevronLeft
               size={16}
@@ -410,14 +415,14 @@ This message was sent from Chariot's auto website.
 
           {isSubmitted ? (
             // Success message after form submission
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:p-8 text-center max-w-2xl mx-auto">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 size={40} className="text-green-600" />
+            <div className="mx-auto max-w-2xl border border-stone-300 bg-white p-6 text-center md:p-8">
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center border border-stone-300 bg-emerald-50">
+                <CheckCircle2 size={40} className="text-emerald-700" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-3">
+              <h1 className="mb-3 text-2xl font-bold text-stone-900">
                 Message Sent Successfully!
               </h1>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              <p className="mx-auto mb-8 max-w-md text-stone-600">
                 Your message has been sent to{" "}
                 <span className="font-medium">
                   {carDetails.sellerInfo?.name || "the seller"}
@@ -427,38 +432,41 @@ This message was sent from Chariot's auto website.
                   ` They typically respond ${carDetails.sellerInfo.responseTime.toLowerCase()}.`}
               </p>
 
-              <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6 text-left max-w-md mx-auto">
-                <h3 className="font-medium text-blue-800 mb-2 flex items-center">
-                  <Info size={16} className="mr-1.5" />
+              <div className="mx-auto mb-6 max-w-md border border-stone-300 bg-stone-100 p-4 text-left">
+                <h3 className="mb-2 flex items-center font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-stone-700">
+                  <Info size={16} className="mr-1.5 text-emerald-700" />
                   What happens next?
                 </h3>
-                <ul className="space-y-2 text-sm text-blue-800">
+                <ul className="space-y-2 text-sm text-stone-800">
                   <li className="flex items-start">
-                    <Check size={14} className="mr-2 mt-1 text-blue-600" />
+                    <Check size={14} className="mr-2 mt-1 shrink-0 text-emerald-600" />
                     <span>The seller will review your inquiry</span>
                   </li>
                   <li className="flex items-start">
-                    <Check size={14} className="mr-2 mt-1 text-blue-600" />
+                    <Check size={14} className="mr-2 mt-1 shrink-0 text-emerald-600" />
                     <span>
-                      They'll contact you via your preferred method (
+                      They&apos;ll contact you via your preferred method (
                       {formData.preferredContact})
                     </span>
                   </li>
                   <li className="flex items-start">
-                    <Check size={14} className="mr-2 mt-1 text-blue-600" />
+                    <Check size={14} className="mr-2 mt-1 shrink-0 text-emerald-600" />
                     <span>You can discuss details, arrange viewings</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href={`/car/${params.id}`}>
-                  <Button variant="outline" className="w-full sm:w-auto">
+              <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+                <Link href={`/car/${carId}`}>
+                  <Button
+                    variant="outline"
+                    className="w-full rounded-none border border-stone-300 bg-white font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 sm:w-auto"
+                  >
                     Return to Car Details
                   </Button>
                 </Link>
                 <Link href="/shop">
-                  <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700">
+                  <Button className="w-full rounded-none border border-stone-300 bg-emerald-600 font-bold uppercase tracking-wider text-white hover:bg-emerald-500 sm:w-auto">
                     Continue Shopping
                   </Button>
                 </Link>
@@ -468,14 +476,17 @@ This message was sent from Chariot's auto website.
             <div className="flex flex-col lg:flex-row gap-6">
               {/* Left column - Contact form */}
               <div className="lg:w-2/3">
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
-                  <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 md:p-6">
-                    <h1 className="text-xl md:text-2xl font-bold mb-2">
+                <div className="mb-6 overflow-hidden border border-stone-300 bg-white">
+                  <div className="border-b border-stone-300 bg-white px-4 py-5 md:px-6 md:py-6">
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-stone-600">
+                      Inquiry · Step {formStep} of 2
+                    </p>
+                    <h1 className="mt-2 text-xl font-bold text-stone-900 md:text-2xl">
                       {formStep === 1
-                        ? "Contact Seller"
-                        : "Additional Information"}
+                        ? "Contact seller"
+                        : "Additional information"}
                     </h1>
-                    <p className="opacity-90">
+                    <p className="mt-2 text-sm text-stone-600">
                       {formStep === 1
                         ? `Send a message about this ${carDetails.year} ${carDetails.make} ${carDetails.model}`
                         : "Complete your inquiry with a message and preferences"}
@@ -483,40 +494,40 @@ This message was sent from Chariot's auto website.
                   </div>
 
                   {/* Form progress indicator */}
-                  <div className="px-4 md:px-6 pt-4">
-                    <div className="flex items-center mb-6">
+                  <div className="border-b border-stone-300 bg-stone-100 px-4 py-4 md:px-6">
+                    <div className="mb-4 flex items-center gap-0 border border-stone-300 bg-white p-1">
                       <div
-                        className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center border border-stone-300 text-xs font-bold ${
                           formStep >= 1
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-200 text-gray-600"
+                            ? "bg-stone-900 text-[#f4f1ea]"
+                            : "bg-white text-stone-500"
                         }`}
                       >
                         1
                       </div>
                       <div
-                        className={`flex-1 h-1 mx-2 ${
-                          formStep >= 2 ? "bg-blue-600" : "bg-gray-200"
+                        className={`mx-1 h-1 flex-1 ${
+                          formStep >= 2 ? "bg-emerald-600" : "bg-stone-300"
                         }`}
-                      ></div>
+                      />
                       <div
-                        className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center border border-stone-300 text-xs font-bold ${
                           formStep >= 2
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-200 text-gray-600"
+                            ? "bg-stone-900 text-[#f4f1ea]"
+                            : "bg-white text-stone-500"
                         }`}
                       >
                         2
                       </div>
                     </div>
 
-                    <div className="flex justify-between text-sm text-gray-600 mb-6">
-                      <span>Your Information</span>
-                      <span>Message & Preferences</span>
+                    <div className="flex justify-between font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600">
+                      <span>Your information</span>
+                      <span>Message & preferences</span>
                     </div>
                   </div>
 
-                  <div className="p-4 md:p-6 pt-0">
+                  <div className="p-4 md:p-6">
                     <form onSubmit={handleSubmit}>
                       {formStep === 1 ? (
                         // Step 1: Contact Information
@@ -524,11 +535,11 @@ This message was sent from Chariot's auto website.
                           <div>
                             <label
                               htmlFor="name"
-                              className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                              className="mb-1 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600"
                             >
                               <User
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
                               Your Name{" "}
                               <span className="text-red-500 ml-1">*</span>
@@ -539,9 +550,11 @@ This message was sent from Chariot's auto website.
                               type="text"
                               value={formData.name}
                               onChange={handleInputChange}
-                              className={`${
-                                formErrors.name ? "border-red-500" : ""
-                              } focus:border-blue-500 focus:ring-blue-500`}
+                              className={`h-11 rounded-none border-2 bg-white ${
+                                formErrors.name
+                                  ? "border-red-600"
+                                  : "border-stone-300"
+                              } focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-1`}
                               placeholder="Enter your full name"
                             />
                             {formErrors.name && (
@@ -555,11 +568,11 @@ This message was sent from Chariot's auto website.
                           <div>
                             <label
                               htmlFor="email"
-                              className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                              className="mb-1 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600"
                             >
                               <Mail
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
                               Email Address{" "}
                               <span className="text-red-500 ml-1">*</span>
@@ -570,9 +583,11 @@ This message was sent from Chariot's auto website.
                               type="email"
                               value={formData.email}
                               onChange={handleInputChange}
-                              className={`${
-                                formErrors.email ? "border-red-500" : ""
-                              } focus:border-blue-500 focus:ring-blue-500`}
+                              className={`h-11 rounded-none border-2 bg-white ${
+                                formErrors.email
+                                  ? "border-red-600"
+                                  : "border-stone-300"
+                              } focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-1`}
                               placeholder="your.email@example.com"
                             />
                             {formErrors.email && (
@@ -586,11 +601,11 @@ This message was sent from Chariot's auto website.
                           <div>
                             <label
                               htmlFor="phone"
-                              className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                              className="mb-1 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600"
                             >
                               <Phone
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
                               Phone Number
                               {formData.preferredContact === "phone" && (
@@ -603,9 +618,11 @@ This message was sent from Chariot's auto website.
                               type="tel"
                               value={formData.phone}
                               onChange={handleInputChange}
-                              className={`${
-                                formErrors.phone ? "border-red-500" : ""
-                              } focus:border-blue-500 focus:ring-blue-500`}
+                              className={`h-11 rounded-none border-2 bg-white ${
+                                formErrors.phone
+                                  ? "border-red-600"
+                                  : "border-stone-300"
+                              } focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-1`}
                               placeholder="(123) 456-7890"
                             />
                             {formErrors.phone && (
@@ -619,11 +636,11 @@ This message was sent from Chariot's auto website.
                           <div>
                             <label
                               htmlFor="address"
-                              className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                              className="mb-1 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600"
                             >
                               <Home
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
                               Address
                             </label>
@@ -634,9 +651,11 @@ This message was sent from Chariot's auto website.
                               value={formData.address}
                               onChange={handleInputChange}
                               placeholder="Street address, city, state, zip code"
-                              className={`${
-                                formErrors.address ? "border-red-500" : ""
-                              } focus:border-blue-500 focus:ring-blue-500`}
+                              className={`h-11 rounded-none border-2 bg-white ${
+                                formErrors.address
+                                  ? "border-red-600"
+                                  : "border-stone-300"
+                              } focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-1`}
                             />
                             {formErrors.address && (
                               <p className="mt-1 text-xs text-red-500 flex items-center">
@@ -647,19 +666,19 @@ This message was sent from Chariot's auto website.
                           </div>
 
                           <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                            <label className="mb-2 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600">
                               <MessageCircle
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
-                              Preferred Contact Method
+                              Preferred contact
                             </label>
                             <div className="grid grid-cols-2 gap-3">
                               <div
-                                className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                                className={`flex cursor-pointer items-center border-2 p-3 transition-colors ${
                                   formData.preferredContact === "email"
-                                    ? "border-blue-500 bg-blue-50"
-                                    : "border-gray-200 hover:border-gray-300"
+                                    ? "border-stone-300 bg-stone-900 text-[#f4f1ea]"
+                                    : "border-stone-200 bg-white hover:border-stone-500"
                                 }`}
                                 onClick={() =>
                                   setFormData((prev) => ({
@@ -677,21 +696,25 @@ This message was sent from Chariot's auto website.
                                     formData.preferredContact === "email"
                                   }
                                   onChange={() => {}}
-                                  className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                  className="h-4 w-4 border-stone-300 text-emerald-600 focus:ring-emerald-600"
                                 />
                                 <label
                                   htmlFor="email-contact"
-                                  className="ml-2 text-sm text-gray-700 cursor-pointer flex items-center"
+                                  className={`ml-2 flex cursor-pointer items-center text-sm ${
+                                    formData.preferredContact === "email"
+                                      ? "text-[#f4f1ea]"
+                                      : "text-stone-800"
+                                  }`}
                                 >
                                   <Mail size={14} className="mr-1.5" />
                                   Email
                                 </label>
                               </div>
                               <div
-                                className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                                className={`flex cursor-pointer items-center border-2 p-3 transition-colors ${
                                   formData.preferredContact === "phone"
-                                    ? "border-blue-500 bg-blue-50"
-                                    : "border-gray-200 hover:border-gray-300"
+                                    ? "border-stone-300 bg-stone-900 text-[#f4f1ea]"
+                                    : "border-stone-200 bg-white hover:border-stone-500"
                                 }`}
                                 onClick={() =>
                                   setFormData((prev) => ({
@@ -709,11 +732,15 @@ This message was sent from Chariot's auto website.
                                     formData.preferredContact === "phone"
                                   }
                                   onChange={() => {}}
-                                  className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                                  className="h-4 w-4 border-stone-300 text-emerald-600 focus:ring-emerald-600"
                                 />
                                 <label
                                   htmlFor="phone-contact"
-                                  className="ml-2 text-sm text-gray-700 cursor-pointer flex items-center"
+                                  className={`ml-2 flex cursor-pointer items-center text-sm ${
+                                    formData.preferredContact === "phone"
+                                      ? "text-[#f4f1ea]"
+                                      : "text-stone-800"
+                                  }`}
                                 >
                                   <Phone size={14} className="mr-1.5" />
                                   Phone
@@ -726,7 +753,7 @@ This message was sent from Chariot's auto website.
                             <Button
                               type="button"
                               onClick={handleNextStep}
-                              className="w-full bg-blue-600 hover:bg-blue-700 py-6"
+                              className="w-full rounded-none border border-stone-300 bg-emerald-600 py-6 font-bold uppercase tracking-wider text-white hover:bg-emerald-500"
                             >
                               <span className="flex items-center justify-center">
                                 Continue to Message{" "}
@@ -741,11 +768,11 @@ This message was sent from Chariot's auto website.
                           <div>
                             <label
                               htmlFor="message"
-                              className="block text-sm font-medium text-gray-700 mb-1 flex items-center"
+                              className="mb-1 flex items-center font-mono text-[10px] font-semibold uppercase tracking-wider text-stone-600"
                             >
                               <FileText
                                 size={14}
-                                className="mr-1.5 text-gray-500"
+                                className="mr-1.5 text-stone-500"
                               />
                               Message{" "}
                               <span className="text-red-500 ml-1">*</span>
@@ -757,9 +784,11 @@ This message was sent from Chariot's auto website.
                               onChange={handleInputChange}
                               rows={5}
                               placeholder={`I'm interested in this ${carDetails.year} ${carDetails.make} ${carDetails.model}. Is it still available?`}
-                              className={`${
-                                formErrors.message ? "border-red-500" : ""
-                              } focus:border-blue-500 focus:ring-blue-500`}
+                              className={`min-h-[120px] rounded-none border-2 bg-white px-3 py-2 ${
+                                formErrors.message
+                                  ? "border-red-600"
+                                  : "border-stone-300"
+                              } focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-1`}
                             />
                             {formErrors.message && (
                               <p className="mt-1 text-xs text-red-500 flex items-center">
@@ -769,9 +798,9 @@ This message was sent from Chariot's auto website.
                             )}
                           </div>
 
-                          <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                            <h3 className="text-sm font-medium text-gray-800 mb-3">
-                              Additional Requests
+                          <div className="border border-stone-300 bg-stone-100 p-4 rounded-none">
+                            <h3 className="mb-3 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
+                              Additional requests
                             </h3>
                             <div className="space-y-3">
                               {/* <div className="flex items-start">
@@ -784,15 +813,15 @@ This message was sent from Chariot's auto website.
                                       checked as boolean
                                     )
                                   }
-                                  className="mt-0.5 text-blue-600 focus:ring-blue-500"
+                                  className="mt-0.5 text-emerald-600 focus:ring-emerald-500"
                                 />
                                 <label
                                   htmlFor="requestTestDrive"
-                                  className="ml-2 text-sm text-gray-700 flex items-start"
+                                  className="ml-2 text-sm text-stone-700 flex items-start"
                                 >
                                   <KeyRound
                                     size={14}
-                                    className="mr-1.5 mt-0.5 text-gray-500"
+                                    className="mr-1.5 mt-0.5 text-stone-500"
                                   />
                                   <span>
                                     I would like to schedule a test drive
@@ -810,15 +839,15 @@ This message was sent from Chariot's auto website.
                                       checked as boolean
                                     )
                                   }
-                                  className="mt-0.5 text-blue-600 focus:ring-blue-500"
+                                  className="mt-0.5 text-emerald-600 focus:ring-emerald-500"
                                 />
                                 <label
                                   htmlFor="requestInspection"
-                                  className="ml-2 text-sm text-gray-700 flex items-start"
+                                  className="ml-2 text-sm text-stone-700 flex items-start"
                                 >
                                   <Settings
                                     size={14}
-                                    className="mr-1.5 mt-0.5 text-gray-500"
+                                    className="mr-1.5 mt-0.5 text-stone-500"
                                   />
                                   <span>
                                     I would like to arrange a vehicle inspection
@@ -836,15 +865,15 @@ This message was sent from Chariot's auto website.
                                       checked as boolean
                                     )
                                   }
-                                  className="mt-0.5 text-blue-600 focus:ring-blue-500"
+                                  className="mt-0.5 text-emerald-600 focus:ring-emerald-500"
                                 />
                                 <label
                                   htmlFor="requestFinancing"
-                                  className="ml-2 text-sm text-gray-700 flex items-start"
+                                  className="ml-2 text-sm text-stone-700 flex items-start"
                                 >
                                   <CreditCard
                                     size={14}
-                                    className="mr-1.5 mt-0.5 text-gray-500"
+                                    className="mr-1.5 mt-0.5 text-stone-500"
                                   />
                                   <span>
                                     I would like information about financing
@@ -855,7 +884,7 @@ This message was sent from Chariot's auto website.
                             </div>
                           </div>
 
-                          <div className="pt-4 border-t border-gray-200">
+                          <div className="border-t-2 border-stone-200 pt-4">
                             <div className="flex items-start">
                               <Checkbox
                                 id="agreeToTerms"
@@ -866,7 +895,7 @@ This message was sent from Chariot's auto website.
                                     checked as boolean
                                   )
                                 }
-                                className={`mt-0.5 text-blue-600 focus:ring-blue-500 ${
+                                className={`mt-0.5 text-emerald-600 focus:ring-emerald-500 ${
                                   formErrors.agreeToTerms
                                     ? "border-red-500"
                                     : ""
@@ -874,19 +903,19 @@ This message was sent from Chariot's auto website.
                               />
                               <label
                                 htmlFor="agreeToTerms"
-                                className="ml-2 text-sm text-gray-700"
+                                className="ml-2 text-sm text-stone-700"
                               >
                                 I agree to the{" "}
                                 <Link
                                   href="/terms"
-                                  className="text-blue-600 hover:underline"
+                                  className="text-emerald-600 hover:underline"
                                 >
                                   Terms of Service
                                 </Link>{" "}
                                 and{" "}
                                 <Link
                                   href="/privacy"
-                                  className="text-blue-600 hover:underline"
+                                  className="text-emerald-600 hover:underline"
                                 >
                                   Privacy Policy
                                 </Link>
@@ -905,14 +934,14 @@ This message was sent from Chariot's auto website.
                               type="button"
                               variant="outline"
                               onClick={handlePreviousStep}
-                              className="py-6 sm:flex-1"
+                              className="rounded-none border border-stone-300 bg-white py-6 font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-100 sm:flex-1"
                             >
                               <ChevronLeft size={18} className="mr-2" />
                               Back
                             </Button>
                             <Button
                               type="submit"
-                              className="bg-blue-600 hover:bg-blue-700 py-6 sm:flex-1"
+                              className="rounded-none border border-stone-300 bg-emerald-600 py-6 font-bold uppercase tracking-wider text-white hover:bg-emerald-500 sm:flex-1"
                               disabled={isSubmitting}
                             >
                               {isSubmitting ? (
@@ -935,66 +964,66 @@ This message was sent from Chariot's auto website.
                 </div>
 
                 {/* Safety tips card */}
-                {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
-                  <div className="p-4 md:p-6 border-b border-gray-200">
-                    <h2 className="font-semibold text-gray-900 flex items-center">
-                      <Shield size={18} className="mr-2 text-blue-600" />
+                {/* <div className="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden mb-6">
+                  <div className="p-4 md:p-6 border-b border-stone-200">
+                    <h2 className="font-semibold text-stone-900 flex items-center">
+                      <Shield size={18} className="mr-2 text-emerald-600" />
                       Safety Tips When Buying a Vehicle
                     </h2>
                   </div>
                   <div className="p-4 md:p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="flex items-start">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                          <MapPin size={16} className="text-blue-600" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                          <MapPin size={16} className="text-emerald-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900 text-sm mb-1">
+                          <h3 className="font-medium text-stone-900 text-sm mb-1">
                             Meet in safe locations
                           </h3>
-                          <p className="text-gray-600 text-sm">
+                          <p className="text-stone-600 text-sm">
                             Always meet in public, well-lit areas such as
                             shopping centers or police stations.
                           </p>
                         </div>
                       </div>
                       <div className="flex items-start">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                          <FileText size={16} className="text-blue-600" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                          <FileText size={16} className="text-emerald-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900 text-sm mb-1">
+                          <h3 className="font-medium text-stone-900 text-sm mb-1">
                             Verify documentation
                           </h3>
-                          <p className="text-gray-600 text-sm">
+                          <p className="text-stone-600 text-sm">
                             Check all vehicle documents including title, service
                             history, and VIN.
                           </p>
                         </div>
                       </div>
                       <div className="flex items-start">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                          <KeyRound size={16} className="text-blue-600" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                          <KeyRound size={16} className="text-emerald-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900 text-sm mb-1">
+                          <h3 className="font-medium text-stone-900 text-sm mb-1">
                             Test drive safely
                           </h3>
-                          <p className="text-gray-600 text-sm">
+                          <p className="text-stone-600 text-sm">
                             Bring a friend along for test drives and ensure
                             proper insurance coverage.
                           </p>
                         </div>
                       </div>
                       <div className="flex items-start">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                          <CreditCard size={16} className="text-blue-600" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
+                          <CreditCard size={16} className="text-emerald-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900 text-sm mb-1">
+                          <h3 className="font-medium text-stone-900 text-sm mb-1">
                             Secure payments
                           </h3>
-                          <p className="text-gray-600 text-sm">
+                          <p className="text-stone-600 text-sm">
                             Never wire money or use gift cards. Use secure
                             payment methods or cashier's checks.
                           </p>
@@ -1008,95 +1037,93 @@ This message was sent from Chariot's auto website.
               {/* Right column - Car summary and seller info */}
               <div className="lg:w-1/3">
                 {/* Car summary card */}
-                <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6 sticky top-4">
-                  <div className="p-4 md:p-6 border-b border-gray-200">
-                    <h2 className="font-semibold text-gray-900 flex items-center">
-                      <Car size={18} className="mr-2 text-blue-600" />
-                      Vehicle Details
+                <div className="sticky top-4 mb-6 overflow-hidden border border-stone-300 bg-white">
+                  <div className="border-b border-stone-300 bg-stone-100 px-4 py-4 md:px-6">
+                    <h2 className="flex items-center font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
+                      <Car size={18} className="mr-2 text-emerald-700" />
+                      Vehicle details
                     </h2>
                   </div>
                   <div className="p-4">
-                    <div className="relative h-48 rounded-md overflow-hidden mb-3 group">
+                    <div className="relative mb-3 h-48 overflow-hidden border border-stone-300 bg-stone-100">
                       {carDetails.images && carDetails.images.length > 0 ? (
-                        <>
-                          <Image
-                            src={carDetails.images[0]}
-                            alt={carDetails.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        </>
+                        <Image
+                          src={carDetails.images[0]}
+                          alt={carDetails.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="(max-width: 1024px) 100vw, 320px"
+                        />
                       ) : (
-                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                        <div className="flex h-full w-full items-center justify-center text-stone-400">
                           <Car size={32} />
                         </div>
                       )}
 
                       {/* Condition badge */}
-                      <div className="absolute top-3 left-3">
-                        <Badge className="bg-blue-600 hover:bg-blue-700">
+                      <div className="absolute left-3 top-3">
+                        <Badge className="rounded-none border border-stone-300 bg-emerald-600 font-mono text-[10px] font-bold uppercase tracking-wider text-white hover:bg-emerald-500">
                           {carDetails.condition}
                         </Badge>
                       </div>
                     </div>
 
-                    <h3 className="font-medium text-lg mb-1">
+                    <h3 className="mb-1 text-lg font-semibold text-stone-900">
                       {carDetails.title}
                     </h3>
-                    <p className="text-xl font-bold text-blue-600 mb-3">
+                    <p className="mb-3 text-xl font-bold text-emerald-700">
                       {formatPrice(carDetails.price, carDetails.currency)}
                     </p>
 
-                    <Separator className="my-3" />
+                    <Separator className="my-3 bg-stone-900" />
 
                     <div className="grid grid-cols-2 gap-3 mb-4">
                       <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">Year</span>
+                        <span className="text-xs text-stone-500">Year</span>
                         <span className="font-medium flex items-center">
                           <Calendar
                             size={14}
-                            className="mr-1.5 text-gray-400"
+                            className="mr-1.5 text-stone-400"
                           />
                           {carDetails.year}
                         </span>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">Mileage</span>
+                        <span className="text-xs text-stone-500">Mileage</span>
                         <span className="font-medium flex items-center">
-                          <Gauge size={14} className="mr-1.5 text-gray-400" />
+                          <Gauge size={14} className="mr-1.5 text-stone-400" />
                           {formatNumber(carDetails.mileage)} mi
                         </span>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">Fuel Type</span>
+                        <span className="text-xs text-stone-500">Fuel Type</span>
                         <span className="font-medium flex items-center">
-                          <Fuel size={14} className="mr-1.5 text-gray-400" />
+                          <Fuel size={14} className="mr-1.5 text-stone-400" />
                           {carDetails.fuelType}
                         </span>
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-stone-500">
                           Transmission
                         </span>
                         <span className="font-medium flex items-center">
                           <Settings
                             size={14}
-                            className="mr-1.5 text-gray-400"
+                            className="mr-1.5 text-stone-400"
                           />
                           {carDetails.transmission}
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center text-sm text-gray-600 mb-3">
-                      <MapPin size={14} className="mr-1.5 text-gray-400" />
+                    <div className="flex items-center text-sm text-stone-600 mb-3">
+                      <MapPin size={14} className="mr-1.5 text-stone-400" />
                       <span>{carDetails.location}</span>
                     </div>
 
                     <Link
-                      href={`/car/${params.id}`}
-                      className="text-blue-600 text-sm hover:underline flex items-center"
+                      href={`/car/${carId}`}
+                      className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900 underline decoration-emerald-600 decoration-2 underline-offset-4 hover:text-emerald-800"
                     >
                       View full details
                       <ArrowRight size={14} className="ml-1" />
@@ -1106,44 +1133,44 @@ This message was sent from Chariot's auto website.
 
                 {/* Seller info card - only show if available */}
                 {carDetails.sellerInfo && (
-                  <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden sticky top-[calc(4rem+350px)]">
-                    <div className="p-4 md:p-6 border-b border-gray-200">
-                      <h2 className="font-semibold text-gray-900 flex items-center">
-                        <User size={18} className="mr-2 text-blue-600" />
-                        Seller Information
+                  <div className="sticky top-[calc(4rem+350px)] overflow-hidden border border-stone-300 bg-white">
+                    <div className="border-b border-stone-300 bg-stone-100 px-4 py-4 md:px-6">
+                      <h2 className="flex items-center font-mono text-[10px] font-bold uppercase tracking-wider text-stone-700">
+                        <User size={18} className="mr-2 text-emerald-700" />
+                        Seller information
                       </h2>
                     </div>
                     <div className="p-4">
-                      <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3 text-lg font-semibold">
+                      <div className="mb-4 flex items-center">
+                        <div className="mr-3 flex h-12 w-12 shrink-0 items-center justify-center border border-stone-300 bg-emerald-50 text-lg font-semibold text-emerald-800">
                           {carDetails.sellerInfo.name.charAt(0)}
                         </div>
                         <div>
                           <div className="flex items-center">
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-stone-900">
                               {carDetails.sellerInfo.name}
                             </p>
                             {carDetails.sellerInfo.verified && (
                               <Badge
                                 variant="outline"
-                                className="ml-2 bg-green-50 text-green-700 border-green-200"
+                                className="ml-2 rounded-none border border-stone-300 bg-white font-mono text-[9px] font-bold uppercase tracking-wider text-stone-900"
                               >
                                 <Shield size={12} className="mr-1" />
                                 Verified
                               </Badge>
                             )}
                           </div>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-stone-500">
                             Member since {carDetails.sellerInfo.memberSince}
                           </p>
                         </div>
                       </div>
 
                       <div className="space-y-3 text-sm">
-                        <div className="flex items-center p-2 bg-gray-50 rounded-md">
-                          <Clock size={16} className="mr-2 text-gray-500" />
+                        <div className="flex items-center border border-stone-300 bg-white p-2 rounded-none">
+                          <Clock size={16} className="mr-2 text-stone-500" />
                           <div>
-                            <span className="text-gray-600 block">
+                            <span className="text-stone-600 block">
                               Response time
                             </span>
                             <span className="font-medium">
@@ -1152,10 +1179,10 @@ This message was sent from Chariot's auto website.
                           </div>
                         </div>
 
-                        <div className="flex items-center p-2 bg-gray-50 rounded-md">
-                          <MapPin size={16} className="mr-2 text-gray-500" />
+                        <div className="flex items-center border border-stone-300 bg-white p-2 rounded-none">
+                          <MapPin size={16} className="mr-2 text-stone-500" />
                           <div>
-                            <span className="text-gray-600 block">
+                            <span className="text-stone-600 block">
                               Location
                             </span>
                             <span className="font-medium">
@@ -1164,13 +1191,13 @@ This message was sent from Chariot's auto website.
                           </div>
                         </div>
 
-                        <div className="flex items-center p-2 bg-gray-50 rounded-md">
+                        <div className="flex items-center border border-stone-300 bg-white p-2 rounded-none">
                           <MessageCircle
                             size={16}
-                            className="mr-2 text-gray-500"
+                            className="mr-2 text-stone-500"
                           />
                           <div>
-                            <span className="text-gray-600 block">
+                            <span className="text-stone-600 block">
                               Response rate
                             </span>
                             <span className="font-medium">

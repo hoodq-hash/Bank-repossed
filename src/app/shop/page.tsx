@@ -1,11 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import {
-  ArrowRight,
   Search,
   MapPin,
   Loader2,
-  AlertCircle,
   Car,
   Filter,
   X,
@@ -18,40 +16,30 @@ import {
   ChevronUp,
   DollarSign,
   Check,
-  Clock,
   Gauge,
   Calendar,
   Settings,
   Heart,
-  Share2,
-  Star,
-  Tag,
-  Zap,
   RefreshCw,
   SlidersHorizontal,
   BadgeCheck,
-  ShieldCheck,
-  Info,
   Plus,
   Fuel,
   Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Car {
   id: string;
@@ -68,6 +56,8 @@ interface Car {
   model: string;
   color: string;
   featured?: boolean;
+  fuelType?: string;
+  msrp?: number;
 }
 
 interface PriceRange {
@@ -658,9 +648,16 @@ function ShopPage() {
     window.history.replaceState({}, "", "/shop");
   };
 
-  const handleAddToCompare = (car, e) => {
+  const handleAddToCompare = (car: Car, e: React.MouseEvent) => {
     e.stopPropagation();
-    // Add car to comparison
+    if (carsToCompare.length >= 3) {
+      toast.error("You can compare up to three vehicles at a time.");
+      return;
+    }
+    if (carsToCompare.some((c) => c.id === car.id)) {
+      toast.info("Already in comparison");
+      return;
+    }
     setCarsToCompare([...carsToCompare, car]);
     setShowCompareBar(true);
 
@@ -688,7 +685,7 @@ function ShopPage() {
 
     toast.success("Added to comparison");
   };
-  const handleRemoveFromCompare = (carId) => {
+  const handleRemoveFromCompare = (carId: string) => {
     setCarsToCompare(carsToCompare.filter((car) => car.id !== carId));
 
     // Remove from localStorage (both data and IDs)
@@ -720,113 +717,115 @@ function ShopPage() {
     const conditionLower = condition.toLowerCase();
     if (conditionLower.includes("new")) return "bg-green-500";
     if (conditionLower.includes("excellent")) return "bg-teal-500";
-    if (conditionLower.includes("good")) return "bg-blue-500";
-    if (conditionLower.includes("fair")) return "bg-yellow-500";
+    if (conditionLower.includes("good")) return "bg-emerald-500";
+    if (conditionLower.includes("fair")) return "bg-lime-600";
     if (conditionLower.includes("poor")) return "bg-red-500";
-    return "bg-blue-500"; // default
+    return "bg-emerald-500"; // default
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex min-h-screen flex-col bg-[#f4f1ea] text-stone-900 antialiased">
       <Navbar />
 
-      <main className="flex-grow py-4 md:py-6">
-        {/* Page header with gradient background */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 md:py-12 mb-6">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="max-w-3xl">
-              <h1 className="text-2xl md:text-4xl font-bold mb-3">
-                Find Your Perfect Vehicle
-              </h1>
-              <p className="text-blue-100 mb-6 text-sm md:text-base">
-                Browse our extensive collection of quality vehicles from trusted
-                dealers and private sellers
-              </p>
-
-              {/* Enhanced search bar */}
-              <div className="bg-white rounded-xl shadow-lg p-1 flex flex-col md:flex-row">
+      <main className="flex-grow py-0 md:py-0">
+        <div className="border-b border-stone-300 bg-[#f4f1ea] py-10 md:py-14">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="md:col-span-7">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Inventory
+                </p>
+                <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl">
+                  Shop repo vehicles
+                </h1>
+                <p className="mt-4 max-w-xl text-sm leading-relaxed text-stone-600 md:text-base">
+                  Browse lender-recovered inventory with clear filters—compare
+                  price, mileage, and condition before you reach out.
+                </p>
+              </div>
+              <div className="md:col-span-5">
                 <form
                   onSubmit={handleSearchSubmit}
-                  className="flex-grow flex items-center p-2 md:p-3"
+                  className="flex flex-col gap-2 border border-stone-300 bg-white p-2 sm:flex-row sm:items-stretch"
                 >
-                  <Search
-                    size={20}
-                    className="text-gray-400 mr-3 flex-shrink-0"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Search by make, model, or keywords..."
-                    className="w-full py-1 focus:outline-none text-gray-800 placeholder-gray-400"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                  />
+                  <div className="flex min-h-12 flex-1 items-center gap-2 px-2">
+                    <Search
+                      size={20}
+                      className="shrink-0 text-stone-400"
+                      aria-hidden
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search make, model, keywords…"
+                      className="min-h-11 w-full bg-transparent py-2 text-stone-900 placeholder:text-stone-400 focus:outline-none"
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    onClick={handleSearchSubmit}
+                    className="h-12 shrink-0 rounded-none border border-stone-300 bg-emerald-600 px-6 font-bold text-white hover:bg-emerald-500"
+                  >
+                    Search
+                  </Button>
                 </form>
-                <Button
-                  type="submit"
-                  onClick={handleSearchSubmit}
-                  className="m-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-2.5"
-                >
-                  Search
-                </Button>
-              </div>
 
-              {/* Quick links */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Link href="/shop?condition=New">
-                  <Badge className="bg-blue-500/20 hover:bg-blue-500/30 text-white border-none py-1.5 px-3">
-                    New Arrivals
-                  </Badge>
-                </Link>
-                <Link href="/shop?min=0&max=10000">
-                  <Badge className="bg-blue-500/20 hover:bg-blue-500/30 text-white border-none py-1.5 px-3">
-                    Under $10,000
-                  </Badge>
-                </Link>
-                <Link href="/shop?transmission=Automatic">
-                  <Badge className="bg-blue-500/20 hover:bg-blue-500/30 text-white border-none py-1.5 px-3">
-                    Automatic
-                  </Badge>
-                </Link>
-                <Link href="/shop?transmission=Manual">
-                  <Badge className="bg-blue-500/20 hover:bg-blue-500/30 text-white border-none py-1.5 px-3">
-                    Manual
-                  </Badge>
-                </Link>
-                <Link href="/shop?condition=Certified">
-                  <Badge className="bg-blue-500/20 hover:bg-blue-500/30 text-white border-none py-1.5 px-3">
-                    Certified Pre-Owned
-                  </Badge>
-                </Link>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href="/shop?min=0&max=10000"
+                    className="border border-stone-300 bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
+                  >
+                    Under $10K
+                  </Link>
+                  <Link
+                    href="/shop"
+                    className="border border-stone-300 bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
+                  >
+                    All inventory
+                  </Link>
+                  <Link
+                    href="/compare"
+                    className="border border-dashed border-stone-400 bg-transparent px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-stone-700 hover:border-stone-300"
+                  >
+                    Compare
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 max-w-7xl">
-          {/* Breadcrumbs */}
-          <div className="flex items-center text-sm text-gray-500 mb-4">
-            <Link href="/" className="hover:text-blue-600">
+        <div className="mx-auto max-w-7xl px-5 py-6 sm:px-6 lg:px-8">
+          <div className="mb-6 flex items-center border-b border-stone-300 pb-4 text-xs font-semibold uppercase tracking-wider text-stone-500">
+            <Link
+              href="/"
+              className="text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+            >
               Home
             </Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-700 font-medium">Browse Vehicles</span>
+            <span className="mx-2 text-stone-400" aria-hidden>
+              /
+            </span>
+            <span className="text-stone-600">Browse vehicles</span>
           </div>
 
-          {/* Mobile filter toggle */}
-          <div className="lg:hidden mb-4 flex justify-between items-center">
+          <div className="mb-5 flex items-center justify-between lg:hidden">
             <Button
               data-filter-toggle
+              type="button"
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 shadow-sm"
+              variant="outline"
+              className="rounded-none border border-stone-300 bg-white font-bold text-stone-900 hover:bg-stone-200"
             >
-              <Filter size={18} />
-              Filters{" "}
+              <Filter size={18} className="mr-2" />
+              Filters
               {selectedFilters.brands.length +
                 selectedFilters.condition.length +
                 selectedFilters.transmission.length +
                 (priceRange.min && priceRange.max ? 1 : 0) >
                 0 &&
-                `(${
+                ` (${
                   selectedFilters.brands.length +
                   selectedFilters.condition.length +
                   selectedFilters.transmission.length +
@@ -835,27 +834,30 @@ function ShopPage() {
             </Button>
             <div className="flex gap-2">
               <Button
-                className={`${
+                type="button"
+                className={`rounded-none border border-stone-300 px-3 ${
                   viewMode === "grid"
-                    ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
-                } px-3 shadow-sm`}
+                    ? "bg-stone-900 text-[#f4f1ea]"
+                    : "bg-white text-stone-900 hover:bg-stone-200"
+                }`}
                 onClick={() => setViewMode("grid")}
               >
                 <Grid size={18} />
               </Button>
               <Button
-                className={`${
+                type="button"
+                className={`rounded-none border border-stone-300 px-3 ${
                   viewMode === "list"
-                    ? "bg-blue-600 text-white"
-                    : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
-                } px-3 shadow-sm`}
+                    ? "bg-stone-900 text-[#f4f1ea]"
+                    : "bg-white text-stone-900 hover:bg-stone-200"
+                }`}
                 onClick={() => setViewMode("list")}
               >
                 <List size={18} />
               </Button>
               <Button
-                className="bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 px-3 shadow-sm"
+                type="button"
+                className="rounded-none border border-stone-300 bg-white px-3 text-stone-900 hover:bg-stone-200"
                 onClick={() => setShowMobileSort(true)}
               >
                 <SlidersHorizontal size={18} />
@@ -864,10 +866,10 @@ function ShopPage() {
           </div>
 
           {isLoading ? (
-            <div className="flex justify-center items-center h-64 bg-white rounded-xl shadow-sm">
-              <Loader2 className="h-8 w-8 animate-spin text-blue-600 mr-3" />
-              <span className="text-gray-600 font-medium">
-                Loading vehicles...
+            <div className="flex min-h-[16rem] items-center justify-center gap-3 border border-stone-300 bg-white">
+              <Loader2 className="h-9 w-9 animate-spin text-stone-900" />
+              <span className="font-medium text-stone-600">
+                Loading vehicles…
               </span>
             </div>
           ) : (
@@ -875,8 +877,9 @@ function ShopPage() {
               {/* Mobile filter overlay */}
               {showFilters && (
                 <div
-                  className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                  className="fixed inset-0 z-40 bg-stone-900/60 lg:hidden"
                   onClick={() => setShowFilters(false)}
+                  aria-hidden
                 />
               )}
 
@@ -892,7 +895,7 @@ function ShopPage() {
                       onClick={() => setShowMobileSort(false)}
                     />
                     <motion.div
-                      className="fixed bottom-0 left-0 right-0 bg-white z-50 rounded-t-xl shadow-lg"
+                      className="fixed bottom-0 left-0 right-0 z-50 border-t border-stone-300 bg-[#f4f1ea] shadow-[0_-8px_30px_rgba(0,0,0,0.12)]"
                       initial={{ y: "100%" }}
                       animate={{ y: 0 }}
                       exit={{ y: "100%" }}
@@ -903,18 +906,19 @@ function ShopPage() {
                       }}
                     >
                       <div className="p-4">
-                        <div className="flex justify-between items-center mb-4">
-                          <h3 className="font-semibold text-gray-900">
-                            Sort By
+                        <div className="flex items-center justify-between border-b border-stone-300 pb-3">
+                          <h3 className="text-sm font-bold uppercase tracking-wider text-stone-900">
+                            Sort by
                           </h3>
                           <button
+                            type="button"
                             onClick={() => setShowMobileSort(false)}
-                            className="p-1 rounded-full hover:bg-gray-100"
+                            className="border border-stone-300 p-1.5 hover:bg-white"
                           >
                             <X size={20} />
                           </button>
                         </div>
-                        <div className="space-y-3">
+                        <div className="mt-4 space-y-2">
                           {[
                             { id: "newest", label: "Newest First" },
                             { id: "priceAsc", label: "Price: Low to High" },
@@ -925,10 +929,11 @@ function ShopPage() {
                           ].map((option) => (
                             <button
                               key={option.id}
-                              className={`w-full text-left p-3 rounded-lg flex items-center justify-between ${
+                              type="button"
+                              className={`flex w-full items-center justify-between border border-stone-300 px-3 py-3 text-left text-sm font-semibold ${
                                 sortOption === option.id
-                                  ? "bg-blue-50 text-blue-600 font-medium"
-                                  : "bg-gray-50 text-gray-700"
+                                  ? "bg-emerald-600 text-white"
+                                  : "bg-white text-stone-900 hover:bg-amber-100/60"
                               }`}
                               onClick={() => {
                                 setSortOption(option.id);
@@ -937,7 +942,7 @@ function ShopPage() {
                             >
                               {option.label}
                               {sortOption === option.id && (
-                                <Check size={18} className="text-blue-600" />
+                                <Check size={18} className="shrink-0" />
                               )}
                             </button>
                           ))}
@@ -951,26 +956,27 @@ function ShopPage() {
               {/* Sidebar filters */}
               <div
                 id="filter-sidebar"
-                className={`lg:w-1/4 fixed inset-y-0 left-0 z-50 lg:static lg:z-auto transform ${
+                className={`fixed inset-y-0 left-0 z-50 h-full w-[85%] max-w-sm overflow-y-auto border-r border-stone-300 bg-[#f4f1ea] transition-transform duration-300 ease-in-out sm:w-3/5 lg:static lg:z-auto lg:h-auto lg:w-1/4 lg:max-w-none lg:translate-x-0 lg:overflow-visible lg:border-r-0 ${
                   showFilters ? "translate-x-0" : "-translate-x-full"
-                } lg:translate-x-0 transition-transform duration-300 ease-in-out w-3/4 sm:w-1/2 md:w-2/5 lg:w-1/4 bg-white h-full lg:h-auto overflow-y-auto`}
+                } lg:translate-x-0`}
               >
-                <div className="sticky top-0 bg-white p-4 border-b lg:border-b-0 lg:rounded-xl lg:shadow-sm lg:border lg:border-gray-200">
-                  {/* Mobile filter header */}
-                  <div className="flex justify-between items-center mb-4 lg:hidden">
-                    <h3 className="font-semibold text-gray-900">Filters</h3>
+                <div className="sticky top-0 z-10 border-b border-stone-300 bg-[#f4f1ea] p-4 lg:border lg:border-stone-300 lg:bg-white">
+                  <div className="mb-4 flex items-center justify-between lg:hidden">
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-stone-900">
+                      Filters
+                    </h3>
                     <button
+                      type="button"
                       onClick={() => setShowFilters(false)}
-                      className="p-1 rounded-full hover:bg-gray-100"
+                      className="border border-stone-300 p-1.5 hover:bg-white"
                     >
                       <X size={20} />
                     </button>
                   </div>
 
-                  {/* Filter header with clear button */}
-                  <div className="hidden lg:flex justify-between items-center mb-4">
-                    <h3 className="font-semibold text-gray-900 flex items-center">
-                      <Filter size={16} className="mr-2 text-blue-500" />
+                  <div className="mb-4 hidden items-center justify-between lg:flex">
+                    <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                      <Filter size={16} className="mr-2 text-emerald-700" />
                       Filters
                     </h3>
                     {(selectedFilters.brands.length > 0 ||
@@ -979,8 +985,9 @@ function ShopPage() {
                       (priceRange.min && priceRange.max) ||
                       searchQuery) && (
                       <button
+                        type="button"
                         onClick={clearAllFilters}
-                        className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center"
+                        className="flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
                       >
                         <RefreshCw size={14} className="mr-1" />
                         Reset
@@ -994,19 +1001,20 @@ function ShopPage() {
                     selectedFilters.transmission.length > 0 ||
                     (priceRange.min && priceRange.max) ||
                     searchQuery) && (
-                    <div className="mb-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
-                      <div className="text-sm text-blue-700 font-medium mb-2 flex items-center">
-                        <Check size={14} className="mr-1" />
-                        Active Filters
+                    <div className="mb-4 border border-dashed border-stone-300 bg-white/80 px-3 py-3">
+                      <div className="mb-2 flex items-center text-xs font-bold uppercase tracking-wider text-stone-500">
+                        <Check size={14} className="mr-1.5 text-stone-900" />
+                        Active
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {searchQuery && (
-                          <div className="bg-white text-blue-800 text-xs px-2 py-1 rounded-md flex items-center shadow-sm">
-                            <Search size={12} className="mr-1 text-blue-500" />
+                          <div className="flex items-center border border-stone-300 bg-white px-2 py-1 text-xs font-semibold text-stone-900">
+                            <Search size={12} className="mr-1 text-stone-500" />
                             {searchQuery}
                             <button
+                              type="button"
                               onClick={() => setSearchQuery("")}
-                              className="ml-1 hover:text-blue-900"
+                              className="ml-1 text-stone-500 hover:text-stone-900"
                             >
                               <X size={12} />
                             </button>
@@ -1019,12 +1027,13 @@ function ShopPage() {
                           return (
                             <div
                               key={brand}
-                              className="bg-white text-blue-800 text-xs px-2 py-1 rounded-md flex items-center shadow-sm"
+                              className="flex items-center border border-stone-300 bg-white px-2 py-1 text-xs font-semibold text-stone-900"
                             >
                               {displayName}
                               <button
+                                type="button"
                                 onClick={() => handleBrandSelect(brand)}
-                                className="ml-1 hover:text-blue-900"
+                                className="ml-1 text-stone-500 hover:text-stone-900"
                               >
                                 <X size={12} />
                               </button>
@@ -1032,18 +1041,19 @@ function ShopPage() {
                           );
                         })}
                         {priceRange.min && priceRange.max && (
-                          <div className="bg-white text-blue-800 text-xs px-2 py-1 rounded-md flex items-center shadow-sm">
+                          <div className="flex items-center border border-stone-300 bg-white px-2 py-1 text-xs font-semibold text-stone-900">
                             <DollarSign
                               size={12}
-                              className="mr-1 text-blue-500"
+                              className="mr-1 text-stone-500"
                             />
                             {formatPrice(parseInt(priceRange.min))} -{" "}
                             {formatPrice(parseInt(priceRange.max))}
                             <button
+                              type="button"
                               onClick={() =>
                                 setPriceRange({ min: "", max: "" })
                               }
-                              className="ml-1 hover:text-blue-900"
+                              className="ml-1 text-stone-500 hover:text-stone-900"
                             >
                               <X size={12} />
                             </button>
@@ -1052,16 +1062,17 @@ function ShopPage() {
                         {selectedFilters.condition.map((condition) => (
                           <div
                             key={condition}
-                            className="bg-white text-blue-800 text-xs px-2 py-1 rounded-md flex items-center shadow-sm"
+                            className="flex items-center border border-stone-300 bg-white px-2 py-1 text-xs font-semibold text-stone-900"
                           >
                             <BadgeCheck
                               size={12}
-                              className="mr-1 text-blue-500"
+                              className="mr-1 text-stone-500"
                             />
                             {condition}
                             <button
+                              type="button"
                               onClick={() => handleConditionSelect(condition)}
-                              className="ml-1 hover:text-blue-900"
+                              className="ml-1 text-stone-500 hover:text-stone-900"
                             >
                               <X size={12} />
                             </button>
@@ -1070,18 +1081,19 @@ function ShopPage() {
                         {selectedFilters.transmission.map((transmission) => (
                           <div
                             key={transmission}
-                            className="bg-white text-blue-800 text-xs px-2 py-1 rounded-md flex items-center shadow-sm"
+                            className="flex items-center border border-stone-300 bg-white px-2 py-1 text-xs font-semibold text-stone-900"
                           >
                             <Settings
                               size={12}
-                              className="mr-1 text-blue-500"
+                              className="mr-1 text-stone-500"
                             />
                             {transmission}
                             <button
+                              type="button"
                               onClick={() =>
                                 handleTransmissionSelect(transmission)
                               }
-                              className="ml-1 hover:text-blue-900"
+                              className="ml-1 text-stone-500 hover:text-stone-900"
                             >
                               <X size={12} />
                             </button>
@@ -1094,17 +1106,17 @@ function ShopPage() {
                   {/* Brand filter */}
                   <div className="mb-6">
                     <div
-                      className="flex justify-between items-center cursor-pointer mb-3"
+                      className="mb-3 flex cursor-pointer items-center justify-between"
                       onClick={() => toggleFilter("make")}
                     >
-                      <h3 className="font-semibold text-gray-900 flex items-center">
-                        <Car size={16} className="mr-2 text-blue-500" />
+                      <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <Car size={16} className="mr-2 text-emerald-700" />
                         Brand
                       </h3>
                       {expandedFilters.make ? (
-                        <ChevronUp size={18} className="text-gray-500" />
+                        <ChevronUp size={18} className="text-stone-500" />
                       ) : (
-                        <ChevronDown size={18} className="text-gray-500" />
+                        <ChevronDown size={18} className="text-stone-500" />
                       )}
                     </div>
 
@@ -1113,11 +1125,11 @@ function ShopPage() {
                         <div className="relative mb-3">
                           <input
                             type="text"
-                            placeholder="Find Brand"
-                            className="w-full p-2 pl-8 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Find brand"
+                            className="w-full border border-stone-300 bg-white p-2 pl-8 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-1"
                           />
                           <Search
-                            className="absolute left-2 top-2 text-gray-400"
+                            className="absolute left-2 top-2.5 text-stone-400"
                             size={16}
                           />
                         </div>
@@ -1132,11 +1144,11 @@ function ShopPage() {
                                   make.name
                                 )}
                                 onChange={() => handleBrandSelect(make.name)}
-                                className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                className="mr-2 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500"
                               />
                               <label
                                 htmlFor={`make-${index}`}
-                                className="text-sm text-gray-700 flex-grow flex items-center"
+                                className="text-sm text-stone-700 flex-grow flex items-center"
                               >
                                 <div className="w-5 h-5 mr-2">
                                   <img
@@ -1154,7 +1166,7 @@ function ShopPage() {
                                 </div>
                                 {make.displayName}
                               </label>
-                              <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full">
+                              <span className="border border-stone-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-stone-600">
                                 {make.count}
                               </span>
                             </div>
@@ -1165,19 +1177,19 @@ function ShopPage() {
                   </div>
 
                   {/* Price filter */}
-                  <div className="border-t border-gray-200 pt-4 pb-2">
+                  <div className="border-t border-stone-300 pt-4 pb-2">
                     <div
                       className="flex justify-between items-center cursor-pointer mb-3"
                       onClick={() => toggleFilter("price")}
                     >
-                      <h3 className="font-semibold text-gray-900 flex items-center">
-                        <DollarSign size={16} className="mr-2 text-blue-500" />
+                      <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <DollarSign size={16} className="mr-2 text-emerald-700" />
                         Price
                       </h3>
                       {expandedFilters.price ? (
-                        <ChevronUp size={18} className="text-gray-500" />
+                        <ChevronUp size={18} className="text-stone-500" />
                       ) : (
-                        <ChevronDown size={18} className="text-gray-500" />
+                        <ChevronDown size={18} className="text-stone-500" />
                       )}
                     </div>
 
@@ -1185,11 +1197,11 @@ function ShopPage() {
                       <>
                         <div className="flex gap-3 mb-4">
                           <div className="w-1/2">
-                            <label className="block text-xs text-gray-500 mb-1">
+                            <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-stone-500">
                               Min Price
                             </label>
                             <div className="relative">
-                              <span className="absolute left-2 top-2 text-gray-500">
+                              <span className="absolute left-2 top-2 text-stone-500">
                                 $
                               </span>
                               <input
@@ -1202,16 +1214,16 @@ function ShopPage() {
                                     min: e.target.value.replace(/\D/g, ""),
                                   })
                                 }
-                                className="w-full p-2 pl-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                className="w-full border border-stone-300 bg-white p-2 pl-6 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-1"
                               />
                             </div>
                           </div>
                           <div className="w-1/2">
-                            <label className="block text-xs text-gray-500 mb-1">
+                            <label className="mb-1 block text-xs font-bold uppercase tracking-wider text-stone-500">
                               Max Price
                             </label>
                             <div className="relative">
-                              <span className="absolute left-2 top-2 text-gray-500">
+                              <span className="absolute left-2 top-2 text-stone-500">
                                 $
                               </span>
                               <input
@@ -1224,7 +1236,7 @@ function ShopPage() {
                                     max: e.target.value.replace(/\D/g, ""),
                                   })
                                 }
-                                className="w-full p-2 pl-6 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                className="w-full border border-stone-300 bg-white p-2 pl-6 text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-1"
                               />
                             </div>
                           </div>
@@ -1244,30 +1256,34 @@ function ShopPage() {
                                 onChange={() =>
                                   handlePriceRangeSelect(range.min, range.max)
                                 }
-                                className="mr-2 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+                                className="mr-2 h-4 w-4 border-stone-300 text-emerald-600 focus:ring-emerald-500"
                               />
                               <label
                                 htmlFor={`price-${index}`}
-                                className="text-sm text-gray-700 flex-grow"
+                                className="text-sm text-stone-700 flex-grow"
                               >
                                 {range.label}
                               </label>
-                              <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full">
+                              <span className="border border-stone-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-stone-600">
                                 {range.count}
                               </span>
                             </div>
                           ))}
                         </div>
 
-                        <div className="flex justify-between mb-2">
+                        <div className="mb-2 flex justify-between gap-2">
                           <Button
+                            type="button"
                             variant="outline"
-                            className="text-sm py-1 px-3 h-auto"
+                            className="h-9 rounded-none border border-stone-300 px-3 text-xs font-bold"
                             onClick={() => setPriceRange({ min: "", max: "" })}
                           >
                             Clear
                           </Button>
-                          <Button className="bg-blue-600 hover:bg-blue-700 text-sm py-1 px-3 h-auto">
+                          <Button
+                            type="button"
+                            className="h-9 rounded-none border border-stone-300 bg-emerald-600 px-3 text-xs font-bold text-white hover:bg-emerald-500"
+                          >
                             Apply
                           </Button>
                         </div>
@@ -1276,19 +1292,19 @@ function ShopPage() {
                   </div>
 
                   {/* Year filter */}
-                  <div className="border-t border-gray-200 pt-4 pb-2">
+                  <div className="border-t border-stone-300 pt-4 pb-2">
                     <div
                       className="flex justify-between items-center cursor-pointer mb-3"
                       onClick={() => toggleFilter("year")}
                     >
-                      <h3 className="font-semibold text-gray-900 flex items-center">
-                        <Calendar size={16} className="mr-2 text-blue-500" />
+                      <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <Calendar size={16} className="mr-2 text-emerald-700" />
                         Year
                       </h3>
                       {expandedFilters.year ? (
-                        <ChevronUp size={18} className="text-gray-500" />
+                        <ChevronUp size={18} className="text-stone-500" />
                       ) : (
-                        <ChevronDown size={18} className="text-gray-500" />
+                        <ChevronDown size={18} className="text-stone-500" />
                       )}
                     </div>
 
@@ -1300,15 +1316,15 @@ function ShopPage() {
                               type="radio"
                               id={`year-${index}`}
                               name="year-range"
-                              className="mr-2 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="mr-2 h-4 w-4 border-stone-300 text-emerald-600 focus:ring-emerald-500"
                             />
                             <label
                               htmlFor={`year-${index}`}
-                              className="text-sm text-gray-700 flex-grow"
+                              className="text-sm text-stone-700 flex-grow"
                             >
                               {range.label}
                             </label>
-                            <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full">
+                            <span className="border border-stone-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-stone-600">
                               {range.count}
                             </span>
                           </div>
@@ -1318,19 +1334,19 @@ function ShopPage() {
                   </div>
 
                   {/* Condition filter */}
-                  <div className="border-t border-gray-200 pt-4 pb-2">
+                  <div className="border-t border-stone-300 pt-4 pb-2">
                     <div
                       className="flex justify-between items-center cursor-pointer mb-3"
                       onClick={() => toggleFilter("condition")}
                     >
-                      <h3 className="font-semibold text-gray-900 flex items-center">
-                        <BadgeCheck size={16} className="mr-2 text-blue-500" />
+                      <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <BadgeCheck size={16} className="mr-2 text-emerald-700" />
                         Condition
                       </h3>
                       {expandedFilters.condition ? (
-                        <ChevronUp size={18} className="text-gray-500" />
+                        <ChevronUp size={18} className="text-stone-500" />
                       ) : (
-                        <ChevronDown size={18} className="text-gray-500" />
+                        <ChevronDown size={18} className="text-stone-500" />
                       )}
                     </div>
 
@@ -1347,15 +1363,15 @@ function ShopPage() {
                               onChange={() =>
                                 handleConditionSelect(condition.name)
                               }
-                              className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="mr-2 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500"
                             />
                             <label
                               htmlFor={`condition-${index}`}
-                              className="text-sm text-gray-700 flex-grow"
+                              className="text-sm text-stone-700 flex-grow"
                             >
                               {condition.name}
                             </label>
-                            <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full">
+                            <span className="border border-stone-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-stone-600">
                               {condition.count}
                             </span>
                           </div>
@@ -1365,19 +1381,19 @@ function ShopPage() {
                   </div>
 
                   {/* Transmission filter */}
-                  <div className="border-t border-gray-200 pt-4 pb-2">
+                  <div className="border-t border-stone-300 pt-4 pb-2">
                     <div
                       className="flex justify-between items-center cursor-pointer mb-3"
                       onClick={() => toggleFilter("transmission")}
                     >
-                      <h3 className="font-semibold text-gray-900 flex items-center">
-                        <Settings size={16} className="mr-2 text-blue-500" />
+                      <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <Settings size={16} className="mr-2 text-emerald-700" />
                         Transmission
                       </h3>
                       {expandedFilters.transmission ? (
-                        <ChevronUp size={18} className="text-gray-500" />
+                        <ChevronUp size={18} className="text-stone-500" />
                       ) : (
-                        <ChevronDown size={18} className="text-gray-500" />
+                        <ChevronDown size={18} className="text-stone-500" />
                       )}
                     </div>
 
@@ -1394,15 +1410,15 @@ function ShopPage() {
                               onChange={() =>
                                 handleTransmissionSelect(transmission.name)
                               }
-                              className="mr-2 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="mr-2 h-4 w-4 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500"
                             />
                             <label
                               htmlFor={`transmission-${index}`}
-                              className="text-sm text-gray-700 flex-grow"
+                              className="text-sm text-stone-700 flex-grow"
                             >
                               {transmission.name}
                             </label>
-                            <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-full">
+                            <span className="border border-stone-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-stone-600">
                               {transmission.count}
                             </span>
                           </div>
@@ -1415,17 +1431,19 @@ function ShopPage() {
                   <div className="mt-6 lg:hidden">
                     <div className="grid grid-cols-2 gap-3">
                       <Button
+                        type="button"
                         variant="outline"
-                        className="w-full"
+                        className="w-full rounded-none border border-stone-300 font-bold text-stone-900 hover:bg-stone-200"
                         onClick={clearAllFilters}
                       >
-                        Clear All
+                        Clear all
                       </Button>
                       <Button
-                        className="w-full bg-blue-600 hover:bg-blue-700"
+                        type="button"
+                        className="w-full rounded-none border border-stone-300 bg-emerald-600 font-bold text-white hover:bg-emerald-500"
                         onClick={() => setShowFilters(false)}
                       >
-                        Apply Filters
+                        Apply filters
                       </Button>
                     </div>
                   </div>
@@ -1435,17 +1453,19 @@ function ShopPage() {
               {/* Main content area */}
               <div className="lg:w-3/4">
                 {/* Search and sort - Desktop */}
-                <div className="hidden lg:block mb-6">
-                  <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-                      <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                        <Car size={18} className="mr-2 text-blue-500" />
-                        Browse Vehicles
+                <div className="hidden lg:mb-6 lg:block">
+                  <div className="overflow-hidden border border-stone-300 bg-white">
+                    <div className="flex items-center justify-between border-b border-stone-300 p-4">
+                      <h2 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                        <Car size={18} className="mr-2 text-emerald-700" />
+                        Browse vehicles
                       </h2>
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-500">Sort by:</span>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                          Sort
+                        </span>
                         <select
-                          className="p-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="border border-stone-300 bg-[#f4f1ea] p-2 text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600"
                           value={sortOption}
                           onChange={(e) => setSortOption(e.target.value)}
                         >
@@ -1463,11 +1483,12 @@ function ShopPage() {
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button
-                                  className={`${
+                                  type="button"
+                                  className={`rounded-none border border-stone-300 px-3 ${
                                     viewMode === "grid"
-                                      ? "bg-blue-600 text-white"
-                                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
-                                  } px-3`}
+                                      ? "bg-stone-900 text-[#f4f1ea]"
+                                      : "bg-white text-stone-900 hover:bg-stone-200"
+                                  }`}
                                   onClick={() => setViewMode("grid")}
                                 >
                                   <Grid size={18} />
@@ -1483,11 +1504,12 @@ function ShopPage() {
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button
-                                  className={`${
+                                  type="button"
+                                  className={`rounded-none border border-stone-300 px-3 ${
                                     viewMode === "list"
-                                      ? "bg-blue-600 text-white"
-                                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
-                                  } px-3`}
+                                      ? "bg-stone-900 text-[#f4f1ea]"
+                                      : "bg-white text-stone-900 hover:bg-stone-200"
+                                  }`}
                                   onClick={() => setViewMode("list")}
                                 >
                                   <List size={18} />
@@ -1503,9 +1525,10 @@ function ShopPage() {
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button
-                                  className={`bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 px-3 ${
+                                  type="button"
+                                  className={`rounded-none border border-stone-300 bg-white px-3 text-stone-900 hover:bg-stone-200 ${
                                     isCompact
-                                      ? "border-blue-500 text-blue-600"
+                                      ? "ring-2 ring-emerald-600 ring-offset-2"
                                       : ""
                                   }`}
                                   onClick={() => setIsCompact(!isCompact)}
@@ -1524,21 +1547,21 @@ function ShopPage() {
                       </div>
                     </div>
 
-                    {/* Quick brand filters */}
-                    <div className="p-4 bg-gray-50 border-b border-gray-200 overflow-x-auto hide-scrollbar">
-                      <div className="flex gap-3 items-center">
-                        <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
-                          Popular Brands:
+                    <div className="hide-scrollbar overflow-x-auto border-b border-stone-300 bg-[#f4f1ea] p-4">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="whitespace-nowrap text-xs font-bold uppercase tracking-wider text-stone-500">
+                          Popular brands
                         </span>
                         <div className="flex flex-wrap gap-2">
                           {popularBrands.slice(0, 8).map((brand, index) => (
                             <button
+                              type="button"
                               key={index}
                               onClick={() => handleBrandSelect(brand.name)}
-                              className={`flex items-center px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                              className={`flex items-center border border-stone-300 px-3 py-1.5 text-xs font-bold transition-colors ${
                                 selectedFilters.brands.includes(brand.name)
-                                  ? "bg-blue-100 text-blue-700 border border-blue-200"
-                                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+                                  ? "bg-stone-900 text-[#f4f1ea]"
+                                  : "bg-white text-stone-900 hover:bg-amber-100/60"
                               }`}
                             >
                               <img
@@ -1553,7 +1576,7 @@ function ShopPage() {
                                 }}
                               />
                               {brand.displayName}
-                              <span className="ml-1.5 text-xs text-gray-500">
+                              <span className="ml-1.5 font-mono text-[10px] font-normal opacity-80">
                                 ({brand.count})
                               </span>
                             </button>
@@ -1565,9 +1588,9 @@ function ShopPage() {
                 </div>
 
                 {/* Results count and page info */}
-                <div className="flex justify-between items-center mb-4">
-                  <div id="results-heading" className="text-gray-700">
-                    <span className="font-semibold text-gray-900">
+                <div className="mb-4 flex items-center justify-between border-b border-stone-300 pb-3">
+                  <div id="results-heading" className="text-sm text-stone-600">
+                    <span className="font-mono font-bold text-stone-900">
                       {filteredCars.length}
                     </span>{" "}
                     vehicles found
@@ -1588,7 +1611,7 @@ function ShopPage() {
                       </span>
                     )}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  <div className="font-mono text-xs text-stone-500">
                     Page {currentPage} of{" "}
                     {Math.ceil(filteredCars.length / itemsPerPage)}
                   </div>
@@ -1596,22 +1619,23 @@ function ShopPage() {
 
                 {/* No results */}
                 {filteredCars.length === 0 && (
-                  <div className="bg-white rounded-xl shadow-sm p-8 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 mb-4">
-                      <Search className="h-8 w-8 text-blue-500" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <div className="border border-stone-300 bg-white px-6 py-12 text-center">
+                    <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                      No matches
+                    </p>
+                    <h3 className="mt-3 text-xl font-bold text-stone-900">
                       No vehicles found
                     </h3>
-                    <p className="text-gray-600 mb-6">
-                      We couldn't find any vehicles matching your current
+                    <p className="mx-auto mt-3 max-w-md text-sm text-stone-600">
+                      We couldn&apos;t find any vehicles matching your current
                       filters.
                     </p>
                     <Button
+                      type="button"
                       onClick={clearAllFilters}
-                      className="bg-blue-600 hover:bg-blue-700"
+                      className="mt-8 rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500"
                     >
-                      Clear All Filters
+                      Clear all filters
                     </Button>
                   </div>
                 )}
@@ -1628,21 +1652,21 @@ function ShopPage() {
                     {paginatedCars.map((car) => (
                       <div
                         key={car.id}
-                        className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow duration-200 cursor-pointer relative group"
+                        className="group relative cursor-pointer overflow-hidden border border-stone-300 bg-[#f4f1ea] transition-colors hover:bg-amber-100/50"
                         onClick={() => navigateToCarDetail(car.id)}
                       >
                         {/* Image container with aspect ratio */}
-                        <div className="aspect-[16/10] relative overflow-hidden bg-gray-100">
+                        <div className="relative aspect-[16/10] overflow-hidden border-b border-stone-300 bg-stone-200">
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="object-cover transition-transform group-hover:scale-110 w-full h-full duration-700"
+                            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                           />
 
                           {/* Condition badge */}
                           {car.condition && (
                             <span
-                              className={`absolute top-3 left-3 text-xs font-medium text-white px-2 py-1 rounded-md ${getConditionColor(
+                              className={`absolute left-3 top-3 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white ${getConditionColor(
                                 car.condition
                               )}`}
                             >
@@ -1652,70 +1676,72 @@ function ShopPage() {
 
                           {/* Compare button */}
                           <button
+                            type="button"
                             onClick={(e) => handleAddToCompare(car, e)}
-                            className="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute right-3 top-3 border border-stone-300 bg-white/95 p-1.5 opacity-0 shadow-sm transition-opacity hover:bg-white group-hover:opacity-100"
                           >
                             <SlidersHorizontal
                               size={16}
-                              className="text-blue-600"
+                              className="text-stone-900"
                             />
                           </button>
 
                           {/* Favorite button */}
                           <button
+                            type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               // Handle favorite logic
                             }}
-                            className="absolute bottom-3 right-3 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute bottom-3 right-3 border border-stone-300 bg-white/95 p-1.5 opacity-0 shadow-sm transition-opacity hover:bg-white group-hover:opacity-100"
                           >
                             <Heart
                               size={16}
-                              className="text-gray-600 hover:text-red-500"
+                              className="text-stone-700 hover:text-red-600"
                             />
                           </button>
                         </div>
 
                         {/* Car info */}
                         <div className="p-4">
-                          <div className="flex items-center justify-between mb-1">
-                            <h3 className="font-semibold text-gray-900 truncate">
+                          <div className="mb-1 flex items-center justify-between">
+                            <h3 className="truncate font-bold text-stone-900">
                               {car.year} {formatBrandName(car.make)} {car.model}
                             </h3>
                           </div>
 
-                          <div className="flex items-center mb-3">
-                            <span className="text-lg font-bold text-blue-600">
+                          <div className="mb-3 flex items-center">
+                            <span className="font-mono text-lg font-bold text-stone-900">
                               {formatPrice(car.price)}
                             </span>
                             {car.msrp && car.msrp > car.price && (
-                              <span className="text-sm text-gray-500 line-through ml-2">
+                              <span className="ml-2 text-sm text-stone-500 line-through">
                                 {formatPrice(car.msrp)}
                               </span>
                             )}
                           </div>
 
                           {/* Car specs */}
-                          <div className="grid grid-cols-2 gap-2 text-xs text-gray-600">
+                          <div className="grid grid-cols-2 gap-2 text-xs text-stone-600">
                             <div className="flex items-center">
-                              <Gauge size={14} className="mr-1 text-gray-400" />
+                              <Gauge size={14} className="mr-1 text-stone-400" />
                               {formatNumber(car.mileage)} mi
                             </div>
                             <div className="flex items-center">
-                              <Fuel size={14} className="mr-1 text-gray-400" />
+                              <Fuel size={14} className="mr-1 text-stone-400" />
                               {car.fuelType || "Gas"}
                             </div>
                             <div className="flex items-center">
                               <Settings
                                 size={14}
-                                className="mr-1 text-gray-400"
+                                className="mr-1 text-stone-400"
                               />
                               {car.transmission || "Automatic"}
                             </div>
                             <div className="flex items-center">
                               <MapPin
                                 size={14}
-                                className="mr-1 text-gray-400"
+                                className="mr-1 text-stone-400"
                               />
                               {car.location || "Local Dealer"}
                             </div>
@@ -1728,25 +1754,23 @@ function ShopPage() {
 
                 {/* Car listings - List view */}
                 {viewMode === "list" && filteredCars.length > 0 && (
-                  <div className="space-y-4 mb-8">
+                  <div className="mb-8 space-y-0 divide-y divide-stone-300 border-y border-stone-300">
                     {paginatedCars.map((car) => (
                       <div
                         key={car.id}
-                        className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow duration-200 cursor-pointer relative group flex flex-col sm:flex-row"
+                        className="group flex cursor-pointer flex-col bg-[#f4f1ea] transition-colors hover:bg-amber-100/50 sm:flex-row"
                         onClick={() => navigateToCarDetail(car.id)}
                       >
-                        {/* Image container */}
-                        <div className="relative w-full sm:w-1/3 pb-[60%] sm:pb-0 overflow-hidden bg-gray-100">
+                        <div className="relative h-52 w-full shrink-0 overflow-hidden border-b border-stone-300 bg-stone-200 sm:h-auto sm:min-h-[240px] sm:w-2/5 sm:border-b-0 sm:border-r sm:border-stone-300">
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
                           />
 
-                          {/* Condition badge */}
                           {car.condition && (
                             <span
-                              className={`absolute top-3 left-3 text-xs font-medium text-white px-2 py-1 rounded-md ${getConditionColor(
+                              className={`absolute left-3 top-3 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white ${getConditionColor(
                                 car.condition
                               )}`}
                             >
@@ -1754,38 +1778,37 @@ function ShopPage() {
                             </span>
                           )}
 
-                          {/* Compare button */}
                           <button
+                            type="button"
                             onClick={(e) => handleAddToCompare(car, e)}
-                            className="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute right-3 top-3 border border-stone-300 bg-white/95 p-1.5 opacity-0 shadow-sm transition-opacity hover:bg-white group-hover:opacity-100"
                           >
                             <SlidersHorizontal
                               size={16}
-                              className="text-blue-600"
+                              className="text-stone-900"
                             />
                           </button>
                         </div>
 
-                        {/* Car info */}
-                        <div className="p-4 sm:p-5 flex-grow flex flex-col justify-between">
+                        <div className="flex flex-grow flex-col justify-between p-4 sm:p-6">
                           <div>
-                            <div className="flex items-start justify-between mb-1">
-                              <h3 className="font-semibold text-gray-900 text-lg">
+                            <div className="mb-1 flex items-start justify-between gap-3">
+                              <h3 className="text-lg font-bold text-stone-900">
                                 {car.year} {formatBrandName(car.make)}{" "}
                                 {car.model}
                               </h3>
                               <button
+                                type="button"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  // Handle favorite logic
                                 }}
-                                className="text-gray-400 hover:text-red-500 p-1"
+                                className="shrink-0 border border-transparent p-1 text-stone-500 hover:text-red-600"
                               >
                                 <Heart size={18} />
                               </button>
                             </div>
 
-                            <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                            <p className="mb-3 line-clamp-2 text-sm text-stone-600">
                               {car.description ||
                                 `${car.year} ${formatBrandName(car.make)} ${
                                   car.model
@@ -1794,83 +1817,75 @@ function ShopPage() {
                                 } transmission.`}
                             </p>
 
-                            {/* Car specs */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                              <div className="flex items-center">
-                                <Gauge
-                                  size={16}
-                                  className="mr-1.5 text-blue-500"
-                                />
-                                <div>
-                                  <div className="text-xs text-gray-500">
-                                    Mileage
-                                  </div>
-                                  <div className="text-sm font-medium">
-                                    {formatNumber(car.mileage)} mi
-                                  </div>
+                            <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+                              <div className="border border-stone-300 bg-white px-3 py-2">
+                                <div className="font-mono text-[10px] uppercase text-stone-500">
+                                  Mileage
+                                </div>
+                                <div className="mt-1 flex items-center text-sm font-semibold text-stone-900">
+                                  <Gauge
+                                    size={16}
+                                    className="mr-1.5 text-emerald-700"
+                                  />
+                                  {formatNumber(car.mileage)} mi
                                 </div>
                               </div>
-                              <div className="flex items-center">
-                                <Fuel
-                                  size={16}
-                                  className="mr-1.5 text-blue-500"
-                                />
-                                <div>
-                                  <div className="text-xs text-gray-500">
-                                    Fuel
-                                  </div>
-                                  <div className="text-sm font-medium">
-                                    {car.fuelType || "Gas"}
-                                  </div>
+                              <div className="border border-stone-300 bg-white px-3 py-2">
+                                <div className="font-mono text-[10px] uppercase text-stone-500">
+                                  Fuel
+                                </div>
+                                <div className="mt-1 flex items-center text-sm font-semibold text-stone-900">
+                                  <Fuel
+                                    size={16}
+                                    className="mr-1.5 text-emerald-700"
+                                  />
+                                  {car.fuelType || "Gas"}
                                 </div>
                               </div>
-                              <div className="flex items-center">
-                                <Settings
-                                  size={16}
-                                  className="mr-1.5 text-blue-500"
-                                />
-                                <div>
-                                  <div className="text-xs text-gray-500">
-                                    Transmission
-                                  </div>
-                                  <div className="text-sm font-medium">
-                                    {car.transmission || "Automatic"}
-                                  </div>
+                              <div className="border border-stone-300 bg-white px-3 py-2">
+                                <div className="font-mono text-[10px] uppercase text-stone-500">
+                                  Transmission
+                                </div>
+                                <div className="mt-1 flex items-center text-sm font-semibold text-stone-900">
+                                  <Settings
+                                    size={16}
+                                    className="mr-1.5 text-emerald-700"
+                                  />
+                                  {car.transmission || "Automatic"}
                                 </div>
                               </div>
-                              <div className="flex items-center">
-                                <Calendar
-                                  size={16}
-                                  className="mr-1.5 text-blue-500"
-                                />
-                                <div>
-                                  <div className="text-xs text-gray-500">
-                                    Year
-                                  </div>
-                                  <div className="text-sm font-medium">
-                                    {car.year}
-                                  </div>
+                              <div className="border border-stone-300 bg-white px-3 py-2">
+                                <div className="font-mono text-[10px] uppercase text-stone-500">
+                                  Year
+                                </div>
+                                <div className="mt-1 flex items-center text-sm font-semibold text-stone-900">
+                                  <Calendar
+                                    size={16}
+                                    className="mr-1.5 text-emerald-700"
+                                  />
+                                  {car.year}
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-between mt-2">
+                          <div className="mt-2 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
                             <div>
-                              <span className="text-xl font-bold text-blue-600">
+                              <span className="font-mono text-xl font-bold text-stone-900">
                                 {formatPrice(car.price)}
                               </span>
                               {car.msrp && car.msrp > car.price && (
-                                <span className="text-sm text-gray-500 line-through ml-2">
+                                <span className="ml-2 text-sm text-stone-500 line-through">
                                   {formatPrice(car.msrp)}
                                 </span>
                               )}
                             </div>
                             <div className="flex gap-2">
                               <Button
+                                type="button"
                                 variant="outline"
                                 size="sm"
-                                className="hidden md:flex items-center"
+                                className="hidden rounded-none border border-stone-300 md:flex"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleAddToCompare(car, e);
@@ -1880,11 +1895,12 @@ function ShopPage() {
                                 Compare
                               </Button>
                               <Button
+                                type="button"
                                 size="sm"
-                                className="bg-blue-600 hover:bg-blue-700 hidden md:flex items-center"
+                                className="hidden rounded-none border border-stone-300 bg-emerald-600 font-bold text-white hover:bg-emerald-500 md:flex"
                               >
                                 <Eye size={14} className="mr-1" />
-                                View Details
+                                View details
                               </Button>
                             </div>
                           </div>
@@ -1896,30 +1912,32 @@ function ShopPage() {
 
                 {/* Pagination */}
                 {filteredCars.length > 0 && (
-                  <div className="flex justify-center mt-8 mb-4">
-                    <div className="flex items-center space-x-2">
+                  <div className="mb-4 mt-8 flex justify-center border-t border-stone-300 pt-8">
+                    <div className="flex items-center gap-2">
                       <Button
+                        type="button"
                         variant="outline"
                         size="sm"
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="hidden sm:flex items-center"
+                        className="hidden rounded-none border border-stone-300 sm:flex"
                       >
                         <ChevronLeft size={16} className="mr-1" />
                         Previous
                       </Button>
                       <Button
+                        type="button"
                         variant="outline"
                         size="icon"
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="sm:hidden"
+                        className="rounded-none border border-stone-300 sm:hidden"
                       >
                         <ChevronLeft size={16} />
                       </Button>
 
                       {/* Page numbers */}
-                      <div className="flex space-x-1">
+                      <div className="flex gap-1">
                         {Array.from(
                           {
                             length: Math.min(
@@ -1961,9 +1979,9 @@ function ShopPage() {
                               return (
                                 <span
                                   key={i}
-                                  className="flex items-center justify-center w-9 h-9 text-gray-500"
+                                  className="flex h-9 w-9 items-center justify-center font-mono text-stone-500"
                                 >
-                                  ...
+                                  …
                                 </span>
                               );
                             }
@@ -1971,16 +1989,13 @@ function ShopPage() {
                             return (
                               <Button
                                 key={i}
-                                variant={
-                                  currentPage === pageNum
-                                    ? "default"
-                                    : "outline"
-                                }
+                                type="button"
+                                variant="outline"
                                 size="icon"
-                                className={`w-9 h-9 ${
+                                className={`h-9 w-9 rounded-none border border-stone-300 font-mono font-bold ${
                                   currentPage === pageNum
-                                    ? "bg-blue-600 text-white"
-                                    : "text-gray-700"
+                                    ? "bg-stone-900 text-[#f4f1ea] hover:bg-stone-800 hover:text-[#f4f1ea]"
+                                    : "bg-white text-stone-900 hover:bg-stone-200"
                                 }`}
                                 onClick={() => handlePageChange(pageNum)}
                               >
@@ -1992,6 +2007,7 @@ function ShopPage() {
                       </div>
 
                       <Button
+                        type="button"
                         variant="outline"
                         size="sm"
                         onClick={() => handlePageChange(currentPage + 1)}
@@ -1999,12 +2015,13 @@ function ShopPage() {
                           currentPage ===
                           Math.ceil(filteredCars.length / itemsPerPage)
                         }
-                        className="hidden sm:flex items-center"
+                        className="hidden rounded-none border border-stone-300 sm:flex"
                       >
                         Next
                         <ChevronRight size={16} className="ml-1" />
                       </Button>
                       <Button
+                        type="button"
                         variant="outline"
                         size="icon"
                         onClick={() => handlePageChange(currentPage + 1)}
@@ -2012,7 +2029,7 @@ function ShopPage() {
                           currentPage ===
                           Math.ceil(filteredCars.length / itemsPerPage)
                         }
-                        className="sm:hidden"
+                        className="rounded-none border border-stone-300 sm:hidden"
                       >
                         <ChevronRight size={16} />
                       </Button>
@@ -2029,45 +2046,48 @@ function ShopPage() {
       <AnimatePresence>
         {showCompareBar && carsToCompare.length > 0 && (
           <motion.div
-            className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40"
+            className="fixed bottom-0 left-0 right-0 z-40 border-t border-stone-300 bg-[#f4f1ea] shadow-[0_-8px_30px_rgba(0,0,0,0.12)]"
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
-            <div className="container mx-auto px-4 max-w-7xl py-3">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold text-gray-900 flex items-center">
-                  <SlidersHorizontal size={16} className="mr-2 text-blue-500" />
-                  Compare Vehicles ({carsToCompare.length}/3)
+            <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-stone-300 pb-3">
+                <h3 className="flex items-center text-sm font-bold uppercase tracking-wider text-stone-900">
+                  <SlidersHorizontal size={16} className="mr-2 text-emerald-700" />
+                  Compare ({carsToCompare.length}/3)
                 </h3>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <Button
+                    type="button"
                     variant="outline"
                     size="sm"
-                    className="text-sm h-8"
+                    className="h-9 rounded-none border border-stone-300 text-xs font-bold"
                     onClick={() => setCarsToCompare([])}
                   >
-                    Clear All
+                    Clear all
                   </Button>
                   <Button
+                    type="button"
                     size="sm"
-                    className="bg-blue-600 hover:bg-blue-700 text-sm h-8"
+                    className="h-9 rounded-none border border-stone-300 bg-emerald-600 text-xs font-bold text-white hover:bg-emerald-500"
                     disabled={carsToCompare.length < 2}
                     onClick={() => router.push("/compare")}
                   >
-                    Compare Now
+                    Compare now
                   </Button>
                   <button
+                    type="button"
                     onClick={() => setShowCompareBar(false)}
-                    className="p-1 rounded-full hover:bg-gray-100"
+                    className="border border-stone-300 p-1.5 hover:bg-white"
                   >
-                    <X size={18} className="text-gray-500" />
+                    <X size={18} className="text-stone-700" />
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
                 {[0, 1, 2].map((index) => {
                   const car = carsToCompare[index];
 
@@ -2075,10 +2095,10 @@ function ShopPage() {
                     return (
                       <div
                         key={index}
-                        className="bg-gray-50 border border-dashed border-gray-300 rounded-lg p-4 flex items-center justify-center text-gray-400 h-24"
+                        className="flex h-24 items-center justify-center border border-dashed border-stone-300 bg-white/60 p-3 text-xs font-bold uppercase tracking-wider text-stone-500"
                       >
-                        <Plus size={20} className="mr-2" />
-                        Add Vehicle
+                        <Plus size={18} className="mr-2" />
+                        Add vehicle
                       </div>
                     );
                   }
@@ -2086,31 +2106,32 @@ function ShopPage() {
                   return (
                     <div
                       key={car.id}
-                      className="bg-white border border-gray-200 rounded-lg p-3 relative group"
+                      className="group relative border border-stone-300 bg-white p-3"
                     >
                       <button
+                        type="button"
                         onClick={() => handleRemoveFromCompare(car.id)}
-                        className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-sm border border-gray-200"
+                        className="absolute -right-1 -top-1 border border-stone-300 bg-white p-1 hover:bg-stone-100"
                       >
-                        <X size={14} className="text-gray-500" />
+                        <X size={14} className="text-stone-700" />
                       </button>
                       <div className="flex gap-3">
-                        <div className="w-16 h-16 relative flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
+                        <div className="relative h-16 w-16 shrink-0 overflow-hidden border border-stone-300 bg-stone-200">
                           <img
                             src={car.images[0] || "/placeholder-car.jpg"}
                             alt={car.title}
-                            className="w-full h-full object-cover"
+                            className="h-full w-full object-cover"
                           />
                         </div>
-                        <div>
-                          <h4 className="font-medium text-gray-900 text-sm line-clamp-1">
+                        <div className="min-w-0">
+                          <h4 className="line-clamp-1 text-sm font-bold text-stone-900">
                             {car.year} {formatBrandName(car.make)} {car.model}
                           </h4>
-                          <p className="text-blue-600 font-semibold text-sm">
+                          <p className="font-mono text-sm font-bold text-stone-900">
                             {formatPrice(car.price)}
                           </p>
-                          <p className="text-xs text-gray-500">
-                            {formatNumber(car.mileage)} mi • {car.transmission}
+                          <p className="text-xs text-stone-600">
+                            {formatNumber(car.mileage)} mi · {car.transmission}
                           </p>
                         </div>
                       </div>
@@ -2130,7 +2151,11 @@ function ShopPage() {
 
 function page() {
   return (
-    <Suspense>
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-[#f4f1ea] text-stone-900">
+        <Loader2 className="h-10 w-10 animate-spin" aria-hidden />
+      </div>
+    }>
       <ShopPage />
     </Suspense>
   );

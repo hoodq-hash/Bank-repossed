@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   Facebook,
   Instagram,
@@ -8,155 +9,175 @@ import {
   Phone,
   Clock,
   MapPin,
-  Shield,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8 mt-auto">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Top Section with Logo and Newsletter */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 pb-12 border-b border-gray-800">
-          <div className="mb-8 md:mb-0">
-            <div className="flex items-center mb-4">
-              {/* Replace the placeholder div with your actual logo image */}
-
-              <span className="text-2xl font-bold text-white">
-                Chariot Auto Sales
-              </span>
-            </div>
-            <p className="text-gray-400 max-w-md">
-              Your trusted platform for buying quality vehicles. Connecting
-              buyers and sellers worldwide since 2016.
+    <footer className="mt-auto border-t border-stone-300 bg-[#f4f1ea] text-stone-900">
+      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-12 border-b border-stone-300 pb-12 md:grid-cols-12 md:gap-10 md:pb-14">
+          <div className="md:col-span-5">
+            <Link href="/" className="relative mb-5 block h-12 w-[200px]" aria-label="Bank Repossessed Cars home">
+              <Image
+                src="/bklogo.png"
+                alt="Bank Repossessed Cars"
+                fill
+                className="object-contain object-left"
+                sizes="200px"
+              />
+            </Link>
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+              Bank Repossessed Cars
+            </p>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-stone-600">
+              Lender-recovered vehicles at straightforward prices. Browse repo
+              inventory online and buy with confidence.
             </p>
           </div>
 
-          <div className="w-full md:w-auto">
-            <h4 className="text-lg font-medium mb-3">
+          <div className="md:col-span-7">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-500">
               Subscribe to our newsletter
             </h4>
-            <div className="flex">
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
               <input
                 type="email"
                 placeholder="Your email address"
-                className="px-4 py-3 bg-gray-800 border border-gray-700 text-white w-full md:w-64"
+                className="min-h-12 flex-1 border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 focus:ring-offset-[#f4f1ea]"
               />
-              <button className="bg-blue-600 hover:bg-blue-700 px-6 py-3 font-medium">
+              <button
+                type="button"
+                className="min-h-12 border border-stone-300 bg-emerald-600 px-8 text-sm font-bold text-white transition-colors hover:bg-emerald-500"
+              >
                 Subscribe
               </button>
             </div>
           </div>
         </div>
 
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
-          {/* Social Media & Contact Information Combined */}
+        <div className="mt-12 grid gap-10 md:grid-cols-2 md:gap-12">
           <div>
-            <h3 className="text-lg font-bold mb-6 pb-2 border-b border-gray-800">
-              Contact Information
+            <h3 className="border-b border-stone-300 pb-3 text-xs font-bold uppercase tracking-[0.2em] text-stone-500">
+              Contact information
             </h3>
-            <ul className="space-y-4">
+            <ul className="mt-6 space-y-3">
               <li>
                 <a
                   href="https://facebook.com/chariotsautosales"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
+                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
-                  <Facebook size={20} className="mr-3" />
-                  <span>Our Facebook</span>
+                  <Facebook size={18} className="mr-2 shrink-0 text-stone-600" />
+                  Our Facebook
                 </a>
               </li>
               <li>
                 <a
                   href="https://instagram.com/chariotsautosales"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
+                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
-                  <Instagram size={20} className="mr-3" />
-                  <span>Our Instagram</span>
+                  <Instagram size={18} className="mr-2 shrink-0 text-stone-600" />
+                  Our Instagram
                 </a>
               </li>
               <li>
                 <a
                   href="https://twitter.com/chariotsautosales"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
+                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
-                  <Twitter size={20} className="mr-3" />
-                  <span>Our Twitter</span>
+                  <Twitter size={18} className="mr-2 shrink-0 text-stone-600" />
+                  Our Twitter
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
+                  href="/contact"
+                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
-                  <MessageCircle size={20} className="mr-3" />
-                  <span>Text us</span>
+                  <MessageCircle size={18} className="mr-2 shrink-0 text-stone-600" />
+                  Text us
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:chariotautosales321@gmail.com"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors"
+                  href="tel:+14096558072"
+                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
-                  <Mail size={20} className="mr-3" />
-                  <span>chariotautosales321@gmail.com</span>
+                  <Phone size={18} className="mr-2 shrink-0 text-stone-600" />
+                  +1 (409) 655-8072
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:bankrepossessedcars@gmail.com"
+                  className="inline-flex items-start border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
+                >
+                  <Mail size={18} className="mr-2 mt-0.5 shrink-0 text-stone-600" />
+                  <span className="break-all font-mono text-xs font-normal sm:text-sm">
+                    bankrepossessedcars@gmail.com
+                  </span>
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Business Hours & Contact */}
           <div>
-            <h3 className="text-lg font-bold mb-6 pb-2 border-b border-gray-800">
-              Business Hours & Contact
+            <h3 className="border-b border-stone-300 pb-3 text-xs font-bold uppercase tracking-[0.2em] text-stone-500">
+              Business hours &amp; contact
             </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start pt-4">
-                <Clock
-                  size={20}
-                  className="mr-3 text-gray-400 mt-1 flex-shrink-0"
-                />
-                <div>
-                  <p className="text-white font-medium">Mon-Fri</p>
-                  <p className="text-gray-400">8AM - 6PM</p>
+            <ul className="mt-6 space-y-5">
+              <li className="flex gap-3">
+                <Clock size={20} className="mt-0.5 shrink-0 text-emerald-700" />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                      Mon–Fri
+                    </p>
+                    <p className="mt-1 font-mono text-sm font-semibold text-stone-900">
+                      8AM – 6PM
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                      Sat
+                    </p>
+                    <p className="mt-1 font-mono text-sm font-semibold text-stone-900">
+                      9AM – 4PM
+                    </p>
+                  </div>
                 </div>
               </li>
-              <li className="flex items-start">
-                <Clock
-                  size={20}
-                  className="mr-3 text-gray-400 mt-1 flex-shrink-0"
-                />
+              <li className="flex gap-3 border-t border-stone-300 pt-5">
+                <MapPin size={20} className="mt-0.5 shrink-0 text-emerald-700" />
                 <div>
-                  <p className="text-white font-medium">Sat</p>
-                  <p className="text-gray-400">9AM - 4PM</p>
-                </div>
-              </li>
-              <li className="flex items-start pt-4">
-                <MapPin
-                  size={20}
-                  className="mr-3 text-gray-400 mt-1 flex-shrink-0"
-                />
-                <div>
-                  <p className="text-white font-medium">Headquarters</p>
-                  <p className="text-gray-400">
+                  <p className="text-xs font-bold uppercase tracking-wider text-stone-500">
+                    Headquarters
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-stone-600">
                     562 State St, Clearfield, UT 84015, United States
                   </p>
+                  <Link
+                    href="/contact"
+                    className="mt-2 inline-block text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
+                  >
+                    Directions
+                  </Link>
+                  <a
+                    href="tel:+14096558072"
+                    className="mt-2 block font-mono text-sm font-semibold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
+                  >
+                    +1 (409) 655-8072
+                  </a>
                 </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Section with Payment Methods and Copyright */}
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-gray-500">
-                © 2025 Chariot Auto Sales. All rights reserved.
-              </p>
-            </div>
-          </div>
+        <div className="mt-12 border-t border-stone-300 pt-8">
+          <p className="text-center font-mono text-xs text-stone-500 md:text-left">
+            © 2026 Bank Repossessed Cars. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

@@ -25,7 +25,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto" />
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-600 mx-auto" />
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>

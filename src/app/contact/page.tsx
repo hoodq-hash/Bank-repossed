@@ -42,7 +42,8 @@ const locations = [
     id: 1,
     name: "Headquarters",
     address: "562 State St, Clearfield, UT 84015, United States",
-    email: "chariotautosales321@gmail.com",
+    phone: "+1 (409) 655-8072",
+    email: "bankrepossessedcars@gmail.com",
     hours: "Mon-Fri: 9am-8pm\nSaturday: 9am-6pm\nSunday: 11am-5pm",
     mapUrl: "https://maps.google.com/?q=123+Auto+Drive+Cartown+CT+12345",
   },
@@ -143,17 +144,17 @@ export default function ContactPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white py-20">
+        <section className="relative bg-gradient-to-br from-slate-900 to-emerald-900 text-white py-20">
           <div className="absolute inset-0 overflow-hidden">
             <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-500/10 to-transparent"></div>
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-400 rounded-full opacity-10 blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-emerald-500/10 to-transparent"></div>
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-emerald-500 rounded-full opacity-10 blur-3xl"></div>
+            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-teal-400 rounded-full opacity-10 blur-3xl"></div>
           </div>
 
           <div className="container mx-auto px-4 max-w-7xl relative z-10">
             <div className="max-w-3xl">
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-4">
+              <Badge className="bg-emerald-500/20 text-emerald-300 border-emerald-500/30 mb-4">
                 Contact Us
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -165,10 +166,12 @@ export default function ContactPage() {
                 methods below.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Call Us Now
-                  <Phone size={16} className="ml-2" />
-                </Button>
+                <a href="tel:+14096558072">
+                  <Button className="bg-emerald-600 text-white hover:bg-emerald-700">
+                    Call +1 (409) 655-8072
+                    <Phone size={16} className="ml-2" />
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
@@ -179,7 +182,7 @@ export default function ContactPage() {
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Badge className="bg-blue-100 text-blue-700 mb-3">
+                <Badge className="bg-emerald-100 text-emerald-700 mb-3">
                   Our Locations
                 </Badge>
                 <h2 className="text-3xl font-bold text-slate-900 mb-6">
@@ -205,7 +208,7 @@ export default function ContactPage() {
                           <div className="flex items-start">
                             <MapPin
                               size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
+                              className="mr-2 text-emerald-600 flex-shrink-0 mt-0.5"
                             />
                             <div className="whitespace-pre-line">
                               {location.address}
@@ -213,17 +216,35 @@ export default function ContactPage() {
                           </div>
 
                           <div className="flex items-center">
+                            <Phone
+                              size={18}
+                              className="mr-2 flex-shrink-0 text-emerald-600"
+                            />
+                            <a
+                              href="tel:+14096558072"
+                              className="font-medium text-slate-900 underline decoration-2 underline-offset-2 hover:text-emerald-700"
+                            >
+                              {location.phone}
+                            </a>
+                          </div>
+
+                          <div className="flex items-center">
                             <Mail
                               size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
+                              className="mr-2 text-emerald-600 flex-shrink-0"
                             />
-                            <div>{location.email}</div>
+                            <a
+                              href={`mailto:${location.email}`}
+                              className="break-all font-medium text-slate-900 underline decoration-2 underline-offset-2 hover:text-emerald-700"
+                            >
+                              {location.email}
+                            </a>
                           </div>
                       
                           <div className="flex items-start">
                             <Clock
                               size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
+                              className="mr-2 text-emerald-600 flex-shrink-0 mt-0.5"
                             />
                             <div className="whitespace-pre-line">
                               {location.hours}
@@ -243,7 +264,7 @@ export default function ContactPage() {
         <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
-              <Badge className="bg-blue-100 text-blue-700 mb-3">
+              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
                 Get in Touch
               </Badge>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
@@ -302,7 +323,7 @@ export default function ContactPage() {
                   <div className="mt-8 text-center">
                     <Button
                       onClick={() => setFormStatus(null)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
                     >
                       Send Another Message
                     </Button>
@@ -539,7 +560,7 @@ export default function ContactPage() {
                   <div className="flex justify-end">
                     <Button
                       type="submit"
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8"
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white px-8"
                     >
                       Send Message
                       <Send size={16} className="ml-2" />
@@ -555,7 +576,7 @@ export default function ContactPage() {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
-              <Badge className="bg-blue-100 text-blue-700 mb-3">
+              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
                 More Ways to Connect
               </Badge>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
@@ -575,8 +596,8 @@ export default function ContactPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center"
               >
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                  <Phone className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+                  <Phone className="h-8 w-8 text-emerald-600" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2">
                   Call Us
@@ -597,8 +618,8 @@ export default function ContactPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center"
               >
-                <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="h-8 w-8 text-emerald-600" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2">
                   Live Chat
@@ -622,7 +643,7 @@ export default function ContactPage() {
         <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
-              <Badge className="bg-blue-100 text-blue-700 mb-3">
+              <Badge className="bg-emerald-100 text-emerald-700 mb-3">
                 Quick Answers
               </Badge>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">
@@ -662,19 +683,19 @@ export default function ContactPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+        <section className="py-16 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold mb-6">
                   Ready to Find Your Perfect Vehicle?
                 </h2>
-                <p className="text-xl text-blue-100 mb-8">
+                <p className="text-xl text-emerald-100 mb-8">
                   Browse our inventory online or visit one of our locations to
                   see our selection in person.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button className="bg-white hover:bg-gray-100 text-blue-700">
+                  <Button className="bg-white hover:bg-gray-100 text-emerald-700">
                     Browse Inventory
                   </Button>
                 </div>
@@ -683,7 +704,7 @@ export default function ContactPage() {
                 <div className="relative rounded-xl overflow-hidden shadow-xl">
                   <Image
                     src="/images/contact-cta.jpg"
-                    alt="Chariot Auto Sales Showroom"
+                    alt="Bank Repossessed Cars location"
                     width={600}
                     height={350}
                     className="w-full h-auto object-cover"

@@ -534,7 +534,7 @@ export default function DashboardPage() {
               </div>
 
               <Button
-                className="mt-4 md:mt-0 bg-blue-600 hover:bg-blue-700"
+                className="mt-4 md:mt-0 bg-emerald-600 hover:bg-emerald-700"
                 onClick={() => setIsAddCarDialogOpen(true)}
               >
                 <Plus size={16} className="mr-2" />

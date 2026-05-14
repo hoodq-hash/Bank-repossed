@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import connectToDatabase from "@/lib/mongodb";
-import SCar from "@/models/SCar";
+import BankRepoCar from "@/models/BankRepoCar";
 
 // Configure Cloudinary
 cloudinary.config({
@@ -18,7 +18,7 @@ export async function GET(
   try {
     await connectToDatabase();
 
-    const car = await SCar.findById(params.id);
+    const car = await BankRepoCar.findById(params.id);
 
     if (!car) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
@@ -62,7 +62,7 @@ export async function PUT(
           }-${Date.now()}-${index}`;
           const uploadResult = await cloudinary.uploader.upload(image, {
             public_id: uniqueIdentifier,
-            folder: "cars45",
+            folder: "bank_repo_cars",
           });
           return uploadResult.secure_url;
         } catch (uploadError) {
@@ -98,10 +98,14 @@ export async function PUT(
     delete updateData.id;
     delete updateData._id;
 
-    const updatedCar = await SCar.findByIdAndUpdate(params.id, updateData, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedCar = await BankRepoCar.findByIdAndUpdate(
+      params.id,
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     if (!updatedCar) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });
@@ -129,7 +133,7 @@ export async function DELETE(
   try {
     await connectToDatabase();
 
-    const deletedCar = await SCar.findByIdAndDelete(params.id);
+    const deletedCar = await BankRepoCar.findByIdAndDelete(params.id);
 
     if (!deletedCar) {
       return NextResponse.json({ error: "Car not found" }, { status: 404 });

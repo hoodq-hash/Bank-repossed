@@ -10,10 +10,8 @@ import {
   ShieldCheck,
   Handshake,
   ChevronRight,
-  MapPin,
   Phone,
   Mail,
-  Clock,
   Star,
   ArrowRight,
   Calendar,
@@ -25,8 +23,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import {
   Accordion,
   AccordionContent,
@@ -36,210 +32,178 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Team members data
-const teamMembers = [
-  {
-    id: 1,
-    name: "chariot ",
-    role: "Founder & CEO",
-    image: "/images/team/chariot.jpg",
-    bio: "chariot founded Chariot Auto Sales in 1995 with a vision to create a transparent and customer-focused car buying experience. With over 30 years in the automotive industry, Chariot's expertise and passion for cars has driven the company to become a leader in the market.",
-    email: "chariot@chariotsautos.com",
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    role: "Sales Director",
-    image: "/images/team/sarah.jpg",
-    bio: "Sarah brings 15 years of automotive sales experience to the team. Her customer-first approach and deep product knowledge ensure that every client finds the perfect vehicle for their needs and budget.",
-    email: "sarah@chariotsautos.com",
-  },
-  {
-    id: 3,
-    name: "Michael Rodriguez",
-    role: "Service Manager",
-    image: "/images/team/michael.jpg",
-    bio: "Michael oversees our state-of-the-art service department. With his team of certified technicians, he ensures every vehicle we sell meets our rigorous quality standards and that our customers receive exceptional maintenance service.",
-    email: "michael@chariotsautos.com",
-  },
-  {
-    id: 4,
-    name: "Lisa Chen",
-    role: "Finance Manager",
-    image: "/images/team/lisa.jpg",
-    bio: "Lisa has over a decade of experience in automotive financing. She works with multiple lenders to secure the best rates for our customers and makes the financing process smooth and transparent.",
-    email: "lisa@chariotsautos.com",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    role: "Customer Experience Director",
-    image: "/images/team/david.jpg",
-    bio: "David ensures that every interaction with Chariot Auto Sales exceeds expectations. From the first website visit to post-purchase support, he's dedicated to creating memorable customer experiences.",
-    email: "david@chariotsautos.com",
-  },
-  {
-    id: 6,
-    name: "Sophia Martinez",
-    role: "Marketing Manager",
-    image: "/images/team/sophia.jpg",
-    bio: "Sophia leads our marketing initiatives with creativity and data-driven strategies. Her innovative campaigns have helped establish Chariot Auto Sales as a trusted name in the automotive industry.",
-    email: "sophia@chariotsautos.com",
-  },
-];
-
-// Milestones data
 const milestones = [
   {
     year: 1995,
-    title: "Company Founded",
+    title: "Company founded",
     description:
-      "chariot  opened the first Chariot Auto Sales location with just 15 vehicles and 3 employees.",
-    icon: <Building className="h-6 w-6" />,
+      "Marcus Cole opened the first Bank Repossessed Cars remarketing desk with a small team focused on transparent repo sales.",
+    icon: <Building className="h-5 w-5" />,
   },
   {
     year: 2002,
-    title: "Expansion to Second Location",
+    title: "Second location",
     description:
-      "After seven successful years, we opened our second dealership, doubling our inventory and service capacity.",
-    icon: <TrendingUp className="h-6 w-6" />,
+      "We doubled inventory and service capacity while keeping published pricing and condition reports at the center of the experience.",
+    icon: <TrendingUp className="h-5 w-5" />,
   },
   {
     year: 2008,
-    title: "Service Center Launch",
+    title: "Service center",
     description:
-      "We launched our state-of-the-art service center, offering comprehensive maintenance and repair services.",
-    icon: <Car className="h-6 w-6" />,
+      "Launched a dedicated service center for inspections, reconditioning, and customer maintenance.",
+    icon: <Car className="h-5 w-5" />,
   },
   {
     year: 2015,
-    title: "Online Platform Launch",
+    title: "Online inventory",
     description:
-      "Chariot Auto Sales went digital with our online inventory system and virtual showroom experience.",
-    icon: <Calendar className="h-6 w-6" />,
+      "Full digital inventory with search, filters, and consistent listing data for remote buyers.",
+    icon: <Calendar className="h-5 w-5" />,
   },
   {
     year: 2020,
-    title: "25th Anniversary",
+    title: "25th anniversary",
     description:
-      "Celebrated 25 years of service with our 10,000th vehicle sold and expansion to our third location.",
-    icon: <Award className="h-6 w-6" />,
+      "Celebrated 25 years of service with our 10,000th vehicle sold and expansion to a third facility.",
+    icon: <Award className="h-5 w-5" />,
   },
   {
     year: 2023,
-    title: "Electric Vehicle Initiative",
+    title: "EV & hybrid focus",
     description:
-      "Launched our dedicated EV department, offering the latest in electric and hybrid vehicles.",
-    icon: <Heart className="h-6 w-6" />,
+      "Dedicated hybrid and electric listings with specialist support on charging and ownership costs.",
+    icon: <Heart className="h-5 w-5" />,
   },
 ];
 
-// Values data
 const values = [
   {
     title: "Transparency",
     description:
-      "We believe in complete transparency throughout the car buying process, from pricing to vehicle history.",
-    icon: <ShieldCheck className="h-10 w-10 text-blue-500" />,
+      "Published pricing, documented condition, and no surprise fees at the last step.",
+    icon: <ShieldCheck className="h-6 w-6 text-emerald-700" />,
   },
   {
     title: "Quality",
     description:
-      "Every vehicle undergoes a rigorous 200-point inspection before joining our inventory.",
-    icon: <Award className="h-10 w-10 text-blue-500" />,
+      "Every vehicle is reviewed with a thorough inspection checklist before it is listed.",
+    icon: <Award className="h-6 w-6 text-emerald-700" />,
   },
   {
-    title: "Customer Focus",
+    title: "Customer focus",
     description:
-      "We prioritize customer satisfaction in every interaction, creating relationships that last beyond the sale.",
-    icon: <Users className="h-10 w-10 text-blue-500" />,
+      "We prioritize clarity and support so you can decide on your timeline—not ours.",
+    icon: <Users className="h-6 w-6 text-emerald-700" />,
   },
   {
     title: "Integrity",
     description:
-      "We operate with honesty and ethical standards that exceed industry expectations.",
-    icon: <Handshake className="h-10 w-10 text-blue-500" />,
+      "Straight answers on history, lenders, and transport options—every time.",
+    icon: <Handshake className="h-6 w-6 text-emerald-700" />,
   },
 ];
 
-// FAQ data
 const faqs = [
   {
-    question: "What makes Chariot Auto Sales different from other dealerships?",
+    question: "What makes Bank Repossessed Cars different from other dealerships?",
     answer:
-      "At Chariot Auto Sales, we prioritize transparency, quality, and customer satisfaction above all else. We offer a no-pressure sales environment, rigorous vehicle inspections, clear pricing without hidden fees, and personalized service throughout your car buying journey.",
+      "We focus on lender-recovered inventory with clear listings: condition, pricing, and paperwork without dealership games. You can browse online, compare, and reach out when you are ready.",
   },
   {
     question: "Do you offer financing options?",
     answer:
-      "Yes, we work with multiple lenders to offer competitive financing options tailored to your needs. Our finance team will help you navigate the process and secure the best rates available for your situation, regardless of credit history.",
+      "Yes. We work with multiple lenders and our finance team helps you compare options for your situation.",
   },
   {
     question: "What warranty coverage comes with your vehicles?",
     answer:
-      "All our vehicles come with a minimum 90-day/3,000-mile warranty. We also offer extended warranty options that can provide coverage for up to 7 years or 100,000 miles, giving you peace of mind with your purchase.",
+      "Coverage varies by unit. We explain what is included before you sign, and extended options are available on many vehicles.",
   },
   {
     question: "Can I trade in my current vehicle?",
     answer:
-      "Absolutely! We accept trade-ins and offer fair market value for your vehicle. Our team will evaluate your car on-site and apply the trade-in value directly to your new purchase, making the process seamless.",
+      "Yes. We accept trade-ins and can apply value toward your purchase with transparent appraisal notes.",
   },
   {
     question: "Do you sell electric and hybrid vehicles?",
     answer:
-      "Yes, we have a growing selection of electric and hybrid vehicles. Our dedicated EV specialists can help you understand the benefits of electric vehicle ownership and find the right eco-friendly option for your lifestyle.",
+      "Yes. Our inventory includes hybrids and EVs, and we can walk you through charging and ownership basics.",
   },
 ];
+
+function SectionIntro({
+  kicker,
+  title,
+  subtitle,
+}: {
+  kicker: string;
+  title: string;
+  subtitle?: string;
+}) {
+  return (
+    <div className="mb-10 max-w-2xl">
+      <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+        {kicker}
+      </p>
+      <h2 className="mt-3 text-2xl font-bold leading-tight text-stone-900 md:text-3xl">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="mt-3 text-sm leading-relaxed text-stone-600 md:text-base">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState("story");
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col bg-[#f4f1ea] text-stone-900 antialiased">
       <Navbar />
 
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-slate-900 to-blue-900 text-white py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-10"></div>
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-500/10 to-transparent"></div>
-            <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-cyan-400 rounded-full opacity-10 blur-3xl"></div>
-          </div>
-
-          <div className="container mx-auto px-4 max-w-7xl relative z-10">
-            <div className="max-w-3xl">
-              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 mb-4">
-                About Us
-              </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Driving Excellence Since 1995
-              </h1>
-              <p className="text-xl text-slate-300 mb-8">
-                Chariot Auto Sales is more than a dealership. We're a team of
-                automotive enthusiasts dedicated to providing exceptional
-                vehicles and service to our community.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Our Inventory
-                  <ChevronRight size={16} className="ml-1" />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="bg-transparent border-white/30 text-white hover:bg-white/10"
-                >
-                  Contact Us
-                </Button>
+        <section className="border-b border-stone-300 py-12 md:py-16">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
+              <div className="md:col-span-7">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  About us
+                </p>
+                <h1 className="mt-3 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+                  Repo inventory, listed with clarity
+                </h1>
+                <p className="mt-4 max-w-xl text-sm leading-relaxed text-stone-600 md:text-base">
+                  Since 1995 we have built Bank Repossessed Cars around honest
+                  listings and lender-recovered stock—so you always know what
+                  you are buying before you commit.
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row md:col-span-5 md:justify-end">
+                <Link href="/shop">
+                  <Button className="h-12 w-full rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500 sm:w-auto">
+                    Our inventory
+                    <ChevronRight size={16} className="ml-1" />
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button
+                    variant="outline"
+                    className="h-12 w-full rounded-none border border-stone-300 bg-transparent px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea] sm:w-auto"
+                  >
+                    Contact us
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Tab Navigation */}
-        <section className="bg-white border-b border-gray-200 sticky top-0 z-30">
-          <div className="container mx-auto px-4 max-w-7xl">
+        <section className="sticky top-0 z-30 border-b border-stone-300 bg-[#f4f1ea]">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
             <Tabs
               defaultValue="story"
               value={activeTab}
@@ -247,519 +211,281 @@ export default function AboutPage() {
               className="w-full"
             >
               <div className="overflow-x-auto">
-                <TabsList className="bg-transparent border-b-0 justify-start h-16">
-                  <TabsTrigger
-                    value="story"
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:shadow-none rounded-none px-5 h-full"
-                  >
-                    Our Story
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="mission"
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:shadow-none rounded-none px-5 h-full"
-                  >
-                    Mission & Values
-                  </TabsTrigger>
-
-                  <TabsTrigger
-                    value="locations"
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:shadow-none rounded-none px-5 h-full"
-                  >
-                    Locations
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="faq"
-                    className="data-[state=active]:border-b-2 data-[state=active]:border-blue-600 data-[state=active]:shadow-none rounded-none px-5 h-full"
-                  >
-                    FAQ
-                  </TabsTrigger>
+                <TabsList className="h-auto w-full min-w-max justify-start gap-0 rounded-none border-0 bg-transparent p-0">
+                  {(
+                    [
+                      ["story", "Our story"],
+                      ["mission", "Mission & values"],
+                      ["faq", "FAQ"],
+                    ] as const
+                  ).map(([value, label]) => (
+                    <TabsTrigger
+                      key={value}
+                      value={value}
+                      className="rounded-none border-b border-transparent px-4 py-4 text-xs font-bold uppercase tracking-wider text-stone-600 data-[state=active]:border-stone-300 data-[state=active]:bg-white data-[state=active]:text-stone-900 sm:px-6"
+                    >
+                      {label}
+                    </TabsTrigger>
+                  ))}
                 </TabsList>
               </div>
 
-              {/* Our Story Tab Content */}
-              <TabsContent value="story">
-                {/* Our Story Section */}
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <TabsContent value="story" className="mt-0 border-0 p-0">
+                <section className="border-b border-stone-300 bg-white py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
                       <div>
-                        <Badge className="bg-blue-100 text-blue-700 mb-3">
-                          Our Story
-                        </Badge>
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                          From Humble Beginnings to Industry Leader
-                        </h2>
-                        <div className="space-y-4 text-slate-600">
+                        <SectionIntro
+                          kicker="Our story"
+                          title="From a small remarketing desk to three facilities"
+                          subtitle="Growth never replaced the basics: clear condition notes, published pricing, and respectful support."
+                        />
+                        <div className="space-y-4 text-sm leading-relaxed text-stone-600 md:text-base">
                           <p>
-                            Chariot Auto Sales began in 1995 when founder
-                            chariot saw an opportunity to transform the car
-                            buying experience. Frustrated with the traditional
-                            high-pressure sales tactics and lack of transparency
-                            in the industry, chariot opened his first dealership
-                            with just 15 vehicles and a commitment to honest,
-                            customer-focused service.
+                            Bank Repossessed Cars began when founder Marcus Cole
+                            saw an opportunity to bring lender repossessions to
+                            retail buyers with less friction—without opaque
+                            auctions or surprise fees.
                           </p>
                           <p>
-                            What started as a small operation quickly gained a
-                            reputation for integrity and quality. Customers
-                            appreciated our straightforward approach, fair
-                            pricing, and the exceptional condition of our
-                            vehicles. Word spread throughout the community, and
-                            Chariot Auto Sales began to grow.
+                            Word spread. By 2002 we had expanded to a second
+                            location and a team focused on documentation and
+                            buyer education.
                           </p>
                           <p>
-                            By 2002, we had expanded to our second location, and
-                            our team had grown from the original three employees
-                            to over twenty dedicated professionals. Throughout
-                            our growth, we've maintained our founding principles
-                            of transparency, quality, and customer satisfaction.
-                          </p>
-                          <p>
-                            Today, Chariot Auto Sales operates three
-                            state-of-the-art facilities, offering sales,
-                            service, and financing solutions to our valued
-                            customers. While much has changed over the years,
-                            our commitment to providing an exceptional car
-                            buying experience remains stronger than ever.
+                            Today we operate three facilities with sales,
+                            service, and financing support—still guided by the same
+                            principles.
                           </p>
                         </div>
                       </div>
-                      <div className="relative">
-                        <div className="relative rounded-xl overflow-hidden shadow-xl">
-                          <Image
-                            src="https://images.pexels.com/photos/909907/pexels-photo-909907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                            alt="Chariot Auto Sales History"
-                            width={600}
-                            height={400}
-                            className="w-full h-auto object-cover"
-                          />
-                        </div>
-                        <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-100 rounded-lg -z-10"></div>
-                        <div className="absolute -top-6 -right-6 w-48 h-48 bg-slate-100 rounded-lg -z-10"></div>
+                      <div className="border border-stone-300 bg-stone-200">
+                        <Image
+                          src="https://images.pexels.com/photos/909907/pexels-photo-909907.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                          alt="Bank Repossessed Cars showroom"
+                          width={720}
+                          height={480}
+                          className="h-auto w-full object-cover"
+                        />
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {/* Timeline Section */}
-                <section className="py-16 bg-slate-50">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        Our Journey
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        Milestones Through the Years
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        For nearly three decades, we've been growing and
-                        evolving to better serve our customers and community.
-                      </p>
-                    </div>
-
-                    <div className="relative">
-                      {/* Timeline line */}
-                      <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-blue-200"></div>
-
-                      <div className="space-y-12">
-                        {milestones.map((milestone, index) => (
-                          <div key={milestone.year} className="relative">
-                            <div className="flex items-center justify-center">
-                              <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center z-10">
+                <section className="border-b border-stone-300 py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <SectionIntro
+                      kicker="Milestones"
+                      title="A straight line through three decades"
+                      subtitle="Key moments that shaped how we list, inspect, and deliver repo inventory."
+                    />
+                    <ol className="relative mt-12 border-l border-stone-300 pl-8 md:pl-12">
+                      {milestones.map((milestone, index) => (
+                        <li
+                          key={milestone.year}
+                          className="relative border-b border-stone-300 py-8 last:border-b-0"
+                        >
+                          <span className="absolute -left-[9px] top-9 flex h-4 w-4 items-center justify-center rounded-full border border-stone-300 bg-[#f4f1ea] md:top-10" />
+                          <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: index * 0.05 }}
+                            viewport={{ once: true }}
+                            className="border border-stone-300 bg-white p-5 md:p-6"
+                          >
+                            <div className="flex flex-wrap items-center gap-3">
+                              <span className="flex h-10 w-10 items-center justify-center border border-stone-300 bg-emerald-500 text-white">
                                 {milestone.icon}
-                              </div>
+                              </span>
+                              <span className="font-mono text-xl font-bold text-stone-900">
+                                {milestone.year}
+                              </span>
                             </div>
-
-                            <motion.div
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5, delay: index * 0.1 }}
-                              viewport={{ once: true }}
-                              className={`mt-16 md:w-5/12 ${
-                                index % 2 === 0
-                                  ? "md:mr-auto md:text-right md:pr-12"
-                                  : "md:ml-auto md:pl-12"
-                              }`}
-                            >
-                              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                                <div className="text-2xl font-bold text-blue-600 mb-2">
-                                  {milestone.year}
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">
-                                  {milestone.title}
-                                </h3>
-                                <p className="text-slate-600">
-                                  {milestone.description}
-                                </p>
-                              </div>
-                            </motion.div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                            <h3 className="mt-3 text-lg font-bold text-stone-900">
+                              {milestone.title}
+                            </h3>
+                            <p className="mt-2 text-sm text-stone-600 md:text-base">
+                              {milestone.description}
+                            </p>
+                          </motion.div>
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 </section>
               </TabsContent>
 
-              {/* Mission & Values Tab Content */}
-              <TabsContent value="mission">
-                {/* Mission Statement */}
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <TabsContent value="mission" className="mt-0 p-0">
+                <section className="border-b border-stone-300 bg-white py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
                       <div className="order-2 lg:order-1">
-                        <Badge className="bg-blue-100 text-blue-700 mb-3">
-                          Our Mission
-                        </Badge>
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                          Transforming the Car Buying Experience
-                        </h2>
-                        <div className="space-y-4 text-slate-600">
-                          <p className="text-xl font-medium text-slate-800 italic border-l-4 border-blue-500 pl-4 py-2">
-                            "Our mission is to provide exceptional vehicles and
-                            service while creating a transparent, pressure-free
-                            environment where customers can make confident
-                            decisions about their automotive needs."
+                        <SectionIntro
+                          kicker="Mission"
+                          title="Transforming the car buying experience"
+                        />
+                        <blockquote className="border-l-4 border-emerald-600 pl-4 text-lg font-medium italic leading-relaxed text-stone-800">
+                          Our mission is to provide exceptional vehicles and
+                          service while creating a transparent, pressure-free
+                          environment where customers can make confident
+                          decisions.
+                        </blockquote>
+                        <div className="mt-6 space-y-4 text-sm text-stone-600 md:text-base">
+                          <p>
+                            We eliminate guesswork with consistent listing data
+                            and staff who answer lender and transport questions in
+                            plain language.
                           </p>
                           <p>
-                            At Chariot Auto Sales, we believe that buying a car
-                            should be an exciting and positive experience. We're
-                            committed to eliminating the stress and uncertainty
-                            often associated with car shopping by providing
-                            complete transparency, expert guidance, and
-                            personalized service.
-                          </p>
-                          <p>
-                            We strive to build lasting relationships with our
-                            customers that extend beyond the initial sale. Our
-                            dedicated team of automotive professionals is
-                            passionate about helping you find the perfect
-                            vehicle for your lifestyle and budget, and providing
-                            ongoing support throughout your ownership
-                            experience.
+                            Relationships matter: we want you to feel supported
+                            after the sale, not forgotten.
                           </p>
                         </div>
                       </div>
-                      <div className="order-1 lg:order-2 relative">
-                        <div className="relative rounded-xl overflow-hidden shadow-xl">
-                          <Image
-                            src="https://images.pexels.com/photos/70912/pexels-photo-70912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                            alt="Our Mission"
-                            width={600}
-                            height={400}
-                            className="w-full h-auto object-cover"
-                          />
-                        </div>
-                        <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-blue-100 rounded-lg -z-10"></div>
-                        <div className="absolute -top-6 -left-6 w-48 h-48 bg-slate-100 rounded-lg -z-10"></div>
+                      <div className="order-1 border border-stone-300 bg-stone-200 lg:order-2">
+                        <Image
+                          src="https://images.pexels.com/photos/70912/pexels-photo-70912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                          alt="Our mission"
+                          width={720}
+                          height={480}
+                          className="h-auto w-full object-cover"
+                        />
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {/* Core Values */}
-                <section className="py-16 bg-slate-50">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        Our Values
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        Core Values That Drive Us
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        These principles guide every decision we make and every
-                        interaction we have with our customers.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                      {values.map((value, index) => (
-                        <motion.div
+                <section className="border-b border-stone-300 py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <SectionIntro
+                      kicker="Values"
+                      title="What we optimize for every day"
+                      subtitle="Principles that show up in listings, inspections, and how we answer the phone."
+                    />
+                    <div className="mt-10 grid gap-px border border-stone-300 bg-stone-300 sm:grid-cols-2 lg:grid-cols-4">
+                      {values.map((value) => (
+                        <div
                           key={value.title}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="bg-white rounded-xl p-6 shadow-sm border border-slate-200"
+                          className="bg-[#f4f1ea] p-6 transition-colors hover:bg-amber-100/50"
                         >
-                          <div className="w-16 h-16 rounded-lg bg-blue-50 flex items-center justify-center mb-4">
+                          <div className="flex h-12 w-12 items-center justify-center border border-stone-300 bg-white">
                             {value.icon}
                           </div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">
+                          <h3 className="mt-4 text-base font-bold text-stone-900">
                             {value.title}
                           </h3>
-                          <p className="text-slate-600">{value.description}</p>
-                        </motion.div>
+                          <p className="mt-2 text-sm text-stone-600">
+                            {value.description}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>
                 </section>
 
-                {/* Community Involvement */}
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                      <div className="relative">
-                        <div className="relative rounded-xl overflow-hidden shadow-xl">
-                          <Image
-                            src="/images/community.jpg"
-                            alt="Community Involvement"
-                            width={600}
-                            height={400}
-                            className="w-full h-auto object-cover"
-                          />
-                        </div>
-                        <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-100 rounded-lg -z-10"></div>
-                        <div className="absolute -top-6 -right-6 w-48 h-48 bg-slate-100 rounded-lg -z-10"></div>
+                <section className="border-b border-stone-300 bg-white py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+                      <div className="border border-stone-300 bg-stone-200">
+                        <Image
+                          src="/images/community.jpg"
+                          alt="Community involvement"
+                          width={720}
+                          height={480}
+                          className="h-auto w-full object-cover"
+                        />
                       </div>
                       <div>
-                        <Badge className="bg-blue-100 text-blue-700 mb-3">
-                          Community
-                        </Badge>
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                          Giving Back to Our Community
-                        </h2>
-                        <div className="space-y-4 text-slate-600">
+                        <SectionIntro
+                          kicker="Community"
+                          title="Giving back where we operate"
+                          subtitle="Local drives, youth programs, and education initiatives—we reinvest alongside the customers who trust us."
+                        />
+                        <div className="space-y-4 text-sm text-stone-600 md:text-base">
                           <p>
-                            At Chariot Auto Sales, we believe in the importance
-                            of supporting the communities we serve. Throughout
-                            our history, we've been actively involved in local
-                            initiatives and charitable organizations.
+                            Our annual &ldquo;Drive for a Cause&rdquo; campaign has
+                            raised significant funds for local charities, and our
+                            team volunteers year-round.
                           </p>
                           <p>
-                            Our annual "Drive for a Cause" campaign has raised
-                            over $500,000 for local charities, and our team
-                            regularly volunteers with organizations focused on
-                            education, health, and environmental conservation.
-                          </p>
-                          <p>
-                            We're proud to sponsor local youth sports teams,
-                            community events, and educational programs. Through
-                            these efforts, we strive to make a positive impact
-                            beyond the automotive industry and contribute to the
-                            well-being of our community.
+                            We sponsor youth sports, community events, and
+                            schools because long-term relationships start outside
+                            the showroom too.
                           </p>
                         </div>
-                        <div className="mt-8">
-                          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                            Learn About Our Initiatives
+                        <Link href="/contact" className="mt-8 inline-block">
+                          <Button className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
+                            Learn about initiatives
                             <ChevronRight size={16} className="ml-1" />
                           </Button>
-                        </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
                 </section>
-              </TabsContent>
 
-              {/* Our Team Tab Content */}
-              <TabsContent value="team">
-                {/* Team Introduction */}
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        Our Team
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        Meet the People Behind Chariot Auto Sales
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        Our dedicated team of automotive professionals is
-                        committed to providing exceptional service and
-                        expertise.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {teamMembers.map((member, index) => (
-                        <motion.div
-                          key={member.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 group"
+                <section className="border-b border-stone-300 py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <SectionIntro
+                      kicker="Testimonials"
+                      title="What customers say"
+                      subtitle="A few snapshots—read the full reviews page for more."
+                    />
+                    <div className="mt-10 grid gap-6 md:grid-cols-3">
+                      {[
+                        {
+                          quote:
+                            "No pressure, just helpful guidance and honest answers. I'll be back.",
+                          who: "Jennifer R.",
+                          since: "Customer since 2018",
+                        },
+                        {
+                          quote:
+                            "Quality vehicles and knowledgeable staff—service has been exceptional.",
+                          who: "Robert T.",
+                          since: "Customer since 2020",
+                        },
+                        {
+                          quote:
+                            "Financing was respectful and professional from start to finish.",
+                          who: "Marcus D.",
+                          since: "Customer since 2022",
+                        },
+                      ].map((t) => (
+                        <blockquote
+                          key={t.who}
+                          className="border border-stone-300 bg-white p-5"
                         >
-                          <div className="relative h-64 overflow-hidden">
-                            <Image
-                              src={
-                                member.image || `/images/team/placeholder.jpg`
-                              }
-                              alt={member.name}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
+                          <div className="flex gap-0.5">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star
+                                key={s}
+                                size={14}
+                                className="fill-emerald-600 text-emerald-600"
+                              />
+                            ))}
                           </div>
-                          <div className="p-6">
-                            <h3 className="text-xl font-bold text-slate-900 mb-1">
-                              {member.name}
-                            </h3>
-                            <p className="text-blue-600 font-medium mb-4">
-                              {member.role}
-                            </p>
-                            <p className="text-slate-600 mb-4 line-clamp-3">
-                              {member.bio}
-                            </p>
-                            <div className="flex flex-col space-y-2 text-sm">
-                              <a
-                                href={`mailto:${member.email}`}
-                                className="flex items-center text-slate-700 hover:text-blue-600"
-                              >
-                                <Mail size={16} className="mr-2" />
-                                {member.email}
-                              </a>
-                            </div>
-                          </div>
-                        </motion.div>
+                          <p className="mt-3 text-sm italic leading-relaxed text-stone-700">
+                            &ldquo;{t.quote}&rdquo;
+                          </p>
+                          <footer className="mt-4 text-xs font-semibold uppercase tracking-wider text-stone-500">
+                            <cite className="not-italic text-stone-900">
+                              {t.who}
+                            </cite>
+                            <span className="mt-1 block font-normal normal-case text-stone-600">
+                              {t.since}
+                            </span>
+                          </footer>
+                        </blockquote>
                       ))}
                     </div>
-
-                    <div className="mt-12 text-center">
-                      <p className="text-slate-600 mb-6">
-                        Our team extends beyond these key members to include
-                        sales consultants, service technicians, and support
-                        staff who are all committed to your satisfaction.
-                      </p>
-                      <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                        Join Our Team
-                        <ChevronRight size={16} className="ml-1" />
-                      </Button>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Testimonials */}
-                <section className="py-16 bg-slate-50">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        Testimonials
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        What Our Customers Say
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        Don't just take our word for it. Hear from customers who
-                        have experienced the Chariot Auto Sales difference.
-                      </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 relative">
-                        <div className="absolute -top-3 -right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                          <Star size={16} className="fill-current" />
-                        </div>
-                        <div className="flex items-center mb-4">
-                          <div className="flex mr-2">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <Star
-                                key={star}
-                                size={16}
-                                className="text-yellow-400 fill-current"
-                              />
-                            ))}
-                          </div>
-                          <span className="text-slate-600 text-sm">5.0</span>
-                        </div>
-                        <p className="text-slate-600 italic mb-4">
-                          "The team at Chariot Auto Sales made buying a car so
-                          easy. No pressure, just helpful guidance and honest
-                          answers to all my questions. I'll never go anywhere
-                          else!"
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 rounded-full bg-slate-200 mr-3"></div>
-                          <div>
-                            <div className="font-medium text-slate-900">
-                              Jennifer R.
-                            </div>
-                            <div className="text-sm text-slate-500">
-                              Customer since 2018
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 relative">
-                        <div className="absolute -top-3 -right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                          <Star size={16} className="fill-current" />
-                        </div>
-                        <div className="flex items-center mb-4">
-                          <div className="flex mr-2">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <Star
-                                key={star}
-                                size={16}
-                                className="text-yellow-400 fill-current"
-                              />
-                            ))}
-                          </div>
-                          <span className="text-slate-600 text-sm">5.0</span>
-                        </div>
-                        <p className="text-slate-600 italic mb-4">
-                          "I was impressed by the quality of vehicles and the
-                          knowledge of the staff. Michael in the service
-                          department has been exceptional with maintenance.
-                          Truly a dealership that cares."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 rounded-full bg-slate-200 mr-3"></div>
-                          <div>
-                            <div className="font-medium text-slate-900">
-                              Robert T.
-                            </div>
-                            <div className="text-sm text-slate-500">
-                              Customer since 2020
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 relative">
-                        <div className="absolute -top-3 -right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center">
-                          <Star size={16} className="fill-current" />
-                        </div>
-                        <div className="flex items-center mb-4">
-                          <div className="flex mr-2">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <Star
-                                key={star}
-                                size={16}
-                                className="text-yellow-400 fill-current"
-                              />
-                            ))}
-                          </div>
-                          <span className="text-slate-600 text-sm">5.0</span>
-                        </div>
-                        <p className="text-slate-600 italic mb-4">
-                          "Lisa in financing worked miracles to get me approved
-                          with a great rate despite my credit challenges. The
-                          whole experience was respectful and professional from
-                          start to finish."
-                        </p>
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 rounded-full bg-slate-200 mr-3"></div>
-                          <div>
-                            <div className="font-medium text-slate-900">
-                              Marcus D.
-                            </div>
-                            <div className="text-sm text-slate-500">
-                              Customer since 2022
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-12 text-center">
+                    <div className="mt-8 text-center">
                       <Link href="/testimonials">
                         <Button
                           variant="outline"
-                          className="border-slate-300 hover:border-slate-400 text-slate-800"
+                          className="rounded-none border border-stone-300 px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
                         >
-                          Read More Testimonials
+                          More reviews
                           <ArrowRight size={16} className="ml-2" />
                         </Button>
                       </Link>
@@ -768,272 +494,48 @@ export default function AboutPage() {
                 </section>
               </TabsContent>
 
-              {/* Locations Tab Content */}
-              <TabsContent value="locations">
-                {/* Locations Map */}
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        Our Locations
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        Visit Us at One of Our Dealerships
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        With three convenient locations, we're never far away
-                        when you need us.
-                      </p>
-                    </div>
-
-                    <div className="bg-slate-100 rounded-xl overflow-hidden h-[400px] mb-12 relative">
-                      {/* This would be replaced with an actual map component */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <p className="text-slate-500">
-                          Interactive Map Would Be Displayed Here
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      {/* Location 1 */}
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">
-                          Main Showroom
-                        </h3>
-                        <div className="space-y-3 text-slate-600 mb-6">
-                          <div className="flex items-start">
-                            <MapPin
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              123 Auto Drive
-                              <br />
-                              Cartown, CT 12345
-                            </div>
-                          </div>
-                          {/*                           */}
-                          <div className="flex items-center">
-                            <Mail
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>main@chariotsautos.com</div>
-                          </div>
-                          <div className="flex items-start">
-                            <Clock
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              Mon-Fri: 9am-8pm
-                              <br />
-                              Saturday: 9am-6pm
-                              <br />
-                              Sunday: 11am-5pm
-                            </div>
-                          </div>
-                        </div>
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                          Get Directions
-                        </Button>
-                      </div>
-
-                      {/* Location 2 */}
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">
-                          Westside Dealership
-                        </h3>
-                        <div className="space-y-3 text-slate-600 mb-6">
-                          <div className="flex items-start">
-                            <MapPin
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              456 West Boulevard
-                              <br />
-                              Cartown, CT 12346
-                            </div>
-                          </div>
-                          <div className="flex items-center">
-                            <Mail
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>west@chariotsautos.com</div>
-                          </div>
-                          <div className="flex items-start">
-                            <Clock
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              Mon-Fri: 9am-8pm
-                              <br />
-                              Saturday: 9am-6pm
-                              <br />
-                              Sunday: 11am-5pm
-                            </div>
-                          </div>
-                        </div>
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                          Get Directions
-                        </Button>
-                      </div>
-
-                      {/* Location 3 */}
-                      <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">
-                          Eastside Service Center
-                        </h3>
-                        <div className="space-y-3 text-slate-600 mb-6">
-                          <div className="flex items-start">
-                            <MapPin
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              789 East Avenue
-                              <br />
-                              Cartown, CT 12347
-                            </div>
-                          </div>
-                          <div className="flex items-center">
-                            <Mail
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0"
-                            />
-                            <div>service@chariotsautos.com</div>
-                          </div>
-                          <div className="flex items-start">
-                            <Clock
-                              size={18}
-                              className="mr-2 text-blue-600 flex-shrink-0 mt-0.5"
-                            />
-                            <div>
-                              Mon-Fri: 8am-6pm
-                              <br />
-                              Saturday: 8am-4pm
-                              <br />
-                              Sunday: Closed
-                            </div>
-                          </div>
-                        </div>
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                          Get Directions
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Virtual Tour */}
-                <section className="py-16 bg-slate-50">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                      <div>
-                        <Badge className="bg-blue-100 text-blue-700 mb-3">
-                          Virtual Tour
-                        </Badge>
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                          Take a Virtual Tour of Our Facilities
-                        </h2>
-                        <div className="space-y-4 text-slate-600">
-                          <p>
-                            Can't visit us in person? No problem! Our virtual
-                            tour allows you to explore our showrooms, service
-                            centers, and facilities from the comfort of your
-                            home.
-                          </p>
-                          <p>
-                            Get a feel for our extensive inventory,
-                            state-of-the-art service bays, and comfortable
-                            customer lounges before your visit.
-                          </p>
-                          <p>
-                            Our interactive 360° tours provide an immersive
-                            experience that showcases the Chariot Auto Sales
-                            difference.
-                          </p>
-                        </div>
-                        <div className="mt-8">
-                          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                            Start Virtual Tour
-                            <ChevronRight size={16} className="ml-1" />
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <div className="relative rounded-xl overflow-hidden shadow-xl aspect-video">
-                          <Image
-                            src="/images/virtual-tour.jpg"
-                            alt="Virtual Tour"
-                            fill
-                            className="object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                            <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center">
-                              <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-blue-600 border-b-8 border-b-transparent ml-1"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              </TabsContent>
-
-              {/* FAQ Tab Content */}
-              <TabsContent value="faq">
-                <section className="py-16 bg-white">
-                  <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-12">
-                      <Badge className="bg-blue-100 text-blue-700 mb-3">
-                        FAQ
-                      </Badge>
-                      <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                        Frequently Asked Questions
-                      </h2>
-                      <p className="text-slate-600 max-w-3xl mx-auto">
-                        Find answers to common questions about our services,
-                        processes, and policies.
-                      </p>
-                    </div>
-
-                    <div className="max-w-3xl mx-auto">
+              <TabsContent value="faq" className="mt-0 p-0">
+                <section className="border-b border-stone-300 bg-white py-14 md:py-20">
+                  <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                    <SectionIntro
+                      kicker="FAQ"
+                      title="Answers before you visit"
+                      subtitle="Still stuck? Call or email—we respond quickly during business hours."
+                    />
+                    <div className="mx-auto mt-10 max-w-3xl border border-stone-300 bg-[#f4f1ea] px-4 py-2">
                       <Accordion type="single" collapsible className="w-full">
                         {faqs.map((faq, index) => (
-                          <AccordionItem key={index} value={`item-${index}`}>
-                            <AccordionTrigger className="text-left text-lg font-medium">
+                          <AccordionItem
+                            key={index}
+                            value={`item-${index}`}
+                            className="border-stone-300"
+                          >
+                            <AccordionTrigger className="py-4 text-left text-sm font-bold text-stone-900 hover:no-underline md:text-base">
                               {faq.question}
                             </AccordionTrigger>
-                            <AccordionContent className="text-slate-600">
+                            <AccordionContent className="pb-4 text-sm leading-relaxed text-stone-600">
                               {faq.answer}
                             </AccordionContent>
                           </AccordionItem>
                         ))}
                       </Accordion>
                     </div>
-
-                    <div className="mt-12 text-center">
-                      <p className="text-slate-600 mb-6">
-                        Still have questions? We're here to help!
-                      </p>
-                      <div className="flex flex-wrap justify-center gap-4">
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                    <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center justify-center gap-3 sm:flex-row">
+                      <Link href="/contact">
+                        <Button className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
                           <Phone size={16} className="mr-2" />
-                          Contact Us
+                          Contact us
                         </Button>
+                      </Link>
+                      <a href="mailto:bankrepossessedcars@gmail.com">
                         <Button
                           variant="outline"
-                          className="border-slate-300 hover:border-slate-400 text-slate-800"
+                          className="rounded-none border border-stone-300 px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
                         >
                           <Mail size={16} className="mr-2" />
-                          Email Support
+                          Email support
                         </Button>
-                      </div>
+                      </a>
                     </div>
                   </div>
                 </section>
@@ -1042,34 +544,44 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* CTA Section - Consistent across all tabs */}
-        <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="border-b border-stone-300 bg-[#f4f1ea] py-14 md:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <div>
-                <h2 className="text-3xl font-bold mb-6">
-                  Ready to Experience the Chariot Auto Sales Difference?
-                </h2>
-                <p className="text-xl text-blue-100 mb-8">
-                  Visit one of our locations today or browse our online
-                  inventory to find your perfect vehicle.
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.35em] text-stone-500">
+                  Next step
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button className="bg-white hover:bg-gray-100 text-blue-700">
-                    Browse Inventory
-                  </Button>
+                <h2 className="mt-3 text-2xl font-bold text-stone-900 md:text-3xl">
+                  Ready to browse repo inventory?
+                </h2>
+                <p className="mt-4 text-sm text-stone-600 md:text-base">
+                  Start online—filters and listing detail are built to save you
+                  time.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/shop">
+                    <Button className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500">
+                      Browse inventory
+                    </Button>
+                  </Link>
+                  <Link href="/testimonials">
+                    <Button
+                      variant="outline"
+                      className="rounded-none border border-stone-300 font-bold"
+                    >
+                      Read reviews
+                    </Button>
+                  </Link>
                 </div>
               </div>
-              <div className="relative">
-                <div className="relative rounded-xl overflow-hidden shadow-xl">
-                  <Image
-                    src="/images/showroom.jpg"
-                    alt="Chariot Auto Sales Showroom"
-                    width={600}
-                    height={350}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
+              <div className="border border-stone-300 bg-stone-200">
+                <Image
+                  src="/images/showroom.jpg"
+                  alt="Bank Repossessed Cars showroom"
+                  width={640}
+                  height={380}
+                  className="h-auto w-full object-cover"
+                />
               </div>
             </div>
           </div>

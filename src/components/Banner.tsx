@@ -1,68 +1,65 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, Clock, Car } from "lucide-react";
+import { ArrowRight, Shield, Landmark, Car } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Banner() {
   return (
-    <section className="relative text-white py-16 md:py-24 overflow-hidden font-montserrat min-h-[600px] md:min-h-[700px]">
-      {/* Background Image with Overlay */}
+    <section className="relative min-h-[600px] overflow-hidden py-16 text-white md:min-h-[700px] md:py-24">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80"
-          alt="Luxury car background"
+          src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+          alt="Quality pre-owned vehicle"
           fill
           className="object-cover object-center"
           priority
         />
-        {/* Enhanced gradient overlay for better text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-blue-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/75 to-emerald-950/65" />
       </div>
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10 h-full flex flex-col justify-center">
         <div className="max-w-2xl">
-          {/* Enhanced Headline with Urgency */}
           <div className="mb-4">
-            <span className="inline-block bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              🔥 LIMITED TIME OFFER - 0% DOWN PAYMENT AVAILABLE
+            <span className="inline-flex items-center gap-2 bg-emerald-600/95 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold ring-1 ring-emerald-400/40">
+              <Landmark className="h-4 w-4 shrink-0" />
+              Bank &amp; lender repossessions — priced to move
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Drive Your <span className="text-yellow-400">Dreams</span> Home
-            Today
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            Real savings on{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">
+              repossessed
+            </span>{" "}
+            vehicles
           </h1>
 
-          <p className="text-xl md:text-2xl mb-8 opacity-95 max-w-lg leading-relaxed">
-            Skip the dealership hassle. Get quality, pre-owned vehicles with
-            instant approval and same-day pickup.
+          <p className="text-lg md:text-2xl mb-8 text-slate-200 max-w-lg leading-relaxed">
+            Skip traditional dealer markups. Shop transparent listings from
+            recovered collateral—inspected, titled, and ready for a new owner.
           </p>
 
-          {/* Trust Indicators */}
           <div className="flex flex-wrap gap-6 mb-8">
             <div className="flex items-center gap-2">
-              <Shield className="text-yellow-400" size={20} />
-              <span className="text-sm font-medium">
-                100% Verified Vehicles
-              </span>
+              <Shield className="text-emerald-400 shrink-0" size={20} />
+              <span className="text-sm font-medium">Disclosure-first listings</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="text-yellow-400" size={20} />
-              <span className="text-sm font-medium">Same Day Pickup</span>
+              <Landmark className="text-emerald-400 shrink-0" size={20} />
+              <span className="text-sm font-medium">Institutional sourcing</span>
             </div>
             <div className="flex items-center gap-2">
-              <Car className="text-yellow-400" size={20} />
-              <span className="text-sm font-medium">Free Test Drive</span>
+              <Car className="text-emerald-400 shrink-0" size={20} />
+              <span className="text-sm font-medium">Cars, trucks &amp; SUVs</span>
             </div>
           </div>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/shop">
-              <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-4 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all flex items-center group min-w-[200px]">
-                Browse Cars Now
+              <Button className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-8 py-4 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all flex items-center group min-w-[200px]">
+                Browse repo inventory
                 <ArrowRight
                   size={20}
                   className="ml-2 group-hover:translate-x-1 transition-transform"
@@ -72,22 +69,21 @@ export default function Banner() {
             <Link href="/contact">
               <Button
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-4 rounded-lg text-lg transition-all min-w-[200px]"
+                className="border-white/70 text-white hover:bg-white hover:text-slate-900 font-semibold px-8 py-4 rounded-lg text-lg transition-all min-w-[200px] bg-transparent"
               >
-                Get Pre-Approved
+                Ask about a vehicle
               </Button>
             </Link>
           </div>
 
-          {/* Social Proof */}
-          <div className="mt-8 pt-6 border-t border-white/20">
-            <p className="text-sm opacity-80">
-              <span className="font-semibold text-yellow-400">500+</span> happy
-              customers •
-              <span className="font-semibold text-yellow-400"> 4.9/5</span>{" "}
-              rating •
-              <span className="font-semibold text-yellow-400"> 24/7</span>{" "}
-              support
+          <div className="mt-8 pt-6 border-t border-white/15">
+            <p className="text-sm text-slate-300">
+              <span className="font-semibold text-emerald-300">New listings</span>{" "}
+              added regularly ·
+              <span className="font-semibold text-emerald-300"> Nationwide</span>{" "}
+              pickup &amp; transport options ·
+              <span className="font-semibold text-emerald-300"> Support</span> when
+              you need it
             </p>
           </div>
         </div>

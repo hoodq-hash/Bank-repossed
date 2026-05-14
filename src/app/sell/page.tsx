@@ -73,7 +73,7 @@ export default function SellMyCarPage() {
   );
 
   // Conditions for dropdown
-  const conditions = ["New", "Used", "Certified Pre-Owned"];
+  const conditions = ["New", "Used", "Certified Pre-Owned", "Repossessed"];
 
   // Transmissions for dropdown
   const transmissions = ["Automatic", "Manual", "CVT", "Semi-Automatic"];
@@ -288,7 +288,7 @@ export default function SellMyCarPage() {
               Sell Your Car
             </h1>
             <div className="flex items-center text-sm text-gray-500 mt-1">
-              <Link href="/" className="hover:text-blue-600">
+              <Link href="/" className="hover:text-emerald-600">
                 Home
               </Link>
               <ChevronRight size={14} className="mx-1" />
@@ -368,7 +368,7 @@ export default function SellMyCarPage() {
             <h2 className="text-xl font-semibold mb-4">How it works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-3">
+                <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
                   <span className="text-lg font-bold">1</span>
                 </div>
                 <h3 className="font-medium mb-2">Submit your car details</h3>
@@ -377,7 +377,7 @@ export default function SellMyCarPage() {
                 </p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-3">
+                <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
                   <span className="text-lg font-bold">2</span>
                 </div>
                 <h3 className="font-medium mb-2">Get verified</h3>
@@ -386,7 +386,7 @@ export default function SellMyCarPage() {
                 </p>
               </div>
               <div className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mb-3">
+                <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mb-3">
                   <span className="text-lg font-bold">3</span>
                 </div>
                 <h3 className="font-medium mb-2">Connect with buyers</h3>
@@ -748,7 +748,7 @@ export default function SellMyCarPage() {
                     </p>
                     <Button
                       type="button"
-                      className="mt-3 bg-blue-600 hover:bg-blue-700"
+                      className="mt-3 bg-emerald-600 hover:bg-emerald-700"
                       onClick={() =>
                         document.getElementById("car-images").click()
                       }
@@ -774,7 +774,7 @@ export default function SellMyCarPage() {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
+                      className="bg-emerald-600 h-2 rounded-full"
                       style={{ width: `${uploadProgress}%` }}
                     ></div>
                   </div>
@@ -814,7 +814,7 @@ export default function SellMyCarPage() {
               <div className="mt-3 flex items-start">
                 <Info
                   size={16}
-                  className="text-blue-500 mt-0.5 mr-2 flex-shrink-0"
+                  className="text-emerald-500 mt-0.5 mr-2 flex-shrink-0"
                 />
                 <p className="text-xs text-gray-600">
                   Include clear photos of the exterior (front, back, sides),
@@ -916,13 +916,13 @@ export default function SellMyCarPage() {
                 />
                 <label htmlFor="terms" className="text-xs text-gray-600">
                   By submitting this form, I agree to the{" "}
-                  <Link href="/terms" className="text-blue-600 hover:underline">
+                  <Link href="/terms" className="text-emerald-600 hover:underline">
                     Terms and Conditions
                   </Link>{" "}
                   and{" "}
                   <Link
                     href="/privacy"
-                    className="text-blue-600 hover:underline"
+                    className="text-emerald-600 hover:underline"
                   >
                     Privacy Policy
                   </Link>
@@ -945,7 +945,7 @@ export default function SellMyCarPage() {
                 </Button>
                 <Button
                   type="submit"
-                  className="bg-blue-600 hover:bg-blue-700 order-1 sm:order-2"
+                  className="bg-emerald-600 hover:bg-emerald-700 order-1 sm:order-2"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Submit Car Listing"}
@@ -962,7 +962,7 @@ export default function SellMyCarPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
               <div className="flex flex-col">
                 <div className="flex items-center mb-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mr-3">
                     <CheckCircle2 size={18} />
                   </div>
                   <h3 className="font-medium">Free Listings</h3>
@@ -973,7 +973,7 @@ export default function SellMyCarPage() {
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center mb-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mr-3">
                     <CheckCircle2 size={18} />
                   </div>
                   <h3 className="font-medium">Verified Buyers</h3>
@@ -984,7 +984,7 @@ export default function SellMyCarPage() {
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center mb-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mr-3">
+                  <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600 mr-3">
                     <CheckCircle2 size={18} />
                   </div>
                   <h3 className="font-medium">Secure Process</h3>
