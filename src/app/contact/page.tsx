@@ -30,15 +30,15 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/site";
 
 const HQ = {
-  name: "Headquarters",
-  addressLines: ["562 State St", "Clearfield, UT 84015", "United States"],
-  phoneDisplay: "+1 (409) 655-8072",
-  phoneHref: "tel:+14096558072",
-  email: "bankrepossessedcars@gmail.com",
-  mapSearchUrl:
-    "https://www.google.com/maps/search/?api=1&query=562+State+St+Clearfield+UT+84015",
+  name: SITE.headquarters.label,
+  addressLines: SITE.headquarters.addressLines,
+  phoneDisplay: SITE.phone.display,
+  phoneHref: SITE.phone.href,
+  email: SITE.email,
+  mapSearchUrl: SITE.headquarters.mapSearchUrl,
 };
 
 const inquiryTypes = [
@@ -95,24 +95,42 @@ export default function ContactPage() {
       return;
     }
     setTopicError(null);
-    window.setTimeout(() => {
-      setFormStatus({
-        submitted: true,
-        success: true,
-        message:
-          "Thanks for reaching out. We reply during business hours—usually within one business day.",
-      });
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        inquiryType: "",
-        message: "",
-        preferredContact: "email",
-        subscribe: false,
-      });
-    }, 600);
+
+    const subject = `Contact: ${formData.inquiryType} — ${formData.firstName} ${formData.lastName}`;
+    const body = [
+      `Name: ${formData.firstName} ${formData.lastName}`,
+      `Email: ${formData.email}`,
+      formData.phone ? `Phone: ${formData.phone}` : null,
+      `Topic: ${formData.inquiryType}`,
+      `Preferred reply: ${formData.preferredContact}`,
+      formData.subscribe ? "Newsletter: Yes" : null,
+      "",
+      formData.message,
+      "",
+      `Sent via ${SITE.url}/contact`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const mailtoLink = `mailto:${HQ.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+
+    setFormStatus({
+      submitted: true,
+      success: true,
+      message:
+        "Your email app should open with your message ready to send. We typically reply within one business day during open hours.",
+    });
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      inquiryType: "",
+      message: "",
+      preferredContact: "email",
+      subscribe: false,
+    });
   };
 
   return (
@@ -163,9 +181,10 @@ export default function ContactPage() {
                   Visit or mail correspondence
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-stone-600 md:text-base">
-                  One published address matches our listings and footer. For
-                  the fastest answer on a specific vehicle, include the stock
-                  title or link in your message.
+                  Our only office is in Houston, Texas—the same location shown
+                  on listings and the footer. For the fastest answer on a
+                  specific vehicle, include the stock title or link in your
+                  message.
                 </p>
 
                 <div className="mt-8 space-y-6 border border-stone-300 bg-[#f4f1ea] p-6">
@@ -274,15 +293,9 @@ export default function ContactPage() {
                   Send a note
                 </h2>
                 <p className="mt-3 text-sm text-stone-600 md:text-base">
-                  This form is a convenience preview—your details are not stored
-                  on a server yet. For a real inquiry, use{" "}
-                  <a
-                    href={`mailto:${HQ.email}`}
-                    className="font-semibold text-stone-900 underline decoration-2 underline-offset-4"
-                  >
-                    email
-                  </a>{" "}
-                  or call so we can respond with listing-specific information.
+                  Fill out the form and we will open your email app with your
+                  message addressed to our team. Include a listing link or stock
+                  details when asking about a specific vehicle.
                 </p>
 
                 <div className="mt-8">
@@ -298,7 +311,7 @@ export default function ContactPage() {
                           <div>
                             <AlertTitle className="text-stone-900">
                               {formStatus.success
-                                ? "Message recorded (demo)"
+                                ? "Check your email app"
                                 : "Something went wrong"}
                             </AlertTitle>
                             <AlertDescription className="mt-1 text-stone-600">
@@ -472,24 +485,14 @@ export default function ContactPage() {
                         </Label>
                       </div>
 
-                      <div className="mt-8 flex flex-wrap gap-3">
+                      <div className="mt-8">
                         <Button
                           type="submit"
                           className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500"
                         >
-                          Submit (demo)
+                          Send message
                           <Send size={16} className="ml-2" />
                         </Button>
-                        <a href={`mailto:${HQ.email}`}>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="rounded-none border border-stone-300 bg-white font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"
-                          >
-                            <Mail size={16} className="mr-2" />
-                            Open mail app
-                          </Button>
-                        </a>
                       </div>
                     </form>
                   )}

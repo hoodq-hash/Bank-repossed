@@ -43,6 +43,7 @@ import {
 } from "@/components/ui/table";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/site";
 
 /** Aligns shop localStorage, API payloads, and compare UI */
 interface Car {
@@ -648,7 +649,7 @@ function ComparePage() {
                         </div>
                         <div className="flex items-center">
                           <MapPin size={14} className="mr-1 text-stone-400" />
-                          {car.location || "—"}
+                          {car.location || SITE.listingLocationDefault}
                         </div>
                       </div>
 

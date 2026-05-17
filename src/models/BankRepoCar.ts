@@ -20,6 +20,7 @@ const BankRepoCarSchema = new mongoose.Schema(
     location: {
       type: String,
       trim: true,
+      default: "Houston, TX",
     },
     /** Lending institution or remarketing partner when known */
     lenderName: {

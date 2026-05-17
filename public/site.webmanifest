@@ -1,0 +1,18 @@
+{
+  "name": "Bank Repossessed Cars",
+  "short_name": "Bank Repo Cars",
+  "description": "Browse bank- and lender-repossessed vehicles at transparent pricing.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#059669",
+  "icons": [
+    {
+      "src": "/bklogo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Script from "next/script";
+import { SITE, SITE_METADATA } from "@/lib/site";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -12,15 +13,51 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "Bank Repossessed Cars — Save on Repo Inventory",
-  description:
-    "Browse bank- and lender-repossessed vehicles at transparent pricing. Verified listings and a straightforward buying experience.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SITE_METADATA.title,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE_METADATA.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  formatDetection: {
+    email: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
+    images: [
+      {
+        url: "/bklogo.png",
+        width: 512,
+        height: 512,
+        alt: SITE.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_METADATA.title,
+    description: SITE_METADATA.description,
+    images: ["/bklogo.png"],
+  },
   icons: {
     icon: [
       { url: "/bklogo.png", sizes: "any" },
       { url: "/bklogo.png", type: "image/png" },
     ],
-    apple: { url: "/apple-icon.png", type: "image/png" },
+    apple: { url: "/bklogo.png", type: "image/png" },
   },
   manifest: "/site.webmanifest",
 };
@@ -34,7 +71,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/bklogo.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="apple-touch-icon" href="/bklogo.png" />
         <Script id="smartsupp-head" strategy="beforeInteractive">
           {`
             var _smartsupp = _smartsupp || {};

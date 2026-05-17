@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { SITE } from "@/lib/site";
 
 interface Car {
   id: string;
@@ -638,7 +639,7 @@ export default function FeaturedCars() {
                       </h3>
                       <p className="mt-2 flex items-center text-sm text-stone-600">
                         <MapPin size={16} className="mr-1.5 shrink-0" />
-                        {car.location}
+                        {car.location || SITE.listingLocationDefault}
                         {car.area ? `, ${car.area}` : ""}
                       </p>
                     </div>

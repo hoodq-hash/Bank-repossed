@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/accordion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/site";
 
 const milestones = [
   {
@@ -42,9 +43,9 @@ const milestones = [
   },
   {
     year: 2002,
-    title: "Second location",
+    title: "Expanded inventory",
     description:
-      "We doubled inventory and service capacity while keeping published pricing and condition reports at the center of the experience.",
+      "We doubled inventory and inspection capacity in Houston while keeping published pricing and condition reports at the center of the experience.",
     icon: <TrendingUp className="h-5 w-5" />,
   },
   {
@@ -65,7 +66,7 @@ const milestones = [
     year: 2020,
     title: "25th anniversary",
     description:
-      "Celebrated 25 years of service with our 10,000th vehicle sold and expansion to a third facility.",
+      "Celebrated 25 years of service with our 10,000th vehicle sold from our Houston headquarters.",
     icon: <Award className="h-5 w-5" />,
   },
   {
@@ -237,7 +238,7 @@ export default function AboutPage() {
                       <div>
                         <SectionIntro
                           kicker="Our story"
-                          title="From a small remarketing desk to three facilities"
+                          title="Built in Houston, focused on clear repo sales"
                           subtitle="Growth never replaced the basics: clear condition notes, published pricing, and respectful support."
                         />
                         <div className="space-y-4 text-sm leading-relaxed text-stone-600 md:text-base">
@@ -248,14 +249,14 @@ export default function AboutPage() {
                             auctions or surprise fees.
                           </p>
                           <p>
-                            Word spread. By 2002 we had expanded to a second
-                            location and a team focused on documentation and
-                            buyer education.
+                            Word spread from our Houston headquarters. By 2002
+                            we had expanded inventory and a team focused on
+                            documentation and buyer education.
                           </p>
                           <p>
-                            Today we operate three facilities with sales,
-                            service, and financing support—still guided by the same
-                            principles.
+                            Today we still operate from Houston, Texas—sales,
+                            service, and financing support under one roof,
+                            still guided by the same principles.
                           </p>
                         </div>
                       </div>
@@ -527,7 +528,7 @@ export default function AboutPage() {
                           Contact us
                         </Button>
                       </Link>
-                      <a href="mailto:bankrepossessedcars@gmail.com">
+                      <a href={`mailto:${SITE.email}`}>
                         <Button
                           variant="outline"
                           className="rounded-none border border-stone-300 px-8 font-bold text-stone-900 hover:bg-stone-900 hover:text-[#f4f1ea]"

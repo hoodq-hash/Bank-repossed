@@ -19,6 +19,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FeaturedCars from "@/components/FeaturedCars";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/site";
 
 const HERO_IMAGE = "/photo-1652992253402-15729d9b97fc.avif";
 
@@ -31,7 +32,11 @@ export default function Home() {
       label: "cars inspected monthly",
       icon: <Shield size={24} />,
     },
-    { value: "70+", label: "locations worldwide", icon: <MapPin size={24} /> },
+    {
+      value: "Houston",
+      label: "Texas headquarters",
+      icon: <MapPin size={24} />,
+    },
   ];
 
   // Testimonials data
@@ -343,7 +348,7 @@ export default function Home() {
                     </h3>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-stone-600">
-                    562 State St, Clearfield, UT 84015, United States
+                    {SITE.headquarters.full}
                   </p>
                   <Link
                     href="/contact"
@@ -402,10 +407,10 @@ export default function Home() {
                     </h3>
                   </div>
                   <p className="mt-3 break-all font-mono text-sm text-stone-800">
-                    bankrepossessedcars@gmail.com
+                    {SITE.email}
                   </p>
                   <a
-                    href="mailto:bankrepossessedcars@gmail.com"
+                    href={`mailto:${SITE.email}`}
                     className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
                   >
                     Send email

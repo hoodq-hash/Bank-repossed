@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { SITE } from "@/lib/site";
 
 // Define car type
 type Car = {
@@ -310,11 +311,11 @@ Message:
 ${formData.message}
 
 
-This message was sent from the Bank Repossessed Cars website.
+This message was sent from ${SITE.url}.
 `;
 
       // Encode email parameters
-      const mailtoLink = `mailto:bankrepossessedcars@gmail.com?subject=${encodeURIComponent(
+      const mailtoLink = `mailto:${SITE.email}?subject=${encodeURIComponent(
         subject
       )}&body=${encodeURIComponent(body)}`;
 

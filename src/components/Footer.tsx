@@ -1,9 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import {
-  Facebook,
-  Instagram,
-  Twitter,
   MessageCircle,
   Mail,
   Phone,
@@ -11,6 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 import Link from "next/link";
+import { SITE } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -64,33 +62,6 @@ export default function Footer() {
             <ul className="mt-6 space-y-3">
               <li>
                 <a
-                  href="https://facebook.com/chariotsautosales"
-                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
-                >
-                  <Facebook size={18} className="mr-2 shrink-0 text-stone-600" />
-                  Our Facebook
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://instagram.com/chariotsautosales"
-                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
-                >
-                  <Instagram size={18} className="mr-2 shrink-0 text-stone-600" />
-                  Our Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://twitter.com/chariotsautosales"
-                  className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
-                >
-                  <Twitter size={18} className="mr-2 shrink-0 text-stone-600" />
-                  Our Twitter
-                </a>
-              </li>
-              <li>
-                <a
                   href="/contact"
                   className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
@@ -100,21 +71,21 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+14096558072"
+                  href={SITE.phone.href}
                   className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
                   <Phone size={18} className="mr-2 shrink-0 text-stone-600" />
-                  +1 (409) 655-8072
+                  {SITE.phone.display}
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:bankrepossessedcars@gmail.com"
+                  href={`mailto:${SITE.email}`}
                   className="inline-flex items-start border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
                   <Mail size={18} className="mr-2 mt-0.5 shrink-0 text-stone-600" />
                   <span className="break-all font-mono text-xs font-normal sm:text-sm">
-                    bankrepossessedcars@gmail.com
+                    {SITE.email}
                   </span>
                 </a>
               </li>
@@ -154,19 +125,21 @@ export default function Footer() {
                     Headquarters
                   </p>
                   <p className="mt-1 text-sm leading-relaxed text-stone-600">
-                    562 State St, Clearfield, UT 84015, United States
+                    {SITE.headquarters.full}
                   </p>
-                  <Link
-                    href="/contact"
+                  <a
+                    href={SITE.headquarters.mapSearchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-2 inline-block text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
                   >
                     Directions
-                  </Link>
+                  </a>
                   <a
-                    href="tel:+14096558072"
+                    href={SITE.phone.href}
                     className="mt-2 block font-mono text-sm font-semibold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
                   >
-                    +1 (409) 655-8072
+                    {SITE.phone.display}
                   </a>
                 </div>
               </li>
@@ -176,7 +149,13 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-stone-300 pt-8">
           <p className="text-center font-mono text-xs text-stone-500 md:text-left">
-            © 2026 Bank Repossessed Cars. All rights reserved.
+            © 2026 {SITE.name}.{" "}
+            <a
+              href={SITE.url}
+              className="font-semibold text-stone-700 underline decoration-1 underline-offset-2 hover:text-emerald-800"
+            >
+              {SITE.domain}
+            </a>
           </p>
         </div>
       </div>

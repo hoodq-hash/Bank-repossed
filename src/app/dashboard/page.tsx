@@ -66,7 +66,7 @@ const initialCarListings = [
     title: "Volkswagen Jetta 2007 Gold",
     price: 12500,
     currency: "$",
-    location: "San Francisco, CA",
+    location: "Houston, TX",
     condition: "Used",
     transmission: "Manual",
     year: 2007,
@@ -102,7 +102,7 @@ const initialCarListings = [
     title: "Toyota Camry 2015 Black",
     price: 18900,
     currency: "$",
-    location: "Los Angeles, CA",
+    location: "Houston, TX",
     condition: "Used",
     transmission: "Automatic",
     year: 2015,
@@ -133,7 +133,7 @@ const initialCarListings = [
     title: "Honda Accord 2018 Silver",
     price: 22500,
     currency: "$",
-    location: "Seattle, WA",
+    location: "Houston, TX",
     condition: "Used",
     transmission: "Automatic",
     year: 2018,
@@ -167,7 +167,7 @@ const initialCarListings = [
     title: "Ford F-150 2016 Red",
     price: 26800,
     currency: "$",
-    location: "Dallas, TX",
+    location: "Houston, TX",
     condition: "Used",
     transmission: "Automatic",
     year: 2016,
@@ -220,7 +220,7 @@ export default function DashboardPage() {
     title: "",
     price: 0,
     currency: "$",
-    location: "",
+    location: "Houston, TX",
     condition: "Used",
     transmission: "Automatic",
     year: new Date().getFullYear(),
@@ -463,7 +463,7 @@ export default function DashboardPage() {
             title: "",
             price: 0,
             currency: "$",
-            location: "",
+            location: "Houston, TX",
             condition: "Used",
             transmission: "Automatic",
             year: new Date().getFullYear(),
@@ -1030,7 +1030,7 @@ export default function DashboardPage() {
                   name="location"
                   value={newCar.location}
                   onChange={handleInputChange}
-                  placeholder="e.g. San Francisco, CA"
+                  placeholder="e.g. Houston, TX"
                   className={formErrors.location ? "border-red-500" : ""}
                 />
                 {formErrors.location && (

@@ -33,6 +33,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/site";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Tooltip,
@@ -1743,7 +1744,7 @@ function ShopPage() {
                                 size={14}
                                 className="mr-1 text-stone-400"
                               />
-                              {car.location || "Local Dealer"}
+                              {car.location || SITE.listingLocationDefault}
                             </div>
                           </div>
                         </div>
