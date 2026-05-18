@@ -1,4 +1,9 @@
 /** Published contact, domain, and headquarters — single source of truth. */
+const contactEmail =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ||
+  process.env.CONTACT_EMAIL ||
+  "contact@bankreposessedcars.com";
+
 export const SITE = {
   name: "Bank Repossessed Cars",
   domain: "bankreposessedcars.com",
@@ -7,7 +12,7 @@ export const SITE = {
     display: "+1 (409) 655-8072",
     href: "tel:+14096558072",
   },
-  email: "bankrepossessedcars@gmail.com",
+  email: contactEmail,
   headquarters: {
     label: "Headquarters",
     city: "Houston",

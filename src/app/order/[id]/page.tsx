@@ -288,46 +288,44 @@ export default function OrderPage({
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateFormStep2()) {
-      if (!carDetails) return;
-      setIsSubmitting(true);
+    if (!validateFormStep2() || !carDetails) return;
 
-      // Prepare email content
-      const subject = `Inquiry about ${carDetails.year} ${carDetails.make} ${carDetails.model} (ID: ${carId})`;
-      const body = `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Address: ${formData.address}
-Client's Preferred Contact Method: ${formData.preferredContact}
+    setIsSubmitting(true);
+    const vehicleTitle = `${carDetails.year} ${carDetails.make} ${carDetails.model}`;
 
-Additional Requests:
-${formData.requestFinancing ? "- Financing Information Requested\n" : ""}
+    try {
+      const res = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "vehicle-inquiry",
+          carId,
+          vehicleTitle,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          message: formData.message,
+          preferredContact: formData.preferredContact,
+          requestFinancing: formData.requestFinancing,
+        }),
+      });
+      const data = (await res.json()) as { error?: string };
 
-Message:
-${formData.message}
+      if (!res.ok) {
+        toast.error(data.error || "Could not send inquiry. Please call us.");
+        return;
+      }
 
-
-This message was sent from ${SITE.url}.
-`;
-
-      // Encode email parameters
-      const mailtoLink = `mailto:${SITE.email}?subject=${encodeURIComponent(
-        subject
-      )}&body=${encodeURIComponent(body)}`;
-
-      // Open email client
-      window.open(mailtoLink, "_blank");
-
-      // Simulate API call for UI feedback
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        toast.success("Your message has been prepared in your email client!");
-      }, 1000);
+      setIsSubmitted(true);
+      toast.success("Your inquiry was sent. We will get back to you soon.");
+    } catch {
+      toast.error("Network error. Please try again or call us.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

@@ -230,20 +230,18 @@ export default function SellMyCarPage() {
     setSubmitError(false);
 
     try {
-      // Simulate API call with a delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // In a real app, you would send the form data to your backend here
-      // const response = await fetch('/api/sell-car', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     ...formData,
-      //     images: uploadedImages.map(img => img.url)
-      //   })
-      // });
-
-      // if (!response.ok) throw new Error('Failed to submit');
+      const res = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "sell-listing",
+          ...formData,
+        }),
+      });
+      const data = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit");
+      }
 
       setSubmitSuccess(true);
 

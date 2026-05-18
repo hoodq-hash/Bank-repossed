@@ -68,6 +68,7 @@ export default function ContactPage() {
     message: string;
   } | null>(null);
   const [topicError, setTopicError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -88,49 +89,60 @@ export default function ContactPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.inquiryType.trim()) {
       setTopicError("Please choose a topic.");
       return;
     }
     setTopicError(null);
+    setIsSubmitting(true);
 
-    const subject = `Contact: ${formData.inquiryType} — ${formData.firstName} ${formData.lastName}`;
-    const body = [
-      `Name: ${formData.firstName} ${formData.lastName}`,
-      `Email: ${formData.email}`,
-      formData.phone ? `Phone: ${formData.phone}` : null,
-      `Topic: ${formData.inquiryType}`,
-      `Preferred reply: ${formData.preferredContact}`,
-      formData.subscribe ? "Newsletter: Yes" : null,
-      "",
-      formData.message,
-      "",
-      `Sent via ${SITE.url}/contact`,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    try {
+      const res = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contact",
+          ...formData,
+        }),
+      });
+      const data = (await res.json()) as { error?: string; ok?: boolean };
 
-    const mailtoLink = `mailto:${HQ.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+      if (!res.ok) {
+        setFormStatus({
+          submitted: true,
+          success: false,
+          message: data.error || "Could not send your message. Please call us instead.",
+        });
+        return;
+      }
 
-    setFormStatus({
-      submitted: true,
-      success: true,
-      message:
-        "Your email app should open with your message ready to send. We typically reply within one business day during open hours.",
-    });
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      inquiryType: "",
-      message: "",
-      preferredContact: "email",
-      subscribe: false,
-    });
+      setFormStatus({
+        submitted: true,
+        success: true,
+        message:
+          "Thank you—your message was sent. We typically reply within one business day during open hours.",
+      });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        inquiryType: "",
+        message: "",
+        preferredContact: "email",
+        subscribe: false,
+      });
+    } catch {
+      setFormStatus({
+        submitted: true,
+        success: false,
+        message: "Network error. Please try again or contact us by phone.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -293,9 +305,9 @@ export default function ContactPage() {
                   Send a note
                 </h2>
                 <p className="mt-3 text-sm text-stone-600 md:text-base">
-                  Fill out the form and we will open your email app with your
-                  message addressed to our team. Include a listing link or stock
-                  details when asking about a specific vehicle.
+                  Submit the form and our team will receive your message by email.
+                  Include a listing link or stock details when asking about a
+                  specific vehicle.
                 </p>
 
                 <div className="mt-8">
@@ -311,7 +323,7 @@ export default function ContactPage() {
                           <div>
                             <AlertTitle className="text-stone-900">
                               {formStatus.success
-                                ? "Check your email app"
+                                ? "Message sent"
                                 : "Something went wrong"}
                             </AlertTitle>
                             <AlertDescription className="mt-1 text-stone-600">
@@ -488,9 +500,10 @@ export default function ContactPage() {
                       <div className="mt-8">
                         <Button
                           type="submit"
-                          className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500"
+                          disabled={isSubmitting}
+                          className="rounded-none border border-stone-300 bg-emerald-600 px-8 font-bold text-white hover:bg-emerald-500 disabled:opacity-60"
                         >
-                          Send message
+                          {isSubmitting ? "Sending…" : "Send message"}
                           <Send size={16} className="ml-2" />
                         </Button>
                       </div>
