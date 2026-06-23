@@ -23,6 +23,7 @@ import {
   CheckCircle,
   Clock,
   Loader2,
+  Phone,
 } from "lucide-react";
 import {
   Dialog,
@@ -58,6 +59,8 @@ import {
 import { toast } from "sonner";
 import ImageUpload from "@/components/ImageUpload";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useSitePhone } from "@/components/SitePhoneProvider";
+import { SITE } from "@/lib/site";
 
 // Mock data for car listings - will be replaced with MongoDB data
 const initialCarListings = [
@@ -202,6 +205,7 @@ type SortDirection = "asc" | "desc";
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { phone, refreshPhone } = useSitePhone();
 
   const [filteredListings, setFilteredListings] =
     useState<CarListing[]>(initialCarListings);
@@ -241,6 +245,37 @@ export default function DashboardPage() {
   const [isEditCarDialogOpen, setIsEditCarDialogOpen] = useState(false);
   const [carToEdit, setCarToEdit] = useState<CarListing | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [sitePhoneInput, setSitePhoneInput] = useState(SITE.phone.display);
+  const [isSavingPhone, setIsSavingPhone] = useState(false);
+
+  useEffect(() => {
+    setSitePhoneInput(phone.display);
+  }, [phone.display]);
+
+  const handleSavePhone = async () => {
+    setIsSavingPhone(true);
+    try {
+      const response = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: sitePhoneInput }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update phone number");
+      }
+      await refreshPhone();
+      toast.success("Contact phone number updated across the site.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to update phone number. Please try again."
+      );
+    } finally {
+      setIsSavingPhone(false);
+    }
+  };
 
   // Add this useEffect to fetch car data
   useEffect(() => {
@@ -540,6 +575,52 @@ export default function DashboardPage() {
                 <Plus size={16} className="mr-2" />
                 Add New Car
               </Button>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
+              <div className="p-4 border-b border-gray-200">
+                <div className="flex items-center gap-2">
+                  <Phone size={18} className="text-emerald-600" />
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    Site contact phone
+                  </h2>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  This number appears in the footer, contact page, and homepage.
+                </p>
+              </div>
+              <div className="p-4 flex flex-col sm:flex-row gap-3 sm:items-end">
+                <div className="flex-1">
+                  <label
+                    htmlFor="site-phone"
+                    className="text-sm font-medium text-gray-700"
+                  >
+                    Phone number
+                  </label>
+                  <Input
+                    id="site-phone"
+                    type="tel"
+                    className="mt-1"
+                    placeholder="+1 (409) 334-2231"
+                    value={sitePhoneInput}
+                    onChange={(e) => setSitePhoneInput(e.target.value)}
+                  />
+                </div>
+                <Button
+                  className="bg-emerald-600 hover:bg-emerald-700 shrink-0"
+                  onClick={handleSavePhone}
+                  disabled={isSavingPhone || !sitePhoneInput.trim()}
+                >
+                  {isSavingPhone ? (
+                    <>
+                      <Loader2 size={16} className="mr-2 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    "Save phone number"
+                  )}
+                </Button>
+              </div>
             </div>
 
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">

@@ -31,15 +31,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SITE } from "@/lib/site";
-
-const HQ = {
-  name: SITE.headquarters.label,
-  addressLines: SITE.headquarters.addressLines,
-  phoneDisplay: SITE.phone.display,
-  phoneHref: SITE.phone.href,
-  email: SITE.email,
-  mapSearchUrl: SITE.headquarters.mapSearchUrl,
-};
+import { useSitePhone } from "@/components/SitePhoneProvider";
 
 const inquiryTypes = [
   "Inventory question",
@@ -51,6 +43,16 @@ const inquiryTypes = [
 ];
 
 export default function ContactPage() {
+  const { phone } = useSitePhone();
+  const HQ = {
+    name: SITE.headquarters.label,
+    addressLines: SITE.headquarters.addressLines,
+    phoneDisplay: phone.display,
+    phoneHref: phone.href,
+    email: SITE.email,
+    mapSearchUrl: SITE.headquarters.mapSearchUrl,
+  };
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

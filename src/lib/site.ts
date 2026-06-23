@@ -9,8 +9,8 @@ export const SITE = {
   domain: "bankreposessedcars.com",
   url: "https://bankreposessedcars.com",
   phone: {
-    display: "+1 (409) 655-8072",
-    href: "tel:+14096558072",
+    display: "+1 (409) 334-2231",
+    href: "tel:+14093342231",
   },
   email: contactEmail,
   headquarters: {

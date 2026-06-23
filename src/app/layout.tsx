@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import Script from "next/script";
 import { SITE, SITE_METADATA } from "@/lib/site";
+import { SitePhoneProvider } from "@/components/SitePhoneProvider";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -74,8 +75,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/bklogo.png" />
       </head>
       <body className={`${quicksand.variable} font-sans antialiased`}>
-        <Toaster richColors position="top-center" />
-        {children}
+        <SitePhoneProvider>
+          <Toaster richColors position="top-center" />
+          {children}
+        </SitePhoneProvider>
         <Script id="tawk-to" strategy="lazyOnload">
           {`
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();

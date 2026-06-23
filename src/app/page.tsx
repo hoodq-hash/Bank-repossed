@@ -20,10 +20,12 @@ import Image from "next/image";
 import FeaturedCars from "@/components/FeaturedCars";
 import Footer from "@/components/Footer";
 import { SITE } from "@/lib/site";
+import { useSitePhone } from "@/components/SitePhoneProvider";
 
 const HERO_IMAGE = "/photo-1652992253402-15729d9b97fc.avif";
 
 export default function Home() {
+  const { phone } = useSitePhone();
   // Stats with animations
   const stats = [
     { value: "26,000+", label: "cars sold", icon: <Car size={24} /> },
@@ -388,10 +390,10 @@ export default function Home() {
                     </h3>
                   </div>
                   <p className="mt-3 font-mono text-sm text-stone-800">
-                    +1 (409) 655-8072
+                    {phone.display}
                   </p>
                   <a
-                    href="tel:+14096558072"
+                    href={phone.href}
                     className="mt-4 inline-flex items-center text-xs font-bold uppercase tracking-wider text-stone-900 underline decoration-2 underline-offset-4"
                   >
                     Call now

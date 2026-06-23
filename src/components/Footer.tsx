@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import {
@@ -9,8 +11,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
+import { useSitePhone } from "@/components/SitePhoneProvider";
 
 export default function Footer() {
+  const { phone } = useSitePhone();
   return (
     <footer className="mt-auto border-t border-stone-300 bg-[#f4f1ea] text-stone-900">
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8">
@@ -71,11 +75,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={SITE.phone.href}
+                  href={phone.href}
                   className="inline-flex items-center border border-transparent px-1 py-1 text-sm font-semibold text-stone-800 underline decoration-2 underline-offset-4 hover:border-stone-300 hover:no-underline"
                 >
                   <Phone size={18} className="mr-2 shrink-0 text-stone-600" />
-                  {SITE.phone.display}
+                  {phone.display}
                 </a>
               </li>
               <li>
@@ -136,10 +140,10 @@ export default function Footer() {
                     Directions
                   </a>
                   <a
-                    href={SITE.phone.href}
+                    href={phone.href}
                     className="mt-2 block font-mono text-sm font-semibold text-stone-900 underline decoration-2 underline-offset-4 hover:text-emerald-800"
                   >
-                    {SITE.phone.display}
+                    {phone.display}
                   </a>
                 </div>
               </li>
